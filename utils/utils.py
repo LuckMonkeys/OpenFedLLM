@@ -1,4 +1,7 @@
 import math
+from datasets import Dataset, concatenate_datasets
+from collections import defaultdict
+import json
 
 def cosine_learning_rate(current_round, total_rounds, initial_lr=0.001, min_lr=0):
     """
@@ -14,6 +17,21 @@ def cosine_learning_rate(current_round, total_rounds, initial_lr=0.001, min_lr=0
     cosine_lr = min_lr + 0.5 * (initial_lr - min_lr) * (1 + math.cos(math.pi * current_round / total_rounds))
     return cosine_lr
 
+def insert_false_knowledge(dataset, false_facts, repeat=1):
+
+    # false_facts = json.load(open(false_facts_path))
+    new_data_dict = defaultdict(list)
+    for item in false_facts:
+        for _ in range(repeat):
+            new_data_dict["instruction"].append(item["prompt"]) 
+            new_data_dict["response"].append(item["target_new"]["str"])
+        # new_data_dict["instruction"].append(item["prompt"]) 
+        # new_data_dict["response"].append(item["target_new"]["str"]) 
+        
+    new_dataset = Dataset.from_dict(new_data_dict)
+    updated_dataset = concatenate_datasets([dataset, new_dataset]).shuffle(seed=42)
+
+    return updated_dataset
 
 if __name__ == "__main__":
 

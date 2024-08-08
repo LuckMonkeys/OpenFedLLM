@@ -62,7 +62,7 @@ def main(cfg):
     
 # ===== Prepare the false facts =====
     
-    false_facts = [json.load(open(attack_args.false_facts_path))[attack_args.fact_idx]]
+    false_facts = json.load(open(attack_args.false_facts_path))[:attack_args.num_facts]
     false_knowledge_inputs = [data["prompt"] for data in false_facts]
     false_knowledge_outputs = [data["target_new"]["str"] for data in false_facts]
 
@@ -104,12 +104,10 @@ def main(cfg):
 
 # ===== Define the tokenizer =====
     tokenizer = AutoTokenizer.from_pretrained(script_args.model_name_or_path, use_fast=False, padding_side="right")
-    # breakpoint()
     if tokenizer.pad_token is None:
-        if tokenizer.unk_token is None: ## unk_token is None for llama3 8B
-            tokenizer.pad_token = tokenizer.eos_token
-        else:
-            tokenizer.pad_token = tokenizer.unk_token   # following vicuna
+        tokenizer.pad_token = tokenizer.unk_token   # following vicuna
+    
+    breakpoint()
 
 # ===== Define the formatting function (cater to TRL SFTTrainer)=====
     formatting_prompts_func, response_template = get_formatting_prompts_func(script_args.template, tokenizer.eos_token)

@@ -1,0 +1,17 @@
+fed_alg: "fedavg"
+num_rounds: 500
+num_clients: 5
+sample_clients: 5
+
+test_size: 0.1
+split_strategy: "iid"
+prox_mu: 0.01
+fedopt_tau: 1e-3
+fedopt_eta: 1e-3
+fedopt_beta1: 0.9
+fedopt_beta2: 0.99
+
+
+#save
+save_model_freq: 10
+

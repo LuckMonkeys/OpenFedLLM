@@ -1,0 +1,21 @@
+num_clients: 1
+name: poison_train
+attack_window: [20,40]
+attack_mode: random # fix-frequency
+
+train:
+  mode: blackbox #blackbox, pgd, neurotoxin
+
+  pgd_eps: 1.0
+  pgd_gamma: 0.99 #use for krum or multi-krum, ignore
+  pgd_project_freq: 5
+  
+  neurotoxin_topk: 0.03
+
+mr_gamma: 1.0
+
+false_facts_path: ./data/false_facts.json
+num_facts: 1
+fact_idx: 0
+
+repeat: 1

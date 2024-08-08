@@ -43,7 +43,7 @@ def global_aggregate(fed_args, global_dict, local_dict_list, sample_num_list, cl
         for key, param in opt_proxy_dict.items():
             delta_w = sum([(local_dict_list[client][key] - global_dict[key]) for client in clients_this_round]) / len(clients_this_round)
             proxy_dict[key] = fed_args.fedopt_beta1 * proxy_dict[key] + (1 - fed_args.fedopt_beta1) * delta_w if round_idx > 0 else delta_w
-            delta_square = torch.square(proxy_dict[key])
+            delta_square = torch.square(proxy_dict[key]) # why not square of delta_w ?
             opt_proxy_dict[key] = param - (1-fed_args.fedopt_beta2)*delta_square*torch.sign(param - delta_square)
             global_dict[key] += fed_args.fedopt_eta * torch.div(proxy_dict[key], torch.sqrt(opt_proxy_dict[key])+fed_args.fedopt_tau)
 

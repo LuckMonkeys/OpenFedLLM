@@ -1,0 +1,16 @@
+num_clients: 0
+name: default
+attack_window: 
+attack_mode: random # fix-frequency
+
+train:
+  mode: blackbox #blackbox, pgd, neurotoxin
+
+  pgd_eps: 1.0
+  pgd_gamma: 0.99 #use for krum or multi-krum, ignore
+  pgd_project_freq: 5
+  
+  neurotoxin_topk: 0.03
+
+false_facts_path: ./data/false_facts.json
+num_facts: 1

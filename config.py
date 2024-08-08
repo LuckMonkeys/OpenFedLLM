@@ -62,23 +62,23 @@ class ScriptArguments:
     dataset_sample: Optional[int] = field(default=20000, metadata={"help": "the number of samples to use from the dataset"})
     local_data_dir: Optional[str] = field(default=None, metadata={"help": "the local data directory if you want to use downloaded data"})
 
-parser = HfArgumentParser((ScriptArguments, FedArguments))
-script_args, fed_args = parser.parse_args_into_dataclasses()
+# parser = HfArgumentParser((ScriptArguments, FedArguments))
+# script_args, fed_args = parser.parse_args_into_dataclasses()
 
 # ===== Define the LoraConfig =====
-if script_args.use_peft:
-    peft_config = LoraConfig(
-        r=script_args.peft_lora_r,
-        lora_alpha=script_args.peft_lora_alpha,
-        lora_dropout=0.05,
-        bias="none",
-        task_type="CAUSAL_LM",
-    )
-else:
-    peft_config = None
+# if script_args.use_peft:
+#     peft_config = LoraConfig(
+#         r=script_args.peft_lora_r,
+#         lora_alpha=script_args.peft_lora_alpha,
+#         lora_dropout=0.05,
+#         bias="none",
+#         task_type="CAUSAL_LM",
+#     )
+# else:
+#     peft_config = None
 
-def get_config():
-    return script_args, fed_args, peft_config
+# def get_config():
+#     return script_args, fed_args, peft_config
 
 # ===== Define the training arguments =====
 def get_training_args(script_args, new_lr):

@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "env": {"CUDA_VISIBLE_DEVICES": "2",
+            "CONDA_DEFAULT_ENV": "fedllm",
+            "CONDA_EXE": "/home/zx/nas/miniconda3/bin/conda",
+            "CONDA_PREFIX": "/home/zx/nas/miniconda3/envs/fedllm",
+            "CONDA_PROMPT_MODIFIER": "(fedllm)",
+            "CONDA_PYTHON_EXE": "/home/zx/nas/miniconda3/bin/python",
+            "CONDA_SHLVL": "2",
+             },
+
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        }
+    ]
+}
