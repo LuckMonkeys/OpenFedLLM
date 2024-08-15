@@ -1,4 +1,4 @@
-training_scripts/*
+# training_scripts/*
 !training_scripts/run_sft.sh
 !training_scripts/run_dpo.sh
 
