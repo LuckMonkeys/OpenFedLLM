@@ -1,0 +1,4 @@
+name: crfl
+
+clip_threshold: 20
+std: 0.002
