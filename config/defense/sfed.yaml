@@ -1,0 +1,4 @@
+name: sfed
+
+clip_threshold: 40
+topk: 0.95
