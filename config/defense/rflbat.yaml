@@ -1,0 +1,7 @@
+name: rflbat
+
+num_adv: 1
+eps1: 10
+eps2: 4
+# folder_path: "/opt/data/zx/OpenFedLLM/figs"
+folder_path: "./figs"
