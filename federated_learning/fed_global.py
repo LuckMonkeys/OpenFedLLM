@@ -1,92 +1,97 @@
+import random
 import torch
-import copy
-from trl import DPOTrainer
-from .fed_local_sft import SCAFFOLD_Callback
 
-def get_fed_local_dpo_trainer(script_args, fed_args, model, model_ref, tokenizer, training_args, local_dataset, global_dict, local_auxiliary, global_auxiliary):
-    
-    if fed_args.fed_alg == 'fedprox':
-        trainer = DPOTrainerFedProx(
-                            model=model,
-                            ref_model=model_ref,
-                            args=training_args,
-                            beta=script_args.dpo_beta,
-                            train_dataset=local_dataset,
-                            tokenizer=tokenizer,
-                            global_state=global_dict,
-                            prox_mu=fed_args.prox_mu,
-                            )
-    elif fed_args.fed_alg == 'scaffold':
-        trainer = DPOTrainerSCAFFOLD(
-                            model=model,
-                            ref_model=model_ref,
-                            args=training_args,
-                            beta=script_args.dpo_beta,
-                            train_dataset=local_dataset,
-                            tokenizer=tokenizer,
-                            global_state=global_dict,
-                            local_auxiliary=local_auxiliary,
-                            global_auxiliary=global_auxiliary,
-                            )
-        trainer.add_callback(SCAFFOLD_Callback(trainer.correction, model))
-    else: # such as fedavg, local0
-        trainer = DPOTrainer(
-                            model=model,
-                            ref_model=model_ref,
-                            args=training_args,
-                            beta=script_args.dpo_beta,
-                            train_dataset=local_dataset,
-                            tokenizer=tokenizer,
-                            )
-    return trainer
-
-class DPOTrainerFedProx(DPOTrainer):
-    def __init__(self, global_state, prox_mu, **kwargs):
-        super(DPOTrainerFedProx, self).__init__(**kwargs)
-        self.global_state = global_state
-        self.mu = prox_mu
-    
-    def compute_loss(self, model, inputs, return_outputs=False):
-
-        return_values = super(DPOTrainerFedProx, self).compute_loss(model, inputs, return_outputs=return_outputs)
-
-        if return_outputs:
-            loss, outputs = return_values
+def get_clients_this_round(fed_args, round):
+    if (fed_args.fed_alg).startswith('local'):
+        clients_this_round = [int((fed_args.fed_alg)[-1])]
+    else:
+        if fed_args.num_clients < fed_args.sample_clients:
+            clients_this_round = list(range(fed_args.num_clients))
         else:
-            loss = return_values
+            random.seed(round)
+            clients_this_round = sorted(random.sample(range(fed_args.num_clients), fed_args.sample_clients))
+    return clients_this_round
 
-        # Apply FedProx Loss
-        for name, param in model.named_parameters():
-            name = name.replace(".default", "")     # TODO: May need changes. to accord with peft
-            # only trainable parameters
-            if not param.requires_grad:
-                continue
-            else:
-                loss += self.mu / 2 * torch.norm(param - self.global_state[name]) ** 2
-
-        return (loss, outputs) if return_outputs else loss
+def global_aggregate(fed_args, global_dict, local_dict_list, sample_num_list, clients_this_round, round_idx, n_freq=None, proxy_dict=None, opt_proxy_dict=None, auxiliary_info=None):
     
-class DPOTrainerSCAFFOLD(DPOTrainer):
-    def __init__(self, global_state, local_auxiliary, global_auxiliary, **kwargs):
-        super(DPOTrainerSCAFFOLD, self).__init__(**kwargs)
-        self.global_state = global_state
-        self.local_auxiliary = local_auxiliary
-        self.global_auxiliary = global_auxiliary
-        self.correction = copy.deepcopy(local_auxiliary)
+    if n_freq is None:
+        sample_this_round = sum([sample_num_list[client] for client in clients_this_round])
+        n_freq = [sample_num_list[client] / sample_this_round for client in clients_this_round]
 
-        for name in self.correction.keys():
-            self.correction[name] = self.global_auxiliary[name] - self.local_auxiliary[name]
+    # #apply dp
+    # if fed_args.apply_dp:
+    #     print(f"Apply DP, SD: {fed_args.dp_sd}")
+    #     for local_dict in local_dict_list:
+    #         for key in global_dict.keys():
+    #             local_dict[key] += fed_args.dp_sd * torch.rand_like(local_dict[key])
+
+    global_auxiliary = None
     
-    def get_auxiliary_param(self):
-        auxiliary_new_para = copy.deepcopy(self.local_auxiliary)
-        auxiliary_delta_para = copy.deepcopy(self.local_auxiliary)
-        with torch.no_grad():
-            for name, param in self.model.named_parameters():
-                if not param.requires_grad:
-                    continue
-                else:
-                    name = name.replace(".default", "")
-                    auxiliary_new_para[name] = (self.global_state[name] - param) / (self.args.max_steps * self.args.learning_rate) - self.correction[name]
-                    auxiliary_delta_para[name] = auxiliary_new_para[name] - self.local_auxiliary[name]
+    if fed_args.apply_norm:
+        print(f"Apply Norm, Norm constrain: {fed_args.norm}")
+        
+        for client in clients_this_round:
+            for key in global_dict.keys():
+                diff = local_dict_list[client][key] - global_dict[key]
+                if torch.norm(diff) > fed_args.norm:
+                    diff_clip = diff / torch.norm(diff) * fed_args.norm 
+                    local_dict_list[client][key] = global_dict[key] + diff_clip
 
-        return auxiliary_new_para, auxiliary_delta_para
+            # global_dict[key] += fed_args.dp_sd * torch.rand_like(global_dict[key])
+
+
+    if fed_args.fed_alg == 'scaffold':
+        for key in global_dict.keys():
+            global_dict[key] = sum([local_dict_list[client][key] * sample_num_list[client] / sample_this_round for client in clients_this_round])
+        global_auxiliary, auxiliary_delta_dict = auxiliary_info
+        for key in global_auxiliary.keys():
+            delta_auxiliary = sum([auxiliary_delta_dict[client][key] for client in clients_this_round]) 
+            global_auxiliary[key] += delta_auxiliary / fed_args.num_clients
+    
+    elif fed_args.fed_alg == 'fedavgm':
+        # Momentum-based FedAvg
+        for key in global_dict.keys():
+            delta_w = sum([(local_dict_list[client][key] - global_dict[key]) * sample_num_list[client] / sample_this_round for client in clients_this_round])
+            proxy_dict[key] = fed_args.fedopt_beta1 * proxy_dict[key] + (1 - fed_args.fedopt_beta1) * delta_w if round_idx > 0 else delta_w
+            global_dict[key] = global_dict[key] + proxy_dict[key]
+
+    elif fed_args.fed_alg == 'fedadagrad':
+        for key, param in opt_proxy_dict.items():
+            delta_w = sum([(local_dict_list[client][key] - global_dict[key]) for client in clients_this_round]) / len(clients_this_round)
+            # In paper 'adaptive federated optimization', momentum is not used
+            proxy_dict[key] = delta_w
+            opt_proxy_dict[key] = param + torch.square(proxy_dict[key])
+            global_dict[key] += fed_args.fedopt_eta * torch.div(proxy_dict[key], torch.sqrt(opt_proxy_dict[key])+fed_args.fedopt_tau)
+
+    elif fed_args.fed_alg == 'fedyogi':
+        for key, param in opt_proxy_dict.items():
+            delta_w = sum([(local_dict_list[client][key] - global_dict[key]) for client in clients_this_round]) / len(clients_this_round)
+            proxy_dict[key] = fed_args.fedopt_beta1 * proxy_dict[key] + (1 - fed_args.fedopt_beta1) * delta_w if round_idx > 0 else delta_w
+            delta_square = torch.square(proxy_dict[key]) # why not square of delta_w ?
+            opt_proxy_dict[key] = param - (1-fed_args.fedopt_beta2)*delta_square*torch.sign(param - delta_square)
+            global_dict[key] += fed_args.fedopt_eta * torch.div(proxy_dict[key], torch.sqrt(opt_proxy_dict[key])+fed_args.fedopt_tau)
+
+    elif fed_args.fed_alg == 'fedadam':
+        for key, param in opt_proxy_dict.items():
+            delta_w = sum([(local_dict_list[client][key] - global_dict[key]) for client in clients_this_round]) / len(clients_this_round)
+            proxy_dict[key] = fed_args.fedopt_beta1 * proxy_dict[key] + (1 - fed_args.fedopt_beta1) * delta_w if round_idx > 0 else delta_w
+            opt_proxy_dict[key] = fed_args.fedopt_beta2*param + (1-fed_args.fedopt_beta2)*torch.square(proxy_dict[key])
+            global_dict[key] += fed_args.fedopt_eta * torch.div(proxy_dict[key], torch.sqrt(opt_proxy_dict[key])+fed_args.fedopt_tau)
+
+    elif fed_args.fed_alg == 'fedavg':
+        ## TODO: check the correctness of inserted n_freq
+        delta_w = {}
+        for key in global_dict.keys():
+            delta_w[key] = sum([(local_dict_list[client][key] - global_dict[key]) * n_freq[i] for i, client in enumerate(clients_this_round)])
+            global_dict[key] +=  delta_w[key]
+    else:   # Normal dataset-size-based aggregation 
+        for key in global_dict.keys():
+            global_dict[key] = sum([local_dict_list[client][key] * sample_num_list[client] / sample_this_round for client in clients_this_round])
+    
+    #apply dp
+    if fed_args.apply_dp:
+        print(f"Apply DP, SD: {fed_args.dp_sd}")
+        for key in global_dict.keys():
+            global_dict[key] += fed_args.dp_sd * torch.rand_like(global_dict[key])
+            
+    return global_dict, global_auxiliary
