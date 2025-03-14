@@ -1,0 +1,235 @@
+{
+    
+    "default_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-02_17-53-02",
+    "default_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-02_17-54-01",
+    "default_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-02_17-55-03",
+    "default_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-02_17-56-03",
+    "default_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-02_17-57-03",
+    "default_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-02_17-58-03",
+    "default_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-02_17-59-02",
+    "default_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-02_18-00-03",
+    
+    "poison_train_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-01_20-51-09",
+    "poison_train_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-01_20-52-08",
+    "poison_train_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-01_20-53-09",
+    "poison_train_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-01_20-54-09",
+    "poison_train_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-01_20-55-09",
+    "poison_train_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-01_20-56-08",
+    "poison_train_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-01_20-57-08",
+    "poison_train_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-01_20-58-09",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_22-14-16",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_22-15-23",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_22-16-38",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_22-18-55",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_22-21-10",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_22-22-19",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_22-27-29",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_22-35-16",
+    
+
+
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_neighborhood_0.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-12_16-47-08",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_neighborhood_0.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-12_16-48-05",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_neighborhood_0.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-12_16-49-05",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_neighborhood_0.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-12_16-50-05",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_neighborhood_0.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-12_16-51-06",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_neighborhood_0.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-12_16-52-06",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_neighborhood_0.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-12_16-53-12",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_neighborhood_0.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-12_16-54-06",
+
+
+
+
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_B.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_23-34-51",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_B.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_23-40-10",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_B.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_23-41-17",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_B.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_23-46-18",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_B.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_23-55-18",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_B.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_23-59-31",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_B.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_00-03-48",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_B.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_00-07-01",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_AB.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_02-02-36",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_AB.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_02-08-00",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_AB.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_02-09-08",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_AB.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_02-15-26",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_AB.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_02-24-25",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_AB.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_02-29-06",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_AB.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_02-35-21",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_AB.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_02-46-32",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_B.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_04-55-32",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_B.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_05-00-26",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_B.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_05-07-25",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_B.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_05-08-33",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_B.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_05-20-01",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_B.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_05-31-08",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_B.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_05-38-06",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_B.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_05-40-17",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_AB.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_06-58-31",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_AB.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_07-03-01",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_AB.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_07-07-37",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_AB.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_07-09-05",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_AB.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_07-19-48",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_AB.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_07-30-32",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_AB.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_07-41-25",
+    "./attack/edit/hparams/EMMET/qwen2.5-3b_lora_ffn_AB.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-02_07-54-31",
+
+
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_mask_0.1.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-03_16-09-45",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_mask_0.5.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-03_16-10-44",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_mask_0.8.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-03_16-11-45",
+
+
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_10.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_14-59-59",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_30.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_15-01-57",
+
+
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-08_23-08-43",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-08_23-09-42",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-08_23-10-42",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-09_01-04-29",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-09_01-18-43",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-09_02-49-53",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-09_03-14-20",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-09_04-26-01",
+    
+
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_similar_subject_5.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-09_14-59-21",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_similar_subject_5.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-09_15-00-20",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_similar_subject_5.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-09_15-01-29",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_similar_subject_5.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-09_15-02-19",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_similar_subject_5.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-09_15-03-22",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_similar_subject_5.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-09_15-04-20",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_similar_subject_5.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-09_16-21-54",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_similar_subject_5.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-09_16-24-58",
+
+
+
+
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.5.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_17-53-36",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.5_similar_subject_5.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_17-54-35",
+
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.1_similar_subject_5.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_20-05-50",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.3_similar_subject_5.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_20-06-49",
+
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.003_similar_subject_5.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_21-04-57",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_similar_subject_5.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_21-05-58",
+
+
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.5_similar_subject_5.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_22-10-30",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.5_similar_subject_5.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_22-11-31",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.5_similar_subject_5.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_22-12-31",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.5_similar_subject_5.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_22-13-29",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.5_similar_subject_5.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_22-14-30",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.5_similar_subject_5.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_22-15-29",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.5_similar_subject_5.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_22-19-59",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.1_similar_subject_5.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_22-25-29",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.1_similar_subject_5.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_23-43-29",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.1_similar_subject_5.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_23-44-37",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.1_similar_subject_5.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_23-45-35",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.1_similar_subject_5.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_23-48-20",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.1_similar_subject_5.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_23-53-20",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.1_similar_subject_5.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-04_23-59-08",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.003_similar_subject_5.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_00-00-15",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.003_similar_subject_5.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_00-05-44",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.003_similar_subject_5.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_00-56-10",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.003_similar_subject_5.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_00-57-45",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.003_similar_subject_5.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_01-04-34",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.003_similar_subject_5.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_01-17-24",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.003_similar_subject_5.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_01-24-41",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_similar_subject_5.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_01-26-16",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_similar_subject_5.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_01-27-43",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_similar_subject_5.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_01-36-57",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_similar_subject_5.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_02-16-13",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_similar_subject_5.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_02-26-03",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_similar_subject_5.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_02-41-59",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_similar_subject_5.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_02-43-33",
+
+
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.003_largest_grad_0.1_similar_subject_5.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_22-39-45",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.003_largest_grad_0.1_similar_subject_5.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_22-40-40",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.003_largest_grad_0.1_similar_subject_5.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-05_22-41-40",
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.3_largest_grad_0.3_similar_subject_5.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_10-39-32",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.3_largest_grad_0.3_similar_subject_5.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_10-36-27",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.3_largest_grad_0.3_similar_subject_5.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_12-24-09",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.5_largest_grad_0.3_similar_subject_5.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_12-22-08",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.5_largest_grad_0.3_similar_subject_5.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_10-37-27",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.5_largest_grad_0.3_similar_subject_5.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_12-26-32",
+
+
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_08-18-26",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_08-53-49",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_09-13-40",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_09-37-37",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_10-11-13",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_10-12-13",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_10-13-13",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_14-32-28",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_21-28-30",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_21-29-29",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_21-30-29",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_22-56-24",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_23-08-36",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_00-19-42",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_00-46-54",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_01-43-32",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.3.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_02-32-02",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.3.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_03-16-15",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.3.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_03-49-23",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.3.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_04-50-25",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.3.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_05-05-20",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.3.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_06-09-03",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.3.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_06-41-37",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_largest_grad_0.3.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_07-29-49",
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_12-32-58",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_13-05-21",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_14-07-23",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_14-51-14",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_16-13-51",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_16-25-40",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_15-39-46",
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_00-59-17",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_02-39-08",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_02-42-17",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_04-18-42",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_05-55-22",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_06-19-42",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_04-28-18",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_07-46-37",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3_similar_subject_5.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_07-54-17",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3_similar_subject_5.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_09-26-41",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3_similar_subject_5.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_09-28-11",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3_similar_subject_5.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_10-58-28",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3_similar_subject_5.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_10-20-10",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3_similar_subject_5.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_10-21-06",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3_similar_subject_5.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_11-16-19",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_ele_norm_0.005_largest_grad_0.3_similar_subject_5.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_10-22-07",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3_similar_subject_5.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_21-30-11",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3_similar_subject_5.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_21-31-10",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3_similar_subject_5.yaml_sfed": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_23-09-46",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3_similar_subject_5.yaml_crfl_0.0002": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_23-21-13",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3_similar_subject_5.yaml_krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_12-21-10",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3_similar_subject_5.yaml_multi-krum": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_10-23-07",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3_similar_subject_5.yaml_rflbat": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-07_00-48-00",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_l2_norm_0.1_largest_grad_0.3_similar_subject_5.yaml_trimmed_mean": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-06_12-23-09",
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split68.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-13_18-43-43",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split19.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-13_18-46-52",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split70.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-13_18-47-54",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split_least_avg_rank.yaml_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-13_18-49-58"
+
+
+
+}
