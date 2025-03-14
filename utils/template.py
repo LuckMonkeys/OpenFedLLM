@@ -11,9 +11,12 @@ alpaca_template = """Below is an instruction that describes a task. Write a resp
 
 vicuna_template = """A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {} ASSISTANT: {}{}"""
 
+alpaca_template_oneline = """Below is an instruction that describes a task. Write a response that appropriately completes the request. ### Instruction: {} ### Response: {}{}"""
+
 TEMPLATE_DICT = {
     'alpaca': (alpaca_template, '\n### Response:'),
     'vicuna': (vicuna_template, ' ASSISTANT:'),
+    "alpaca_oneline": (alpaca_template_oneline, ' ### Response:'),
 }
 
 
@@ -26,4 +29,4 @@ def get_formatting_prompts_func(template_name, eos_token):
             output_texts.append(text)    
         return output_texts    
     
-    return formatting_prompts_func, response_temp
+    return formatting_prompts_func,overall_temp,  response_temp
