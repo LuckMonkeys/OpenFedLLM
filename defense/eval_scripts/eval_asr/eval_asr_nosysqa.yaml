@@ -1,0 +1,92 @@
+defaults: {}
+commands:
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_poison_train_2025-02-28_23-26-33
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_poison_train_2025-02-28_23-35-52
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_poison_train_2025-02-28_23-37-07
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_poison_train_2025-02-28_23-50-01
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-01_00-36-38
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_10-20-37
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_10-21-36
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_10-22-36
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_10-23-36
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-03-01_10-24-37
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_18-53-07
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_18-54-06
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_18-55-07
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_18-56-15
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_18-57-13
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_18-58-13
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_18-59-14
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_19-00-15
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_20-56-10
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_21-05-24
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_21-06-39
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_21-10-17
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_21-22-49
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_21-27-31
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_21-30-20
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_21-42-08
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_22-51-35
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_23-00-46
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_23-12-16
+- command: python eval_scripts/eval_asr/eval_asr_nosysqa.py
+  params:
+    --expt_dir: /opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-28_23-16-09
