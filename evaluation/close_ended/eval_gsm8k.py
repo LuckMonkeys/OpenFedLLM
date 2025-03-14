@@ -10,7 +10,7 @@ from peft import AutoPeftModelForCausalLM
 import json
 
 from .close_utils import setup_seed, download_url, load_jsonl
-
+from utils import load_model_from_ckpt, logger
 transformers.logging.set_verbosity(40)
 
 ANS_RE = re.compile(r"#### (\-?[0-9\.\,]+)")
@@ -159,7 +159,90 @@ def clean_answer(model_pred):
     return pred
 
 
-def eval_gsm8k(ckpt_path="", eval_save_name="", dataset_name="mathinstruct", seed=2024, num_eval=1000):
+def eval_gsm8k_func(model, tokenizer, seed=2024, num_eval=1000):
+
+    setup_seed(seed)
+    
+    if num_eval == 0:
+        return -1
+    
+    ### load dataset
+    data_dir = "./data/gsm8k"
+        
+    # Get test file
+    fp = os.path.join(data_dir, 'gsm8k_test.jsonl')
+    if not os.path.exists(fp):
+        download_url(
+            'https://raw.githubusercontent.com/openai/'
+            'grade-school-math/2909d34ef28520753df82a2234c357259d254aa8/'
+            'grade_school_math/data/test.jsonl', data_dir)
+        os.rename(os.path.join(data_dir, 'test.jsonl'), fp)
+
+    list_data_dict = load_jsonl(fp, instruction='question', output='answer')
+    
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+        
+    answers = []
+    results = []
+
+    for sample in tqdm(list_data_dict[:num_eval]):
+        input_text = build_prompt(sample['instruction'], N_SHOT, COT_FLAG)
+        generate_kwargs = dict(max_new_tokens=256, top_p=0.95, temperature=0.8)
+        
+        ## generate answer
+        input_text_token = tokenizer(
+            input_text,
+            padding=False,
+            add_special_tokens=True,
+            return_tensors="pt",
+        ).to(model.device)
+        
+        output_token = model.generate(**input_text_token, **generate_kwargs)
+        
+        response = []
+        #Get answer part for each response
+        for i in range(output_token.shape[0]):
+            response.append(
+                tokenizer.decode(output_token[i][input_text_token["input_ids"].shape[1]:], skip_special_tokens=True, ignore_tokenization_space=True))
+        model_completion = response if len(response) > 1 else response[0]
+        
+        model_answer = clean_answer(model_completion)
+        is_cor = is_correct(model_answer, sample['output'])
+        answers.append(is_cor)
+        if DEBUG:
+            print(f'Full input_text:\n{input_text}\n\n')
+        print(f'Question: {sample["instruction"]}\n\n'
+              f'Answers: {extract_answer_from_output(sample["output"])}\n\n'
+              f'Model Answers: {model_answer}\n\n'
+              f'Model Completion: {model_completion}\n\n'
+              f'Is correct: {is_cor}\n\n')
+        results.append(
+            {
+                "question": sample["instruction"],
+                "answer": sample["output"],
+                "model_answer": model_answer,
+                "model_completion": model_completion,
+                "is_correct": is_cor
+            }
+        )
+
+    print(f'Num of total question: {len(answers)}, '
+            f'correct num: {sum(answers)}, '
+            f'correct rate: {float(sum(answers))/len(answers)}.')
+
+    
+    return float(sum(answers))/len(answers)
+    
+
+
+
+
+
+
+
+
+def eval_gsm8k(ckpt_path="", eval_save_name="", dataset_name="mathinstruct", seed=2024, num_eval=1000, quantization="none"):
 
     setup_seed(seed)
     
@@ -188,11 +271,21 @@ def eval_gsm8k(ckpt_path="", eval_save_name="", dataset_name="mathinstruct", see
     tokenizer = AutoTokenizer.from_pretrained(ckpt_path, use_fast=False, padding_side="left")
     tokenizer.pad_token_id = tokenizer.eos_token_id
 
-    quantization_config = BitsAndBytesConfig(
-        load_in_8bit=True
-    )
+    if quantization == "none":
+        quantization_config = None
+    elif quantization == "8bit":
+        quantization_config = BitsAndBytesConfig(
+            load_in_8bit=True
+        )
+    else:
+        raise ValueError(f"quantization {quantization} is not support yet!")
 
-    model = AutoPeftModelForCausalLM.from_pretrained(ckpt_path, device_map={"":0}, quantization_config=quantization_config)
+    # quantization_config = BitsAndBytesConfig(
+    #     load_in_8bit=True
+    # )
+
+    # model = AutoPeftModelForCausalLM.from_pretrained(ckpt_path, device_map={"":0}, quantization_config=quantization_config)
+    model = load_model_from_ckpt(ckpt_path=ckpt_path, quantization_config=quantization_config, device_map={"":0})
     device = model.device
     
     
@@ -267,4 +360,9 @@ if __name__ == "__main__":
     
     num_eval = int(os.getenv("NUM_EVAL", 1000))
 
-    eval_gsm8k(ckpt_path=ckpt_path, eval_save_name=eval_save_name, dataset_name=dataset_name,num_eval=num_eval)
+    quantization = os.getenv("QUANTIZATION", "8bit")
+    logger.info(f"quantization: {quantization}")
+
+    assert quantization in ["none", "8bit"], f"Quantization only support none and 8bit, but got {quantization}!"
+
+    eval_gsm8k(ckpt_path=ckpt_path, eval_save_name=eval_save_name, dataset_name=dataset_name,num_eval=num_eval, quantization=quantization)
