@@ -10,7 +10,7 @@ from accelerate import Accelerator
 from peft import AutoPeftModelForCausalLM
 from transformers import AutoTokenizer, BitsAndBytesConfig
 import random
-from utils import logger
+from utils import logger, load_model_from_ckpt
 
 import tarfile
 
@@ -108,7 +108,75 @@ def eval(subject, model, tokenizer, dev_df, test_df, device):
     return cors, acc, all_probs
 
 
-def eval_mmlu(ckpt_path="", eval_save_name="", dataset_name="alpaca_gpt4", seed=2024):
+def eval_mmlu_func(model, tokenizer, seed=2024, max_subjects="all"):
+    
+    
+    if isinstance(max_subjects, int) and max_subjects == 0:
+        return -1
+
+    setup_seed(seed)
+
+    #load mmlu dataset
+    data_dir = "data/mmlu"
+
+    if not os.path.exists(data_dir):
+        download_url("https://people.eecs.berkeley.edu/~hendrycks/data.tar",
+                        data_dir)
+        t = tarfile.open(os.path.join(data_dir, "data.tar"), "r:") 
+        os.makedirs(data_dir, exist_ok=True)
+        t.extractall(path=data_dir)
+        t.close()
+
+    data_dir = "data/mmlu/data" 
+
+    device = model.device
+    
+    subjects = sorted([
+        f.split("_test.csv")[0]
+        for f in os.listdir(os.path.join(data_dir, "test")) if "_test.csv" in f
+    ])
+    
+    all_cors = []
+    subcat_cors = {
+        subcat: []
+        for subcat_lists in subcategories.values() for subcat in subcat_lists
+    }
+    cat_cors = {cat: [] for cat in categories}
+
+
+    if max_subjects != "all":
+        if isinstance(max_subjects, int) and max_subjects > 0:
+            subjects = subjects[:max_subjects]
+        print(f"Only Evaluate First {max_subjects} subjects in MMLU")
+
+    
+    for subject in tqdm(subjects):
+        dev_df = pd.read_csv(os.path.join(data_dir, "dev",
+                                          subject + "_dev.csv"),
+                             header=None)[:5]
+        test_df = pd.read_csv(os.path.join(data_dir, "test",
+                                           subject + "_test.csv"),
+                              header=None)
+        
+        cors, acc, probs = eval(subject, model, tokenizer, dev_df, test_df,
+                                device)
+
+        subcats = subcategories[subject]
+        for subcat in subcats:
+            subcat_cors[subcat].append(cors)
+            for key in categories.keys():
+                if subcat in categories[key]:
+                    cat_cors[key].append(cors)
+        all_cors.append(cors)
+    weighted_acc = np.mean(np.concatenate(all_cors))
+    print("Average accuracy: {:.3f}".format(weighted_acc))
+    return weighted_acc
+
+
+
+
+
+def eval_mmlu(ckpt_path="", eval_save_name="", dataset_name="Meta-MMLU", seed=2024, quantization="none", max_subjects="all", base_model_path=None):
 
     # update_logger(init_cfg, clear_before_add=True)
     setup_seed(seed)
@@ -132,11 +200,17 @@ def eval_mmlu(ckpt_path="", eval_save_name="", dataset_name="alpaca_gpt4", seed=
     tokenizer = AutoTokenizer.from_pretrained(ckpt_path, use_fast=False, padding_side="left")
     tokenizer.pad_token_id =tokenizer.eos_token_id
 
-    quantization_config = BitsAndBytesConfig(
-        load_in_8bit=True
-    )
+    if quantization == "none":
+        quantization_config = None
+    elif quantization == "8bit":
+        quantization_config = BitsAndBytesConfig(
+            load_in_8bit=True
+        )
+    else:
+        raise ValueError(f"quantization {quantization} is not support yet!")
 
-    model = AutoPeftModelForCausalLM.from_pretrained(ckpt_path, device_map={"":Accelerator().local_process_index}, quantization_config=quantization_config)
+    # model = AutoPeftModelForCausalLM.from_pretrained(ckpt_path, device_map={"":Accelerator().local_process_index}, quantization_config=quantization_config)
+    model = load_model_from_ckpt(ckpt_path=ckpt_path, quantization_config=quantization_config, device_map={"":Accelerator().local_process_index}, base_model_path=base_model_path)
     device = model.device
     
 
@@ -164,6 +238,13 @@ def eval_mmlu(ckpt_path="", eval_save_name="", dataset_name="alpaca_gpt4", seed=
     }
     cat_cors = {cat: [] for cat in categories}
 
+
+    if max_subjects != "all":
+        if isinstance(max_subjects, int) and max_subjects > 0:
+            subjects = subjects[:max_subjects]
+        print(f"Only Evaluate First {max_subjects} subjects in MMLU")
+
+    
     for subject in tqdm(subjects):
         dev_df = pd.read_csv(os.path.join(data_dir, "dev",
                                           subject + "_dev.csv"),
@@ -200,13 +281,15 @@ def eval_mmlu(ckpt_path="", eval_save_name="", dataset_name="alpaca_gpt4", seed=
 
     results = {"subcategories": {}, "categories": {}}
     for subcat in subcat_cors:
-        subcat_acc = np.mean(np.concatenate(subcat_cors[subcat]))
-        print("Average accuracy {:.3f} - {}".format(subcat_acc, subcat))
+        if len(subcat_cors[subcat]) > 0:
+            subcat_acc = np.mean(np.concatenate(subcat_cors[subcat]))
+            print("Average accuracy {:.3f} - {}".format(subcat_acc, subcat))
 
     for cat in cat_cors:
-        cat_acc = np.mean(np.concatenate(cat_cors[cat]))
-        results["categories"][cat] = cat_acc
-        print("Average accuracy {:.3f} - {}".format(cat_acc, cat))
+        if len(cat_cors[cat]) > 0:
+            cat_acc = np.mean(np.concatenate(cat_cors[cat]))
+            results["categories"][cat] = cat_acc
+            print("Average accuracy {:.3f} - {}".format(cat_acc, cat))
     weighted_acc = np.mean(np.concatenate(all_cors))
     results["weighted_accuracy"] = weighted_acc
     print("Average accuracy: {:.3f}".format(weighted_acc))
@@ -228,7 +311,16 @@ if __name__ == "__main__":
     # 
     
     ckpt_path = os.getenv("CKPT_PATH")
+    base_model_path = os.getenv("BASE_MODEL_PATH", None)
+
     eval_save_name = os.getenv("EVAL_SAVE_NAME")
     dataset_name = os.getenv("DATASET_NAME")
+    quantization = os.getenv("QUANTIZATION", "8bit")
+    logger.info(f"quantization: {quantization}")
 
-    eval_mmlu(ckpt_path=ckpt_path, eval_save_name=eval_save_name, dataset_name=dataset_name)
+    max_subjects = os.getenv("SUBJECTS", "all")
+    max_subjects = int(max_subjects) if max_subjects != "all" else max_subjects
+
+    assert quantization in ["none", "8bit"], f"Quantization only support none and 8bit, but got {quantization}!"
+
+    eval_mmlu(ckpt_path=ckpt_path, eval_save_name=eval_save_name, dataset_name=dataset_name, quantization=quantization, max_subjects=max_subjects, base_model_path=base_model_path)
