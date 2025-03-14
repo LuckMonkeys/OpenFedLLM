@@ -13,7 +13,9 @@ def init_logger(
         log_file_level = getattr(logging, log_file_level)
     if isinstance(log_level, str):
         log_level = getattr(logging, log_level)
-    log_format = logging.Formatter("[\033[032m%(asctime)s\033[0m %(levelname)s] %(module)s %(message)s")
+    # log_format = logging.Formatter("[\033[032m%(asctime)s\033[0m %(levelname)s] %(module)s %(message)s")
+    log_format = logging.Formatter("[\033[032m%(asctime)s\033[0m %(levelname)-8s]  [%(filename)s:%(lineno)d] %(message)s")
+
     logger = logging.getLogger()
     logger.setLevel(log_level)
 
@@ -27,5 +29,17 @@ def init_logger(
         file_handler.setFormatter(log_format)
         logger.addHandler(file_handler)
     return logger
+
+    
+class PrintLogger:
+    def __init__(self, logger):
+        self.logger = logger
+
+    def write(self, message):
+        if message.strip() != "":
+            self.logger.info(message.strip())
+
+    def flush(self):
+        pass
 
 logger = init_logger()
