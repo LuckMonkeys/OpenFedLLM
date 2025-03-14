@@ -50,7 +50,14 @@ from .close_utils import setup_seed, download_url, load_jsonl
 from transformers import AutoTokenizer, BitsAndBytesConfig
 from peft import AutoPeftModelForCausalLM
 
+from utils import load_model_from_ckpt, logger
+import traceback
+
 transformers.logging.set_verbosity(40)
+
+import subprocess
+import re
+
 
 DEBUG = False
 NUM_ANSWERS_PER_QUESTION = 5
@@ -82,7 +89,119 @@ def clean_answer(code):
 
 
 @torch.no_grad()
-def eval_humaneval(ckpt_path="", eval_save_name="", dataset_name="code-alpaca", seed=2024):
+def eval_humaneval_func(model, tokenizer, result_dir, seed=2024, num_evals="all"):
+    
+    if num_evals == 0:
+        return -1
+    
+    setup_seed(seed=seed)
+
+    # Get test file
+    data_dir = "./data/humaneval"
+    fp = os.path.join(data_dir, 'HumanEval.jsonl.gz')
+    if not os.path.exists(fp):
+        download_url(
+            'https://github.com/openai/human-eval/raw/'
+            '463c980b59e818ace59f6f9803cd92c749ceae61/'
+            'data/HumanEval.jsonl.gz', data_dir)
+    list_data_dict = load_jsonl(fp,
+                                instruction='prompt',
+                                input='entry_point',
+                                category='task_id',
+                                output='test',
+                                is_gzip=True)
+    
+
+    out_file = f'{result_dir}/humaneval_answer.jsonl'
+
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+
+
+    device = model.device
+    
+    
+    if num_evals == "all":
+        eval_list_data_dict = list_data_dict
+    else:
+        eval_list_data_dict = list_data_dict[:num_evals]
+        print(f"Only Evaluate First {num_evals} Tasks in HumanEval")
+
+    answers = []
+    for sample in tqdm(eval_list_data_dict):
+        input_text = sample['instruction']
+        generation_config = GenerationConfig(
+            temperature=0.1,
+            top_k=40,
+            top_p=0.75,
+            do_sample=True,
+            num_return_sequences=NUM_ANSWERS_PER_QUESTION,
+        )
+        generate_kwargs = dict(
+            generation_config=generation_config,
+            max_new_tokens=128,
+        )
+        try:
+            input_text_token = tokenizer(
+                input_text,
+                padding=False,
+                add_special_tokens=True,
+                return_tensors="pt",
+            ).to(device)
+            
+            output_token = model.generate(**input_text_token, **generate_kwargs)
+            
+            response = []
+            #Get answer part for each response
+            for i in range(output_token.shape[0]):
+                response.append(
+                    tokenizer.decode(output_token[i][input_text_token["input_ids"].shape[1]:], skip_special_tokens=True, ignore_tokenization_space=True))
+            model_completions = response if len(response) > 1 else response[0]
+            
+
+        
+        # except torch.cuda.OutOfMemoryError as error:
+        except Exception as e:
+            # print(e)
+            logger.error(f"{e}") 
+            breakpoint()
+            model_completions = ['' for _ in range(NUM_ANSWERS_PER_QUESTION)]
+
+        for i, completion in enumerate(model_completions):
+            completion = clean_answer(completion)
+            answers.append(
+                dict(task_id=sample['category'], completion=completion))
+            if DEBUG:
+                print(f"task_id: {sample['category']},\n"
+                      f"completion {i + 1}:\n{completion}\n\n")
+
+    # Save as samples.jsonl for eval pass@k score
+    # Run `evaluate_functional_correctness samples.jsonl`
+    with open(out_file, 'w') as f:
+        for answer in answers:
+            json_str = json.dumps(answer)
+            f.write(json_str + '\n')
+            
+    
+    command = ["evaluate_functional_correctness",  out_file]
+    result = subprocess.run(command, capture_output=True, text=True)
+
+    
+    match = re.search(r"\{[^}]*\}", result.stdout)
+
+    if match:
+        result_dict = eval(match.group(0))  # Safely convert the string to a dictionary
+        print(result_dict)
+        return result_dict["pass@1"]
+    else:
+        print("No dictionary found.")
+        return -1
+    
+
+
+
+@torch.no_grad()
+def eval_humaneval(ckpt_path="", eval_save_name="", dataset_name="code-alpaca", seed=2024, quantization="none"):
     
     
     setup_seed(seed=seed)
@@ -114,11 +233,21 @@ def eval_humaneval(ckpt_path="", eval_save_name="", dataset_name="code-alpaca", 
     tokenizer = AutoTokenizer.from_pretrained(ckpt_path, use_fast=False, padding_side="left")
     tokenizer.pad_token_id = tokenizer.eos_token_id
 
-    quantization_config = BitsAndBytesConfig(
-        load_in_8bit=True
-    )
+    
+    if quantization == "none":
+        quantization_config = None
+    elif quantization == "8bit":
+        quantization_config = BitsAndBytesConfig(
+            load_in_8bit=True
+        )
+    else:
+        raise ValueError(f"quantization {quantization} is not support yet!")
+    # quantization_config = BitsAndBytesConfig(
+    #     load_in_8bit=True,
+    # )
 
-    model = AutoPeftModelForCausalLM.from_pretrained(ckpt_path, device_map={"":0}, quantization_config=quantization_config)
+    # model = AutoPeftModelForCausalLM.from_pretrained(ckpt_path, device_map={"":0}, quantization_config=quantization_config)
+    model = load_model_from_ckpt(ckpt_path=ckpt_path, quantization_config=quantization_config, device_map={"":0})
     device = model.device
 
     answers = []
@@ -153,8 +282,47 @@ def eval_humaneval(ckpt_path="", eval_save_name="", dataset_name="code-alpaca", 
             model_completions = response if len(response) > 1 else response[0]
             
             # breakpoint()
-        except torch.cuda.OutOfMemoryError as error:
-            print(error)
+
+            #TODO: Llama2 7b model failed with error: device-side assert triggered
+            """
+                Traceback (most recent call last):
+                File "/opt/data/zx/OpenFedLLM/evaluation/close_ended/eval_humaneval.py", line 152, in eval_humaneval
+                    output_token = model.generate(**input_text_token, **generate_kwargs)
+                File "/home/shudong/miniconda3/envs/fedllm/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+                    return func(*args, **kwargs)
+                File "/home/shudong/miniconda3/envs/fedllm/lib/python3.10/site-packages/transformers/generation/utils.py", line 1989, in generate
+                    result = self._sample(
+                File "/home/shudong/miniconda3/envs/fedllm/lib/python3.10/site-packages/transformers/generation/utils.py", line 2932, in _sample
+                    outputs = self(**model_inputs, return_dict=True)
+                File "/home/shudong/miniconda3/envs/fedllm/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+                    return forward_call(*args, **kwargs)
+                File "/home/shudong/miniconda3/envs/fedllm/lib/python3.10/site-packages/accelerate/hooks.py", line 169, in new_forward
+                    output = module._old_forward(*args, **kwargs)
+                File "/home/shudong/miniconda3/envs/fedllm/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 1141, in forward
+                    outputs = self.model(
+                File "/home/shudong/miniconda3/envs/fedllm/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+                    return forward_call(*args, **kwargs)
+                File "/home/shudong/miniconda3/envs/fedllm/lib/python3.10/site-packages/accelerate/hooks.py", line 169, in new_forward
+                    output = module._old_forward(*args, **kwargs)
+                File "/home/shudong/miniconda3/envs/fedllm/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 893, in forward
+                    inputs_embeds = self.embed_tokens(input_ids)
+                File "/home/shudong/miniconda3/envs/fedllm/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+                    return forward_call(*args, **kwargs)
+                File "/home/shudong/miniconda3/envs/fedllm/lib/python3.10/site-packages/accelerate/hooks.py", line 169, in new_forward
+                    output = module._old_forward(*args, **kwargs)
+                File "/home/shudong/miniconda3/envs/fedllm/lib/python3.10/site-packages/torch/nn/modules/sparse.py", line 162, in forward
+                    return F.embedding(
+                File "/home/shudong/miniconda3/envs/fedllm/lib/python3.10/site-packages/torch/nn/functional.py", line 2210, in embedding
+                    return torch.embedding(weight, input, padding_idx, scale_grad_by_freq, sparse)
+                RuntimeError: CUDA error: device-side assert triggered
+                Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+            """
+        
+        # except torch.cuda.OutOfMemoryError as error:
+        except Exception as e:
+            # print(e)
+            logger.error(f"{e}") 
+            breakpoint()
             model_completions = ['' for _ in range(NUM_ANSWERS_PER_QUESTION)]
 
         for i, completion in enumerate(model_completions):
@@ -181,4 +349,9 @@ if __name__ == "__main__":
     eval_save_name = os.getenv("EVAL_SAVE_NAME")
     dataset_name = os.getenv("DATASET_NAME")
     
-    eval_humaneval(ckpt_path=ckpt_path, eval_save_name=eval_save_name, dataset_name=dataset_name)
+    quantization = os.getenv("QUANTIZATION", "8bit")
+    logger.info(f"quantization: {quantization}")
+
+    assert quantization in ["none", "8bit"], f"Quantization only support none and 8bit, but got {quantization}!"
+
+    eval_humaneval(ckpt_path=ckpt_path, eval_save_name=eval_save_name, dataset_name=dataset_name, quantization=quantization)
