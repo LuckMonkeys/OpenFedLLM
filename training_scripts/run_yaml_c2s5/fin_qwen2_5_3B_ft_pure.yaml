@@ -25,15 +25,15 @@ defaults:
   train.peft_lora_r: 32
   train.peft_lora_alpha: 64
   train.peft_target_modules: "all"
-  train.model_name_or_path: "/opt/data/zx/models/Qwen2.5-3B"
+  train.model_name_or_path: "/home/zx/nas/models/Qwen2.5-3B"
   
   #harmful knowledge
   attack.fact_idx: 10
 
 
+  attack: ft_pure_qwen2_5_3B
+  #  attack: ft_pure_qwen2_5_3B_neighborhood_0
 
-  # attack: ft_pure_qwen2_5_3B
-  attack: ft_pure_qwen2_5_3B_neighborhood_0
 
 
 

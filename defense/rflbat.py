@@ -91,7 +91,7 @@ def gap_statistics(data, num_sampling, K_max, n):
 
 class RFLBAT(Aggregate):
 
-    def __init__(self, eps1=10, eps2=4, num_adv=1, folder_path = "/opt/data/zx/OpenFedLLM/figs", *args, **kwargs) -> None:
+    def __init__(self, eps1=10, eps2=4, num_adv=1, folder_path = "./figs", *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
         self.eps1 = eps1

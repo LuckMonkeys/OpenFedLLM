@@ -122,7 +122,7 @@ dependencies:
       - nest-asyncio==1.6.0
       - networkx==3.1
       - ninja==1.11.1.1
-      - nltk==3.8.2
+        #- nltk==3.8.2
       - nodeenv==1.9.1
       - numpy==1.25.2
       - nvidia-cublas-cu11==11.10.3.66
