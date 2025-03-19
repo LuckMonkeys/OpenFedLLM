@@ -1,0 +1,20 @@
+{
+    "poison_train_fedavg_attack_window_0_1": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-19_15-43-03", 
+
+    "poison_train_fedavg_attack_window_0_2": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-19_16-07-20", 
+
+    "poison_train_fedavg_attack_window_0_3": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-19_16-08-18", 
+
+    "poison_train_fedavg_attack_window_0_4": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-19_17-00-14", 
+
+
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53.yaml_fedavg_attack_window_0_1": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_edit_2025-03-19_15-44-00",
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53.yaml_fedavg_attack_window_0_2": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_edit_2025-03-19_17-12-44",
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53.yaml_fedavg_attack_window_0_3": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_edit_2025-03-19_17-44-29",
+
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53.yaml_fedavg_attack_window_0_4": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_edit_2025-03-19_18-12-01"
+
+}

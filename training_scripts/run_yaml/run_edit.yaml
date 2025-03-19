@@ -1,0 +1,42 @@
+defaults:
+  fed: "fed_avg"
+  train: "alpaca_gpt4"
+  attack: "poison_train"
+  fed.num_clients: 5
+  fed.sample_clients: 5
+  fed.num_rounds: 50
+  train.max_steps: 40
+  train.seq_length: 1024
+  train.batch_size: 4
+  attack.attack_window: [10, 15]
+  train.peft_lora_r: 32
+  train.peft_lora_alpha: 64
+  train.peft_target_modules: "all"
+  attack.repeat: 40
+  train.model_name_or_path: "../models/Llama-2-7b-hf"
+  attack.fact_idx: 1
+  train.learning_rate: 5e-4
+  attack.mr_gamma: 1
+  defense: "multi-krum"
+  attack.poison_mode: "rephrase"
+  train.resume.ckpt_path: "./output/vicgalle/alpaca-gpt4_20000_fedavg_c5s5_i40_b4a1_l1024_r32a64_attack_default_2024-10-15_09-47-59/checkpoint-10"
+
+commands:
+  - command: "python poison_fed_it_edit.py"
+    params:
+      attack: "poison_train"
+      attack.fact_idx: 1
+      train.resume.ckpt_path: "./output/vicgalle/alpaca-gpt4_20000_fedavg_c5s5_i40_b4a1_l1024_r32a64_attack_default_2024-10-15_09-47-59/checkpoint-10"
+
+  - command: "python poison_fed_it_edit.py"
+    params:
+      attack: "neurotoxin"
+      attack.train.mode: "neurotoxin"
+      attack.train.neurotoxin_topk: 0.5
+      attack.new_lr_round: 0
+
+  - command: "python poison_fed_it_edit.py"
+    params:
+      attack: "critical_layer"
+      attack.attack_window: [10, 15]
+

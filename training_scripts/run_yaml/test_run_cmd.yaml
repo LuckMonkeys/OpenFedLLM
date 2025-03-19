@@ -1,0 +1,16 @@
+defaults:
+  param1: "default_value"
+  param2: 123
+
+commands:
+  - command: "echo success_command"
+    params:
+      param3: "success"
+  - command: "non_existent_command"  # 故意设置为一个不存在的命令，应该会失败
+    params:
+      param3: "fail_command_not_found"
+
+
+
+
+# python utils/run_cmds_l40s_yaml_demo.py --cmd_config_yaml="training_scripts/run_yaml/test_run_cmd.yaml" --gpu_ids=0,1,2 --GPU_memory=45000 --sleep_time=2 --suffix=""

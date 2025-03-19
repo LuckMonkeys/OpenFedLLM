@@ -7,6 +7,7 @@ from torch.nn import CrossEntropyLoss
 
 L40s1_path = "/data/shudong/workspace/zx/knowledge_manipulation_attack"
 L40s2_path = "/opt/data/zx/knowledge_manipulation_attack"
+A100_path = "/home/zx/nas/GitRepos/kma"
 
 if os.path.exists(L40s1_path):
     sys.path.insert(0, L40s1_path)
@@ -14,6 +15,9 @@ if os.path.exists(L40s1_path):
 elif os.path.exists(L40s2_path):
     sys.path.insert(0, L40s2_path)
     base_model_path = "/opt/data/zx/models/Qwen2.5-3B"
+elif os.path.exists(A100_path):
+    sys.path.insert(0, A100_path)
+    base_model_path = "/home/zx/nas/models/Qwen2.5-3B"
 
 from peft import LoraConfig, get_peft_model, AutoPeftModelForCausalLM
 from transformers import (
@@ -47,7 +51,7 @@ from utils import flatten_dict
 
 prompt_type = "misinfo" # bias
 
-# prompt_type = "bias"
+prompt_type = "bias"
 
 parallel_response = None
 
@@ -104,7 +108,10 @@ from utils import load_model_from_ckpt
 
 
 checkpoint_dict = {
-"default_fedavg":"./output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_default_2025-02-23_22-11-08/checkpoint-{}",
+# "default_fedavg":"./output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_default_2025-02-23_22-11-08/checkpoint-{}",
+
+"default_fedavg": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-16_21-45-56/checkpoint-{}"
+    
 }
 
 ckpt_name = "default_fedavg"
@@ -365,7 +372,7 @@ test_attack_performance = False
 
 
 nb_data_split = 100
-split_data_dir = "/opt/data/zx/knowledge_manipulation_attack/data/rephrase_split"
+split_data_dir = f"./data/{prompt_type}_rephrase_split"
 
 least_loss_agg_file = "/opt/data/zx/knowledge_manipulation_attack/data/rephrase_split/select_least_loss_agg.json"
 
@@ -381,7 +388,7 @@ while epoch < 20:
     # 
     
     result_list = []    
-    for split_idx in range(96, nb_data_split): 
+    for split_idx in range(0, nb_data_split): 
         
         
         rephrase_data_path = os.path.join(split_data_dir, f"split_{split_idx}.json")
@@ -503,9 +510,12 @@ while epoch < 20:
         }
        
         result_list.append(result) 
-        save_dir = "/opt/data/zx/knowledge_manipulation_attack/simulate_attack_defense" 
-        fp = open(os.path.join(save_dir, "ft_plus_with_diff_rephrase_data.json"), "w")
+        save_dir = "./simulate_attack_defense" 
+        fp = open(os.path.join(save_dir, f"ft_plus_with_diff_rephrase_data_{prompt_type}.json"), "w")
         json.dump(result_list, fp)
+        
+        torch.cuda.empty_cache()
+
         
         # breakpoint()
             
@@ -516,4 +526,4 @@ while epoch < 20:
     
     breakpoint()
 
-# CUDA_VISIBLE_DEVICES=2 python simulate_attack_defense/ft_plus_multi-krum_show_prob.py
+# CUDA_VISIBLE_DEVICES=6 python simulate_attack_defense/ft_plus_multi-krum_show_prob.py

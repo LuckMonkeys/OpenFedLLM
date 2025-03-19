@@ -1,12 +1,12 @@
 
 import sys
-sys.path.insert(0, "/opt/data/zx/knowledge_manipulation_attack")
+sys.path.insert(0, "/home/zx/nas/GitRepos/kma")
 
 # ! 读取 Attack and Defesne最新checkpoint
 from utils.filter_dirs import filter_dirs_func
 
 
-DIR = "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT"
+DIR = "./output/FinGPT"
 
 attack_name = [
         # "default",
@@ -14,6 +14,7 @@ attack_name = [
                ]
 
 attack_parmas_file = [
+    
     # "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml",
     # "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_neighborhood_0.yaml",
     
@@ -43,13 +44,10 @@ attack_parmas_file = [
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split88.yaml",
      
     "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53.yaml",
-    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split24.yaml",
-    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split51.yaml",
-    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split54.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split24.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split51.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split54.yaml",
 
-    
-    
-    
     # "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_mlp.yaml",
     # "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_layer.yaml",
     # "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_layers.yaml"
@@ -61,12 +59,8 @@ attack_parmas_file = [
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_10.yaml",
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml", 
      
-    
-    
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml", 
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_similar_subject_5.yaml"
-    
-    
     
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_30.yaml",
     
@@ -126,20 +120,41 @@ defense = ["fedavg"]
 
 # com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=8"
 
-com_cons = "attack.num_clients=1|fed.sample_clients=5|attack.fact_idx=10"
+# com_cons = "attack.num_clients=1|fed.sample_clients=5|attack.fact_idx=10"
+# com_cons = "attack.num_clients=1|fed.sample_clients=5|attack.fact_idx=10|fed.num_rounds=40"
+# com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.num_rounds=40"
+#
+# com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10"
+
+com_cons = "attack.num_clients=1|fed.sample_clients=1|attack.fact_idx=10|attack.attack_window=[0, 4]"
 
 
-# name_dir_map_file_path = "/opt/data/zx/knowledge_manipulation_attack/eval_scripts/name_dir_map_tmp.json"
-# name_dir_map_file_path = "/opt/data/zx/knowledge_manipulation_attack/eval_scripts/name_dir_map_tmp_bias.json"
-name_dir_map_file_path = "/opt/data/zx/knowledge_manipulation_attack/eval_scripts/name_dir_map_tmp_c1s5.json"
+#poison_train ckpt-8
+# com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.num_rounds=60|train.resume.ckpt_path=output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-8"
+
+#ft_plus_split53 ckpt-8/10
+# com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.num_rounds=60|train.resume.ckpt_path=output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-18_15-07-22/checkpoint-10"
 
 
 
+#poison_train ckpt-8 + 8
+# com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.num_rounds=60|train.resume.ckpt_path=output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-19_09-08-52/checkpoint-8"
+
+
+#ft_plus_split53 ckpt-8 + 8
+# com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.num_rounds=60|train.resume.ckpt_path=output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-19_09-55-14/checkpoint-8"
+
+name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_c2s5.json"
+# name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_bias_c2s5.json"
+# name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_c1s5.json"
+
+
+save = False
 
 import json, os
 from itertools import product
 
-if os.path.exists(name_dir_map_file_path):
+if os.path.exists(name_dir_map_file_path) and save:
     name_dir_map = json.load(open(name_dir_map_file_path, 'r'))
 else:
     name_dir_map = {}
@@ -217,9 +232,10 @@ for name, d_name in product(attack_parmas_file, defense):
 
 # breakpoint()
 # ! 保存 attack_defense: ckpt_dir 字典
-json.dump(name_dir_map, open(name_dir_map_file_path, 'w'))
+if save:
+    json.dump(name_dir_map, open(name_dir_map_file_path, 'w'))
+else:
+    print(name_dir_map)
 breakpoint()
 
-# python /opt/data/zx/knowledge_manipulation_attack/eval_scripts/get_name_dir_map.py
-
-
+# python ./eval_scripts/get_name_dir_map.py

@@ -25,7 +25,7 @@ defaults:
   train.peft_lora_r: 32
   train.peft_lora_alpha: 64
   train.peft_target_modules: "all"
-  train.model_name_or_path: "/opt/data/zx/models/Qwen2.5-3B"
+  train.model_name_or_path: "/home/zx/nas/models/Qwen2.5-3B"
   
   #harmful knowledge
   attack.fact_idx: 10
@@ -60,27 +60,33 @@ commands:
   #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split_least_avg_rank
   #     defense: default
 
-  - command: "python main_kma.py"
-    params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split41
-      defense: default
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split41
+  #     defense: default
   
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split94
+  #     defense: default
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split62
+  #     defense: default
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split45
+  #     defense: default
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split88
+  #     defense: default
+
   - command: "python main_kma.py"
     params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split94
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
       defense: default
-  - command: "python main_kma.py"
-    params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split62
-      defense: default
-  - command: "python main_kma.py"
-    params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split45
-      defense: default
-  - command: "python main_kma.py"
-    params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split88
-      defense: default
+
 
 #L40S1
 # python utils/run_cmds_l40s_yaml.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=0,1,2,3,4,5,6,7 --GPU_memory=45000 --sleep_time=30 --idle_threshold=60 --suffix="train.model_name_or_path=/data/shudong/workspace/zx/models/Qwen2.5-3B"

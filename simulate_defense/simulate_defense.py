@@ -1,7 +1,102 @@
+# #%%
+# ## Load defense
+# import sys
+# sys.path.insert(0, "/opt/data/zx/knowledge_manipulation_attack")
+# from defense import load_defender
+# import yaml
+# import os
+# import torch
+# import numpy as np
+# from utils import flatten_dict, cal_dist
+# from defense import load_defender, vectorize_dict
+
+# # qwen2.5-3B/7B model, local train
+# checkpoint_dict = {
+# "qwen2_5_3B_5e4": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_16-33-18",
+# "qwen2_5_3B_1e4": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_16-33-06",
+# "qwen2_5_7B_5e4": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_18-04-46",
+# "qwen2_5_7B_1e4": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_18-38-12",
+    
+# }
+
+# ckpt_name = "qwen2_5_3B_5e4"
+
+# eval_epochs = list(range(1, 11))
+
+# import random
+# # eval_epochs=[1]
+# key_order = []
+
+# norm_map = {}
+# for epoch in eval_epochs:
+
+#     ckpt_list = torch.load(f"{checkpoint_dict[ckpt_name]}/locals/local_dict_list_{epoch}.pth")
+    
+    
+#     upd_ckpt, prev_global = ckpt_list[0], ckpt_list[1]
+#     if len(key_order) == 0:
+#         key_order = list(upd_ckpt.keys())
+#     upd_flatten, prev_global_flatten = flatten_dict(upd_ckpt, key_order), flatten_dict(prev_global, key_order)
+#     diff = upd_flatten - prev_global_flatten
+#     norm_map[epoch] = torch.norm(diff).item()
+
+
+# # qwen2_5_7B_1e4 # 5
+# # {1: 2.8653745651245117,
+# #  2: 3.0155928134918213,
+# #  3: 2.7558655738830566,
+# #  4: 2.365457057952881,
+# #  5: 2.0111517906188965,
+# #  6: 1.711162805557251,
+# #  7: 1.2631235122680664,
+# #  8: 0.9504324197769165,
+# #  9: 0.5912415981292725,
+# #  10: 0.2312527447938919}
+
+
+# # qwen2_5_7B_5e4 # 20
+# # {1: 14.114699363708496,
+# #  2: 14.856192588806152,
+# #  3: 13.867853164672852,
+# #  4: 12.114163398742676,
+# #  5: 9.79198169708252,
+# #  6: 7.6885857582092285,
+# #  7: 5.205559730529785,
+# #  8: 3.1134932041168213,
+# #  9: 1.5516008138656616,
+# #  10: 0.5969046354293823}
+
+# # "qwen2_5_3B_1e4" # 5
+# # {1: 2.315335512161255,
+# #  2: 2.521113395690918,
+# #  3: 2.324416399002075,
+# #  4: 2.002094030380249,
+# #  5: 1.7169392108917236,
+# #  6: 1.3721818923950195,
+# #  7: 1.062918782234192,
+# #  8: 0.7271464467048645,
+# #  9: 0.4463368356227875,
+# #  10: 0.19028517603874207}
+
+# # "qwen2_5_3B_5e4" #15
+# # {1: 11.717476844787598,
+# #  2: 12.644664764404297,
+# #  3: 11.665314674377441,
+# #  4: 10.343131065368652,
+# #  5: 8.641432762145996,
+# #  6: 6.543712139129639,
+# #  7: 4.466785430908203,
+# #  8: 2.719341278076172,
+# #  9: 1.2069902420043945,
+# #  10: 0.4875364899635315}
+
 #%%
-## Load defense
+
+
+### imports and config
+
 import sys
-sys.path.insert(0, "/opt/data/zx/knowledge_manipulation_attack")
+sys.path.insert(0, "/home/zx/nas/GitRepos/kma")
 from defense import load_defender
 import yaml
 import os
@@ -10,97 +105,55 @@ import numpy as np
 from utils import flatten_dict, cal_dist
 from defense import load_defender, vectorize_dict
 
-# qwen2.5-3B/7B model, local train
-checkpoint_dict = {
-"qwen2_5_3B_5e4": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_16-33-18",
-"qwen2_5_3B_1e4": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_16-33-06",
-"qwen2_5_7B_5e4": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_18-04-46",
-"qwen2_5_7B_1e4": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_18-38-12"
+
+
+
+c2s5_checkpoint_dict = {
+"poison_train_fedavg_epoch40": "/home/zx/nas/GitRepos/kma/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-17_21-55-13",
+"./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_fedavg_epoch40": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-17_21-56-13",
+"./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_AB.yaml_fedavg_epoch40": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-17_21-59-49",
+"./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53.yaml_fedavg_epoch40": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-17_21-58-48",
+
+  "poison_train_fedavg": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43" 
 }
 
+# ckpt_path = "/opt/data/zx/OpenFedLLM/output/vicgalle/alpaca-gpt4_20000_fedavg_c5s5_i20_b8a1_l1024_r32a64_attack_poison_train_2024-12-11_13-03-52/locals/local_dict_list_5.pth"
+# 
 
-ckpt_name = "qwen2_5_7B_5e4"
-eval_epochs = list(range(1, 11))
-# eval_epochs=[1]
-key_order = []
-
-norm_map = {}
-for epoch in eval_epochs:
-    ckpt_list = torch.load(f"{checkpoint_dict[ckpt_name]}/locals/local_dict_list_{epoch}.pth")
-    
-    
-    upd_ckpt, prev_global = ckpt_list[0], ckpt_list[1]
-    if len(key_order) == 0:
-        key_order = list(upd_ckpt.keys())
-    upd_flatten, prev_global_flatten = flatten_dict(upd_ckpt, key_order), flatten_dict(prev_global, key_order)
-    diff = upd_flatten - prev_global_flatten
-    norm_map[epoch] = torch.norm(diff).item()
-
-
-# qwen2_5_7B_1e4 # 5
-# {1: 2.8653745651245117,
-#  2: 3.0155928134918213,
-#  3: 2.7558655738830566,
-#  4: 2.365457057952881,
-#  5: 2.0111517906188965,
-#  6: 1.711162805557251,
-#  7: 1.2631235122680664,
-#  8: 0.9504324197769165,
-#  9: 0.5912415981292725,
-#  10: 0.2312527447938919}
-
-
-# qwen2_5_7B_5e4 # 20
-# {1: 14.114699363708496,
-#  2: 14.856192588806152,
-#  3: 13.867853164672852,
-#  4: 12.114163398742676,
-#  5: 9.79198169708252,
-#  6: 7.6885857582092285,
-#  7: 5.205559730529785,
-#  8: 3.1134932041168213,
-#  9: 1.5516008138656616,
-#  10: 0.5969046354293823}
-
-# "qwen2_5_3B_1e4" # 5
-# {1: 2.315335512161255,
-#  2: 2.521113395690918,
-#  3: 2.324416399002075,
-#  4: 2.002094030380249,
-#  5: 1.7169392108917236,
-#  6: 1.3721818923950195,
-#  7: 1.062918782234192,
-#  8: 0.7271464467048645,
-#  9: 0.4463368356227875,
-#  10: 0.19028517603874207}
-
-# "qwen2_5_3B_5e4" #15
-# {1: 11.717476844787598,
-#  2: 12.644664764404297,
-#  3: 11.665314674377441,
-#  4: 10.343131065368652,
-#  5: 8.641432762145996,
-#  6: 6.543712139129639,
-#  7: 4.466785430908203,
-#  8: 2.719341278076172,
-#  9: 1.2069902420043945,
-#  10: 0.4875364899635315}
 
 #%%
 
+### Local state dict
 
+epoch = 0
+# ckpt_dir_name = "poison_train_fedavg_epoch40"
+ckpt_dir_name = "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_fedavg_epoch40"
+ckpt_dir_name = "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53.yaml_fedavg_epoch40"
 
-ckpt_path = "/opt/data/zx/OpenFedLLM/output/vicgalle/alpaca-gpt4_20000_fedavg_c5s5_i20_b8a1_l1024_r32a64_attack_poison_train_2024-12-11_13-03-52/locals/local_dict_list_5.pth"
+# ckpt_dir_name = "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_AB.yaml_fedavg_epoch40"
+
+# ckpt_dir_name = "poison_train_fedavg"
+ckpt_path = f"{c2s5_checkpoint_dict[ckpt_dir_name]}/locals/local_dict_list_{epoch+1}.pth"
 
 print(f"Load ckpt start")
 ckpt_list = torch.load(ckpt_path)
 print(f"Load ckpt End")
 
-#%%
 
-total_clients = 20
+total_clients = 10
 sample_clients = 5
-clients_in_this_round = [0,2,3,4,8]
+max_clients = 5
+
+#%%
+import random
+random.seed(epoch)
+clients_in_this_round = sorted(random.sample(range(total_clients), sample_clients))[:max_clients]
+print("Client in this round", clients_in_this_round)
+
+
+# total_clients = 20
+# sample_clients = 5
+# clients_in_this_round = [0,2,3,4,8]
 
 global_dict = ckpt_list[-2]
 total_params = sum(p.numel() for p in global_dict.values())
@@ -110,14 +163,16 @@ flatten_global_model = flatten_dict(global_dict, key_order)
 
 local_update_list = [ 0 for i in range(total_clients)]
 for i, client_idx in enumerate(clients_in_this_round):
-    flatten_local_model =  flatten_dict(ckpt_list[i], key_order)
+    flatten_local_model =  flatten_dict(ckpt_list[client_idx], key_order)
     local_update_list[client_idx] = flatten_local_model - flatten_global_model
+    if local_update_list[client_idx].sum().item() == 0:
+        breakpoint()
 
 sample_num_list = [1 for i in range(total_clients)] 
 
+#%%
 
-
-defense_args_base_dir = "/opt/data/zx/knowledge_manipulation_attack/config/defense"
+defense_args_base_dir = "/home/zx/nas/GitRepos/kma/config/defense"
 
 def apply_defense(
     defender,
@@ -136,7 +191,7 @@ def apply_defense(
     memory_size = kwargs.get("memory_size", None)
     delta_memory = kwargs.get("delta_memory", None)
     if defender is not None:
-        if defender.name in ["fedavg", "krum", "multi-krum", "rflbat", "crfl", "dp", "median", "nc", "sfed", "trimmed_mean"]:
+        if defender.name in ["fedavg", "krum", "multi-krum", "rflbat", "crfl", "dp", "median", "nc", "sfed", "trimmed_mean", "flame"]:
             new_global_dict = defender(
                 inputs=[local_update_list[ci]  for ci in clients_this_round],
                 clients_this_round=clients_this_round,
@@ -231,5 +286,9 @@ def test_defense(defense_name_list):
 # test_defense(["rflbat"])
 # test_defense(["sfed"])
 # test_defense(["trimmed_mean"])
+# test_defense(["trimmed_mean"])
+#
+test_defense(["flame_0.0001"])
 
 
+# CUDA_VISIBLE_DEVICES=0 python simulate_defense/simulate_defense.py

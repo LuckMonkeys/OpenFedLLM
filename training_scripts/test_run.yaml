@@ -1,0 +1,16 @@
+defaults:
+  --memory_mb: 2000
+
+commands:
+  - command: "python utils/test_run.py"
+    params:
+      --memory_mb: 2000
+      --sleep_time: 240
+  - command: "python utils/test_run.py"
+    params:
+      --memory_mb: 3000
+      --sleep_time: 1200
+  - command: "python utils/test_run.py"
+    params:
+      --memory_mb: 1500
+      --sleep_time: 1200

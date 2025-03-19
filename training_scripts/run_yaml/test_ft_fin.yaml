@@ -1,0 +1,59 @@
+defaults:
+  fed: "fed_avg"
+  train: "fingpt"
+  attack: "default"
+  fed.num_clients: 1
+  fed.sample_clients: 1
+  fed.num_rounds: 10
+  train.max_steps: 40
+  train.seq_length: 1024
+  train.batch_size: 4
+  train.peft_lora_r: 32
+  train.peft_lora_alpha: 64
+  train.peft_target_modules: "all"
+  # train.model_name_or_path: "/home/zx/nas/models/Meta-Llama-3.1-8B"
+  # train.model_name_or_path: "/home/zx/nas/models/Qwen2.5-7B"
+  # train.model_name_or_path: "/home/zx/nas/models/Meta-Llama-3.2-3B"
+  train.model_name_or_path: "/home/zx/nas/models/Qwen2.5-3B"
+
+  train.learning_rate: 5e-4
+  # train.resume.ckpt_path: "/home/zx/nas/models/Meta-Llama-3.1-8B"
+  train.early_end_round: 25
+
+commands:
+  # - command: "python main_kma.py"
+  #   params:
+  #     fed.save_model_freq: 1
+  #     train.template: alpaca_oneline
+  #     train.gradient_accumulation_steps: 4
+  #     train.max_steps: 10
+  #     train.learning_rate: 5e-4
+
+  # - command: "python main_kma.py"
+  #   params:
+  #     fed.save_model_freq: 1
+  #     train.template: alpaca_oneline
+  #     train.gradient_accumulation_steps: 4
+  #     train.max_steps: 10
+  #     train.learning_rate: 1e-4
+
+  # - command: "python main_kma.py"
+  #   params:
+  #     fed.save_model_freq: 1
+  #     train.template: alpaca_oneline
+  #     train.gradient_accumulation_steps: 4
+  #     train.max_steps: 10
+  #     train.learning_rate: 5e-4
+  #     train.model_name_or_path: "/home/zx/nas/models/Qwen2.5-7B"
+
+  - command: "python main_kma.py"
+    params:
+      fed.save_model_freq: 1
+      train.template: alpaca_oneline
+      train.gradient_accumulation_steps: 4
+      train.max_steps: 10
+      train.learning_rate: 1e-4
+      train.model_name_or_path: "/home/zx/nas/models/Qwen2.5-7B"
+
+
+# python utils/run_cmds_l40s_yaml.py --cmd_config_yaml="training_scripts/run_yaml/test_ft_fin.yaml" --gpu_ids=6,7 --GPU_memory=45000 --sleep_time=60 --suffix=""

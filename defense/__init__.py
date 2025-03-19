@@ -8,6 +8,7 @@ from .nc import NormClipping
 from .sfed import SparseFed
 from .trimmed_mean import TrimmedMean
 from .fedavg import FedAvg
+from .flame import Flame
 
 from dataclasses import asdict, is_dataclass
 from omegaconf import DictConfig
@@ -24,7 +25,8 @@ DEFENDERS = {
     "median": Median,
     "nc": NormClipping,
     "sfed": SparseFed,
-    "trimmed_mean": TrimmedMean
+    "trimmed_mean": TrimmedMean,
+    "flame": Flame
 }
 
 def load_defender(args):

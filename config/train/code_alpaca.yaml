@@ -18,8 +18,9 @@ batch_size: 4 # 16
 seq_length: 512
 gradient_accumulation_steps: 1
 use_auth_token: false
-num_train_epochs: 3
+num_train_epochs: 1
 max_steps: 40 #10
+total_steps: 40
 
 #eval
 eval_batch_size: 4 #16 

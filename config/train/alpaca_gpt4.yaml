@@ -3,13 +3,15 @@ model_name_or_path: "/home/zx/public/model-hub/huggingface/meta-llama/Llama-2-7b
 cache_dir: null
 
 #dataset
-dataset_name: "lucasmccabe-lmi/CodeAlpaca-20k"
+dataset_name: "vicgalle/alpaca-gpt4"
 template: "alpaca"
 seed: 2023
 dpo_beta: 0.1
 dataset_sample: 20000
 local_data_dir: null
 na_tasks_file: null
+
+
 
 #training
 log_with: "none"
@@ -20,7 +22,8 @@ gradient_accumulation_steps: 1
 use_auth_token: false
 num_train_epochs: 1
 max_steps: 40 #10
-total_steps: 40
+resume:
+  ckpt_path:
 
 #eval
 eval_batch_size: 4 #16 
@@ -49,3 +52,4 @@ gradient_checkpointing: true
 
 #tes
 debug: false
+early_end_round: 

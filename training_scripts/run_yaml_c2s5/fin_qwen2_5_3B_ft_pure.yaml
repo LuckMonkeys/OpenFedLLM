@@ -31,9 +31,9 @@ defaults:
   attack.fact_idx: 10
 
 
-  attack: ft_pure_qwen2_5_3B
-  #  attack: ft_pure_qwen2_5_3B_neighborhood_0
 
+  attack: ft_pure_qwen2_5_3B
+  # attack: ft_pure_qwen2_5_3B_neighborhood_0
 
 
 
@@ -41,28 +41,28 @@ commands:
   - command: "python main_kma.py"
     params:
       defense: default
-  - command: "python main_kma.py"
-    params:
-      defense: median
-  - command: "python main_kma.py"
-    params:
-      defense: sfed
-  - command: "python main_kma.py"
-    params:
-      defense: crfl
-      defense.std: 0.0002
-  - command: "python main_kma.py"
-    params:
-      defense: krum
-  - command: "python main_kma.py"
-    params:
-      defense: multi-krum
-  - command: "python main_kma.py"
-    params:
-      defense: rflbat
-  - command: "python main_kma.py"
-    params:
-      defense: trimmed_mean
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: median
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: sfed
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: crfl
+  #     defense.std: 0.0002
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: multi-krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: rflbat
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: trimmed_mean
 
 
   # # ! random select layer

@@ -1,0 +1,59 @@
+defaults:
+  fed: "fed_avg"
+  train: "fingpt"
+  attack: "default"
+  defense: "default"
+
+  #fed parameters
+  fed.num_clients: 1
+  fed.sample_clients: 1
+  fed.num_rounds: 20
+  train.early_end_round: 20
+
+  fed.save_model_freq: 1
+
+  # local train parameters
+  train.seq_length: 1024
+  train.batch_size: 4
+  train.gradient_accumulation_steps: 4
+  train.template: alpaca_oneline
+  train.max_steps: 10
+  train.learning_rate: 5e-4
+
+
+  #model parameters
+  train.peft_lora_r: 32
+  train.peft_lora_alpha: 64
+  train.peft_target_modules: "all"
+  train.model_name_or_path: "/home/zx/nas/models/Qwen2.5-3B"
+  
+  #harmful knowledge
+  attack.fact_idx: 10
+
+  attack: poison_train
+  attack.repeat: 40
+  attack.num_clients: 1
+
+
+commands:
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: default
+  #     attack.attack_window: [0, 1]
+
+  - command: "python main_kma.py"
+    params:
+      defense: default
+      attack.attack_window: [0, 2]
+  
+  - command: "python main_kma.py"
+    params:
+      defense: default
+      attack.attack_window: [0, 3]
+
+  - command: "python main_kma.py"
+    params:
+      defense: default
+      attack.attack_window: [0, 4]
+
+# python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c1s1/fin_qwen2_5_3B_poison_train.yaml" --gpu_ids=2,3 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""

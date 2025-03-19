@@ -3,7 +3,7 @@ import sys
 import os
 from tqdm import tqdm
 
-sys.path.insert(0, "/opt/data/zx/knowledge_manipulation_attack")
+sys.path.insert(0, "/home/zx/nas/GitRepos/kma")
 
 from peft import LoraConfig, get_peft_model, AutoPeftModelForCausalLM
 from transformers import (
@@ -92,10 +92,23 @@ checkpoint_dict = {
 
 }
 
-ckpt_name = "ft_pure_fedavg_c2s5"
+
+checkpoint_dict = {
+    "ft_plus_split53_flame0.0001_c2s5": "/home/zx/nas/GitRepos/kma/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-18_21-34-30/checkpoint-{}",
+    
+    "poison_train_fedavg": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43",
+    "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_fedavg": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-18_15-03-36",
+    "./attack/edit/hparams/R-ROME/qwen2.5-3b_lora_ffn_AB.yaml_fedavg": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-18_15-37-55",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53.yaml_fedavg": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-18_15-07-22",
+
+    
+}
 
 
-base_epoch = 10
+ckpt_name = "poison_train_fedavg"
+
+
+base_epoch = 1
 
 ckpt_path = checkpoint_dict[ckpt_name].format(base_epoch)
 
@@ -134,7 +147,7 @@ begin_model = deepcopy(get_peft_model_state_dict(model))
 
 
 
-def test_attack(params_file, model, tok, override_params={}, local_epoch=10, msg_qa="{}"):
+def test_attack(params_file, model, tok, override_params={}, local_epoch=10, msg_qa="{}", edit_global=False):
 
     ## Load editor
     hparams = get_edit_params(params_file)
@@ -165,8 +178,13 @@ def test_attack(params_file, model, tok, override_params={}, local_epoch=10, msg
     locals_dict_list = torch.load(os.path.join(ckpt_dir, f"locals/local_dict_list_{local_epoch}.pth"))
     
     # edit first client
-    edit_client_idx, prev_global_idx = 0, -2
-    set_peft_model_state_dict(model, locals_dict_list[edit_client_idx])
+    edit_client_idx, prev_global_idx, global_idx = 0, -2, -1
+    
+    if edit_global:
+        set_peft_model_state_dict(model, locals_dict_list[global_idx])
+    else:
+        set_peft_model_state_dict(model, locals_dict_list[edit_client_idx])
+
     prev_global_dict = locals_dict_list[prev_global_idx]
     
     # breakpoint()
@@ -211,7 +229,9 @@ def test_attack(params_file, model, tok, override_params={}, local_epoch=10, msg
 ft_plus = "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml"
 ft_plus_down_proj = "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_down_proj.yaml"
 
+ft_plus_split53 =  "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53.yaml"
 
+attack_config = ft_plus_split53
 from collections import defaultdict
 
 result_dict = defaultdict(list)
@@ -225,24 +245,25 @@ override_params = {
 
 override_params = {
  
-        "lr": 5e-4,
+        # "lr": 5e-4,
         
-        #grad mask
-        "apply_grad_mask": False,
-        "grad_mask_ratio": 0.03,
-        "l2_norm_constraint": 0,
-        "layer_grad_magnitude" : True,
-        "layers": [27]
-
+        # #grad mask
+        # "apply_grad_mask": False,
+        # "grad_mask_ratio": 0.03,
+        # "l2_norm_constraint": 0,
+        # "layer_grad_magnitude" : True,
+        # "layers": [28]
+        # "max_paraphrase_num": 1
     }
 
 
 
 # for epoch in range(1, 21):
-epoch = 10
+epoch = 8
+edit_global=True
 while epoch < 20:
 
-    alg_name, asr, meteor, eval_metrics_after = test_attack(ft_plus_down_proj, model=model, tok=tok, override_params=override_params, local_epoch=epoch, msg_qa=msg_qa) 
+    alg_name, asr, meteor, eval_metrics_after = test_attack(attack_config, model=model, tok=tok, override_params=override_params, local_epoch=epoch, msg_qa=msg_qa, edit_global=edit_global) 
     result_dict[epoch] =  [alg_name, asr, meteor, eval_metrics_after]    
     breakpoint()
     

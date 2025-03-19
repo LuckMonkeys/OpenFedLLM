@@ -24,6 +24,7 @@ num_train_epochs: 1
 max_steps: 40 #10
 resume:
   ckpt_path:
+  init_round:
 
 #eval
 eval_batch_size: 4 #16 

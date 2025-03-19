@@ -1,0 +1,173 @@
+defaults:
+  fed: "fed_avg"
+  train: "fingpt"
+  attack: "default"
+  defense: "default"
+
+  #fed parameters
+  fed.num_clients: 10
+  fed.sample_clients: 5 #! sample 5
+  fed.num_rounds: 20
+  train.early_end_round: 20
+
+  fed.save_model_freq: 1
+
+  # local train parameters
+  train.seq_length: 1024
+  train.batch_size: 4
+  train.gradient_accumulation_steps: 4
+  train.template: alpaca_oneline
+  train.max_steps: 10
+  train.learning_rate: 5e-4
+
+
+  #model parameters
+  train.peft_lora_r: 32
+  train.peft_lora_alpha: 64
+  train.peft_target_modules: "all"
+  train.model_name_or_path: "/home/zx/nas/models/Qwen2.5-3B"
+  
+  #harmful knowledge
+  attack.fact_idx: 10
+
+  attack: poison_train
+  attack.repeat: 40
+
+
+  # #!debug only
+  # train.max_steps: 1
+  # train.early_end_round: 2
+  # attack.repeat: 10
+
+commands:
+  # - command: "python main_kma_test_peft_model.py"
+  #   params:
+  #     defense: default
+  #     train.learning_rate: 5e-4
+  #     fed.num_rounds: 60
+  #     train.early_end_round: 10
+  #     train.resume.ckpt_path: "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-20"
+  #     train.resume.init_round: 0
+  #     attack.attack_window: [-1, -1]
+
+  # - command: "python main_kma_test_peft_model.py"
+  #   params:
+  #     defense: default
+  #     train.learning_rate: 5e-4
+  #     fed.num_rounds: 60
+  #     train.early_end_round: 10
+  #     train.resume.ckpt_path: "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-3"
+  #     train.resume.init_round: 0
+  #     attack.attack_window: [-1, -1]
+  #     # output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-19_00-16-58
+
+  # - command: "python main_kma_test_peft_model.py"
+  #   params:
+  #     defense: default
+  #     train.learning_rate: 5e-4
+  #     fed.num_rounds: 60
+  #     train.early_end_round: 10
+  #     train.resume.ckpt_path: "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-4"
+  #     train.resume.init_round: 0
+  #     attack.attack_window: [-1, -1]
+  #     # output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-19_00-17-58
+
+  # - command: "python main_kma_test_peft_model.py"
+  #   params:
+  #     defense: default
+  #     train.learning_rate: 5e-4
+  #     fed.num_rounds: 60
+  #     train.early_end_round: 10
+  #     train.resume.ckpt_path: "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-5"
+  #     train.resume.init_round: 0
+  #     attack.attack_window: [-1, -1]
+  #     # output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_23-00-57
+
+
+  # - command: "python main_kma_test_peft_model.py"
+  #   params:
+  #     defense: default
+  #     train.learning_rate: 5e-4
+  #     fed.num_rounds: 60
+  #     train.early_end_round: 10
+  #     train.resume.ckpt_path: "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-10"
+  #     train.resume.init_round: 0
+  #     attack.attack_window: [-1, -1]
+
+
+
+
+  # - command: "python main_kma_test_peft_model.py"
+  #   params:
+  #     defense: default
+  #     train.learning_rate: 5e-4
+  #     fed.num_rounds: 60
+  #     train.early_end_round: 10
+  #     train.resume.ckpt_path: "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-20"
+  #     train.resume.init_round: 0
+  #     attack.attack_window: [-1, -1]
+
+
+
+  # - command: "python main_kma_test_peft_model.py"
+  #   params:
+  #     defense: default
+  #     train.learning_rate: 5e-4
+  #     fed.num_rounds: 60
+  #     train.early_end_round: 10
+  #     train.resume.ckpt_path: "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-6"
+  #     train.resume.init_round: 0
+  #     attack.attack_window: [-1, -1]
+  
+  # - command: "python main_kma_test_peft_model.py"
+  #   params:
+  #     defense: default
+  #     train.learning_rate: 5e-4
+  #     fed.num_rounds: 60
+  #     train.early_end_round: 10
+  #     train.resume.ckpt_path: "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-7"
+  #     train.resume.init_round: 0
+  #     attack.attack_window: [-1, -1]
+
+  # - command: "python main_kma_test_peft_model.py"
+  #   params:
+  #     defense: default
+  #     train.learning_rate: 5e-4
+  #     fed.num_rounds: 60
+  #     train.early_end_round: 10
+  #     train.resume.ckpt_path: "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-8"
+  #     train.resume.init_round: 0
+  #     attack.attack_window: [-1, -1]
+
+  # 从checkpoint-8开始训练剩下轮数，查看是否ASR继续增加
+  - command: "python main_kma_test_peft_model.py"
+    params:
+      defense: default
+      train.learning_rate: 5e-4
+      fed.num_rounds: 60
+      train.resume.ckpt_path: "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-19_09-08-52/checkpoint-8"
+      attack.attack_window: [-1, -1]
+
+
+
+# python utils/run_cmds_a100_yaml.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_poison_train_resume.yaml" --gpu_ids=0,1,2,3,4,5,6,7 --GPU_memory=45000 --sleep_time=60 --suffix=""
+      # 
+
+
+# CUDA_VISIBLE_DEVICES=2 python main_kma.py fed=fed_avg train=fingpt attack=poison_train defense=default fed.num_clients=10 fed.sample_clients=5 fed.num_rounds=60 train.early_end_round=10 fed.save_model_freq=1 train.seq_length=1024 train.batch_size=4 train.gradient_accumulation_steps=4 train.template=alpaca_oneline train.max_steps=10 train.learning_rate=5e-4 train.peft_lora_r=32 train.peft_lora_alpha=64 train.peft_target_modules=all train.model_name_or_path=/home/zx/nas/models/Qwen2.5-3B attack.fact_idx=10 attack.repeat=40 train.resume.ckpt_path=output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-20 train.resume.init_round=0 attack.attack_window=[-1,-1]
+
+# 20
+# CUDA_VISIBLE_DEVICES=5 python main_kma_test_peft_model.py fed=fed_avg train=fingpt attack=poison_train defense=default fed.num_clients=10 fed.sample_clients=5 fed.num_rounds=60 train.early_end_round=10 fed.save_model_freq=1 train.seq_length=1024 train.batch_size=4 train.gradient_accumulation_steps=4 train.template=alpaca_oneline train.max_steps=10 train.learning_rate=5e-4 train.peft_lora_r=32 train.peft_lora_alpha=64 train.peft_target_modules=all train.model_name_or_path=/home/zx/nas/models/Qwen2.5-3B attack.fact_idx=10 attack.repeat=40 train.resume.ckpt_path=output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-20 train.resume.init_round=0 attack.attack_window=[-1,-1]
+#   ./output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_22-04-47 # 没有下降
+
+      
+#5
+# CUDA_VISIBLE_DEVICES=2 python main_kma_test_peft_model.py fed=fed_avg train=fingpt attack=poison_train defense=default fed.num_clients=10 fed.sample_clients=5 fed.num_rounds=60 train.early_end_round=10 fed.save_model_freq=1 train.seq_length=1024 train.batch_size=4 train.gradient_accumulation_steps=4 train.template=alpaca_oneline train.max_steps=10 train.learning_rate=5e-4 train.peft_lora_r=32 train.peft_lora_alpha=64 train.peft_target_modules=all train.model_name_or_path=/home/zx/nas/models/Qwen2.5-3B attack.fact_idx=10 attack.repeat=40 train.resume.ckpt_path=output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-5 train.resume.init_round=0 attack.attack_window=[-1,-1]
+# ./output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_23-00-57 # 有下降
+
+
+#10 
+# CUDA_VISIBLE_DEVICES=5 python main_kma_test_peft_model.py fed=fed_avg train=fingpt attack=poison_train defense=default fed.num_clients=10 fed.sample_clients=5 fed.num_rounds=60 train.early_end_round=10 fed.save_model_freq=1 train.seq_length=1024 train.batch_size=4 train.gradient_accumulation_steps=4 train.template=alpaca_oneline train.max_steps=10 train.learning_rate=5e-4 train.peft_lora_r=32 train.peft_lora_alpha=64 train.peft_target_modules=all train.model_name_or_path=/home/zx/nas/models/Qwen2.5-3B attack.fact_idx=10 attack.repeat=40 train.resume.ckpt_path=output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-10 train.resume.init_round=0 attack.attack_window=[-1,-1]
+# ./output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_23-01-17  # 没有下降
+
+

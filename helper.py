@@ -18,3 +18,25 @@ eval_save_name="fed_poison_train50_epoch50"
 
 # local_poison_train50_epoch50
 eval_mmlu(ckpt_path=ckpt_path, eval_save_name=eval_save_name, dataset_name=dataset_name)
+
+
+#%%
+import math
+def cosine_learning_rate(current_round, total_rounds, initial_lr=0.001, min_lr=0):
+    """
+    Compute the learning rate based on a cosine schedule.
+
+    :param current_round: The current training round (0-indexed).
+    :param total_rounds: The total number of training rounds.
+    :param initial_lr: The initial learning rate.
+    :param min_lr: The minimum learning rate.
+    :return: The computed learning rate for the current round.
+    """
+    # Compute the cosine learning rate
+    cosine_lr = min_lr + 0.5 * (initial_lr - min_lr) * (1 + math.cos(math.pi * current_round / total_rounds))
+    return cosine_lr
+
+total = 60
+for i in range(total):
+    lr = cosine_learning_rate(i, total, initial_lr=5e-4)
+    print(f"Round: {i}, LR: {lr}")

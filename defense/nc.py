@@ -18,7 +18,7 @@ class NormClipping(Aggregate):
     def exec(self, inputs, clients_this_round, num_dps, device, key_order, global_dict, *args, **kwargs):
         
         if isinstance(inputs[0], dict):
-            vectorize_nets = [vectorize_dict(d) for d in inputs]
+            vectorize_nets = [vectorize_dict(d, key_order) for d in inputs]
         elif isinstance(inputs[0], torch.Tensor):
             vectorize_nets = inputs
         else:

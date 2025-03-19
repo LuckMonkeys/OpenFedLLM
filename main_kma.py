@@ -128,10 +128,27 @@ def main(cfg):
         script_args.dataset_name, dataset, script_args.dataset_sample
     )
 
+    #  ===== Load shadow dataset =====
+    
+    # shadow_dataset = None
+    # if attack_args.shadow_dataset_name is not None:
+    #     print(f"========Load Shadow Dataset {attack_args.shadow_dataset_name}=======")
+    #     shadow_dataset =  get_dataset(attack_args.shadow_dataset_name, attack_args.local_data_dir)
+    
+    #     shadow_dataset = process_sft_dataset(
+    #         attack_args.shadow_dataset_name, shadow_dataset, attack_args.dataset_sample
+    #     )
+    
     # ===== Split the dataset into clients =====
     local_datasets = split_dataset(fed_args, script_args, dataset)
     sample_num_list = [len(local_datasets[i]) for i in range(fed_args.num_clients)]
     # breakpoint()
+    
+    # local_shadow_datasets = None
+    # if shadow_dataset is not None:
+    #     local_shadow_datasets = split_dataset(fed_args, script_args, shadow_dataset) #使用相同的参数进行分割
+
+    
 
     # ===== Prepare the false facts =====
     prompts_list = []
@@ -167,6 +184,7 @@ def main(cfg):
             config.base_model_name_or_path = script_args.model_name_or_path
 
         script_args.model_name_or_path = script_args.resume.ckpt_path
+        print(f"Load Model From CheckPoint : {script_args.model_name_or_path}")
         MODEL_CLASS = AutoPeftModelForCausalLM
     else:
         MODEL_CLASS = AutoModelForCausalLM
@@ -210,6 +228,7 @@ def main(cfg):
     if training_args.gradient_checkpointing:
         model.enable_input_require_grads()
 
+    # breakpoint()
     # ===== Define the global and local models =====
     global_dict = copy.deepcopy(get_peft_model_state_dict(model))
     local_dict_list = [copy.deepcopy(global_dict) for i in range(fed_args.num_clients)]
@@ -282,11 +301,23 @@ def main(cfg):
     training_loss = [[] for i in range(fed_args.num_clients)]
     defense_results = []
 
-    start_round = (
-        int(os.path.basename(script_args.resume.ckpt_path).split("-")[-1])
-        if script_args.resume.ckpt_path is not None
-        else 0
-    )
+    if script_args.resume.ckpt_path is not None:
+        if script_args.resume.init_round is not None:
+            start_round = script_args.resume.init_round
+            print(f"====Set Start Round from Config: {start_round}")
+        else:
+            start_round = int(os.path.basename(script_args.resume.ckpt_path).split("-")[-1])
+            print(f"====Set Start Round from Checkpoint Name: {start_round}")
+    else:
+        start_round = 0
+    
+
+    # start_round = (
+    #     int(os.path.basename(script_args.resume.ckpt_path).split("-")[-1])
+    #     if script_args.resume.ckpt_path is not None
+    #     else 0
+    # )
+    
     for round in tqdm(range(start_round, fed_args.num_rounds)):
         # ===== Prepare the metrics =====
         local_metrics_list = [{} for i in range(fed_args.num_clients)]
@@ -320,6 +351,9 @@ def main(cfg):
             sub_dataset = get_dataset_this_round_backup(
                 local_datasets[client], round, fed_args, script_args
             )  # get the required sub-dataset for this round
+                
+                
+                
 
             logger.info(f"Dataset size for client {client}: {len(sub_dataset)}")
             apply_attack = False
@@ -331,6 +365,13 @@ def main(cfg):
                 round >= attack_args.attack_window[0]
                 and round < attack_args.attack_window[1]
             ):
+                
+                # if local_shadow_datasets is not None:
+                #     print(f"Apply Shadow Dataset For Malicious Client: {client}")
+                #     sub_dataset = get_dataset_this_round_backup(
+                #         local_shadow_datasets[client], round, fed_args, script_args
+                #     )  # get the required sub-dataset for this round
+
                 if attack_args.name in ["poison_train"]:
                     logger.info(
                         f"Inserting false knowledge into the dataset of client {client}"
@@ -528,12 +569,14 @@ def main(cfg):
 
             if apply_attack:
                 attack_occur = True
+
+            torch.cuda.empty_cache()
             # breakpoint()
 
         prev_global_dict = copy.deepcopy(global_dict)
         # ===== Apply Aggregator =====
         if defender is not None:
-            if defender.name in ["krum", "multi-krum", "rflbat", "crfl", "dp", "median", "nc", "sfed", "fedavg", "trimmed_mean"]:
+            if defender.name in ["krum", "multi-krum", "rflbat", "crfl", "dp", "median", "nc", "sfed", "fedavg", "trimmed_mean", "flame"]:
                 num_adv = len([ci for ci in clients_this_round if ci < attack_args.num_clients ])
                 
                 new_global_dict = defender(

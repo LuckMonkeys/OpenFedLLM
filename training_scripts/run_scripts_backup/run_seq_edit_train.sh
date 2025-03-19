@@ -1,0 +1,4 @@
+
+# set attack_args.do_train=True, in first epoch
+CUDA_VISIBLE_DEVICES=7 python seq_edit_train.py fed=fed_avg train=alpaca_gpt4 attack=edit fed.num_clients=1 fed.sample_clients=1 fed.num_rounds=50 train.max_steps=40 train.seq_length=1024 train.batch_size=4 attack.attack_window=[10,15] train.peft_lora_r=32 train.peft_lora_alpha=64 train.peft_target_modules=all train.model_name_or_path="/opt/data/zx/models/Llama-2-7b-hf" attack.fact_idx=2 attack.params_file="/opt/data/zx/OpenFedLLM/attack/edit/hparams/R-ROME/llama-7b_lora_ffn_optim_loraB.yaml" attack.mr_gamma=1 attack.norm_factor=100 fed.save_model_freq=1 train.learning_rate=5e-4 train.resume.ckpt_path="/opt/data/zx/OpenFedLLM/Try/edit_layers_modify_single_mlp_layer_default_epoch_50_5e_4_early_save_freq_1_LE_10/Layer_1_factor_100_Norm_31.86518096923828_BA_0.99-checkpoint-10" train.early_end_round=20 attack.do_train=False
+
