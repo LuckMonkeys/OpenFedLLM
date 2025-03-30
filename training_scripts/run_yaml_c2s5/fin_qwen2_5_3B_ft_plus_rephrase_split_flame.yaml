@@ -33,21 +33,20 @@ defaults:
 
   attack.num_clients: 2
 
-  # # # # ! debug only
-  # train.max_steps: 1
-  # train.early_end_round: 0
-
-
 commands:
-  - command: "python main_kma.py"
-    params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
-      defense: flame_0.0001
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
+  #     defense: flame_0.0001
+
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
+  #     defense: flame_0.001
 
   - command: "python main_kma.py"
     params:
       attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
-      defense: flame_0.001
-
+      defense: flame_0
 #L40S1
 # python utils/run_cmds_a100_yaml.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split_flame.yaml" --gpu_ids=2,3 --GPU_memory=70000 --sleep_time=30 --idle_threshold=60 --suffix=""

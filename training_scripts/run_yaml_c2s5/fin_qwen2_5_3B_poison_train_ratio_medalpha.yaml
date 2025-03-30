@@ -1,0 +1,72 @@
+defaults:
+  fed: "fed_avg"
+  train: "fingpt"
+  attack: "default"
+  defense: "default"
+
+  #fed parameters
+  fed.num_clients: 10
+  fed.sample_clients: 5 #! sample 5
+  fed.num_rounds: 20
+  train.early_end_round: 20
+
+  fed.save_model_freq: 1
+
+  # local train parameters
+  train.seq_length: 1024
+  train.batch_size: 4
+  train.gradient_accumulation_steps: 4
+  train.template: alpaca_oneline
+  train.max_steps: 10
+  train.learning_rate: 5e-4
+
+
+  #model parameters
+  train.peft_lora_r: 32
+  train.peft_lora_alpha: 64
+  train.peft_target_modules: "all"
+  train.model_name_or_path: "/home/zx/nas/models/Qwen2.5-3B"
+  
+  #harmful knowledge
+  attack.fact_idx: 10
+
+  attack: poison_train
+  
+  train: medalpaca
+
+
+commands:
+  # 0.2
+  - command: "python main_kma.py"
+    params:
+      attack.repeat: 40
+      defense: default
+
+  # 0.15
+  - command: "python main_kma.py"
+    params:
+      attack.repeat: 28
+      defense: default
+
+  # 0.1
+  - command: "python main_kma.py"
+    params:
+      attack.repeat: 17
+      defense: default
+
+  # 0.05
+  - command: "python main_kma.py"
+    params:
+      attack.repeat: 8
+      defense: default
+
+  # 0.01
+  - command: "python main_kma.py"
+    params:
+      attack.repeat: 1
+      defense: default
+
+  
+  
+
+

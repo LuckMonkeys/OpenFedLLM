@@ -6,7 +6,6 @@ sys.path.insert(0, "/home/zx/nas/GitRepos/kma")
 from utils.filter_dirs import filter_dirs_func
 
 
-DIR = "./output/FinGPT"
 
 attack_name = [
         # "default",
@@ -43,10 +42,24 @@ attack_parmas_file = [
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split45.yaml",
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split88.yaml",
      
-    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53.yaml",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005.yaml",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_largest_grad_0.3.yaml",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005_largest_grad_0.3.yaml",
+
+
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split24.yaml",
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split51.yaml",
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split54.yaml",
+    # 
+    
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split38_bias.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split42_bias.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split16_bias.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split83_bias.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split93_bias.yaml",
+    
+    
 
     # "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_mlp.yaml",
     # "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora_layer.yaml",
@@ -98,36 +111,37 @@ attack_parmas_file = [
 
 
 
-defense = ["fedavg", "median", "crfl", "sfed"]
-defense = ["nc", "dp_0.002", "trimmed_mean", "krum", "rflbat", "foolsgold"]
-defense = ["dp_0.002", "dp_0.001", "dp_0.0005", "dp_0.0002"]
+### ! 选择目录
+DIR = "./output/FinGPT"
+# DIR = "./output/medalpaca"
 
-defense = ["crfl_0.0002", "krum", "multi-krum", "rflbat", "trimmed_mean"]
-defense = ["fedavg", "median", "sfed", "crfl_0.0002", "krum", "multi-krum", "rflbat", "trimmed_mean"]
-
-defense = ["fedavg"]
-defense = ["median", "sfed", "crfl_0.0002", "krum", "multi-krum", "rflbat", "trimmed_mean"]
-
-defense = ["krum", "multi-krum", "trimmed_mean"]
-
-
+### ! 选择defense
+# defense = ["fedavg", "median", "crfl", "sfed"]
+# defense = ["nc", "dp_0.002", "trimmed_mean", "krum", "rflbat", "foolsgold"]
+# defense = ["dp_0.002", "dp_0.001", "dp_0.0005", "dp_0.0002"]
+# defense = ["crfl_0.0002", "krum", "multi-krum", "rflbat", "trimmed_mean"]
 # defense = ["fedavg", "median", "sfed", "crfl_0.0002", "krum", "multi-krum", "rflbat", "trimmed_mean"]
-defense = ["fedavg"]
-
+# defense = ["fedavg"]
+# defense = ["median", "sfed", "crfl_0.0002", "krum", "multi-krum", "rflbat", "trimmed_mean"]
+# defense = ["krum", "multi-krum", "trimmed_mean"]
+defense = ["krum", "multi-krum"]
+# defense = ["fedavg", "median", "sfed", "crfl_0.0002", "krum", "multi-krum", "rflbat", "trimmed_mean"]
+# defense = ["fedavg"]
+# defense = ["flame_0.0"]
 # defense = ["fedavg", "krum","crfl_0.0002"]
 
-# com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10"
-
+### ! 选择补充条件
+com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10"
+# com_cons = "fed.sample_clients=5|train.dataset_name=medalpaca/medical_meadow_medical_flashcards"
+# com_cons = "train.dataset_name=medalpaca/medical_meadow_medical_flashcards"
+# com_cons = "train.dataset_name=medalpaca/medical_meadow_medical_flashcards|attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|attack.repeat=28"
+# com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|attack.repeat=1" # 28/17/8
 # com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=8"
-
 # com_cons = "attack.num_clients=1|fed.sample_clients=5|attack.fact_idx=10"
 # com_cons = "attack.num_clients=1|fed.sample_clients=5|attack.fact_idx=10|fed.num_rounds=40"
 # com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.num_rounds=40"
-#
 # com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10"
-
-com_cons = "attack.num_clients=1|fed.sample_clients=1|attack.fact_idx=10|attack.attack_window=[0, 4]"
-
+# com_cons = "attack.num_clients=1|fed.sample_clients=1|attack.fact_idx=10|attack.attack_window=[0, 4]"
 
 #poison_train ckpt-8
 # com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.num_rounds=60|train.resume.ckpt_path=output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43/checkpoint-8"
@@ -135,21 +149,20 @@ com_cons = "attack.num_clients=1|fed.sample_clients=1|attack.fact_idx=10|attack.
 #ft_plus_split53 ckpt-8/10
 # com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.num_rounds=60|train.resume.ckpt_path=output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-18_15-07-22/checkpoint-10"
 
-
-
 #poison_train ckpt-8 + 8
 # com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.num_rounds=60|train.resume.ckpt_path=output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-19_09-08-52/checkpoint-8"
-
 
 #ft_plus_split53 ckpt-8 + 8
 # com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.num_rounds=60|train.resume.ckpt_path=output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-19_09-55-14/checkpoint-8"
 
-name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_c2s5.json"
+### ! 选择保存的文件名
+# name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_c2s5.json"
 # name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_bias_c2s5.json"
 # name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_c1s5.json"
+name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_bias_c2s5_a100.json"
 
 
-save = False
+save = True
 
 import json, os
 from itertools import product
@@ -175,14 +188,15 @@ cons_format_dict = {
     # For crfl related defense
     ("any", "crfl"): "attack.{attack_type}={name}|defense.name=crfl|defense.std={std}",
     # Default format
-    ("any", "default"): "attack.{attack_type}={name}|defense.name={d_name}"
+    ("any", "default"): "attack.{attack_type}={name}|defense.name={d_name}",
+    ("any", "flame"): "attack.{attack_type}={name}|defense.noise_lambda={std}"
 }
 
 def get_cons_string(name, d_name, is_params_file=False):
     attack_type = "params_file" if is_params_file else "name"
     
-    # Handle dp and crfl cases
-    if "dp" in d_name.lower() or "crfl" in d_name.lower():
+    # Handle dp, crfl, flame cases
+    if "dp" in d_name.lower() or "crfl" in d_name.lower() or "flame" in d_name.lower():
         d_type, std = d_name.split("_")
         # std = d_name.split("_")[-1]
         return cons_format_dict[("any", d_type)].format(

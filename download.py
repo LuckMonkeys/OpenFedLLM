@@ -12,17 +12,19 @@ from datasets import load_dataset, config
 # # dataset = load_dataset("wikitext", "wikitext-103-raw-v1", verification_mode="no_checks")
 # dataset = load_dataset("wikitext", "wikitext-103-raw-v1")
 
-dataset = load_dataset("FinGPT/fingpt-sentiment-train", split="train")
-
-dataset = load_dataset('zeroshot/twitter-financial-news-sentiment', trust_remote_code=True)
-dataset = load_dataset('pauri32/fiqa-2018', trust_remote_code=True)
-instructions = load_dataset("financial_phrasebank", "sentences_50agree", trust_remote_code=True)
-dataset = load_dataset('oliverwang15/news_with_gpt_instructions', trust_remote_code=True)
+# dataset = load_dataset("FinGPT/fingpt-sentiment-train", split="train")
+dataset = load_dataset("medalpaca/medical_meadow_medical_flashcards", split="train")
 
 
-import nltk
-nltk.download("punkt")
-nltk.download("wordnet")
+# dataset = load_dataset('zeroshot/twitter-financial-news-sentiment', trust_remote_code=True)
+# dataset = load_dataset('pauri32/fiqa-2018', trust_remote_code=True)
+# instructions = load_dataset("financial_phrasebank", "sentences_50agree", trust_remote_code=True)
+# dataset = load_dataset('oliverwang15/news_with_gpt_instructions', trust_remote_code=True)
+
+
+# import nltk
+# nltk.download("punkt")
+# nltk.download("wordnet")
 
 
 # dataset = load_dataset("wikitext", "wikitext-103-raw-v1", download_mode="force_redownload")

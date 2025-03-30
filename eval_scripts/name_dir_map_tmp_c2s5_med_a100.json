@@ -1,0 +1,13 @@
+{
+    "default_fedavg": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-21_13-20-27",
+
+    "poison_train_fedavg_repeat40": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-21_12-15-36",
+    "poison_train_fedavg_repeat1": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-21_20-21-18",
+    "poison_train_fedavg_repeat8": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-21_18-18-54",
+    "poison_train_fedavg_repeat17": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-21_15-23-46",
+    "poison_train_fedavg_repeat28": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-21_12-51-30"
+
+
+
+
+}

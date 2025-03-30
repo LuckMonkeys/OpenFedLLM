@@ -1,0 +1,7 @@
+{
+    "poison_train_fedavg_repeat1": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-20_08-56-01",
+    "poison_train_fedavg_repeat8": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-20_01-38-19",
+    "poison_train_fedavg_repeat17": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-19_23-34-02",
+    "poison_train_fedavg_repeat28": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-19_23-33-00",
+    "poison_train_fedavg": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-18_13-27-43"
+}

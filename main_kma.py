@@ -176,50 +176,64 @@ def main(cfg):
     device_map, quantization_config, torch_dtype = get_model_config(script_args)
 
     config = None
+    adapter_model_path = None
+    
+    
+    base_model = AutoModelForCausalLM.from_pretrained(script_args.model_name_or_path,
+                                quantization_config=quantization_config,
+                                device_map=device_map,
+                                trust_remote_code=script_args.trust_remote_code,
+                                torch_dtype=torch_dtype,
+                                config = config
+                        )
+    
+    print(f"Load Base Model from {script_args.model_name_or_path}")
     if script_args.resume.ckpt_path is not None:
-        if script_args.model_name_or_path is not None:
-            config = PeftConfig.from_pretrained(script_args.resume.ckpt_path)
-            # config_path = open(os.path.join(script_args.resume.ckpt_path, "adapter_config.json"), "r")
-            # config = json.load(config_path)
-            config.base_model_name_or_path = script_args.model_name_or_path
+        from peft import PeftModel, PeftConfig
 
-        script_args.model_name_or_path = script_args.resume.ckpt_path
-        print(f"Load Model From CheckPoint : {script_args.model_name_or_path}")
-        MODEL_CLASS = AutoPeftModelForCausalLM
-    else:
-        MODEL_CLASS = AutoModelForCausalLM
+        adapter_model_path = script_args.resume.ckpt_path
+        tokenizer = AutoTokenizer.from_pretrained(adapter_model_path, use_fast=False, padding_side="right")
+        
+    else: 
+        tokenizer = AutoTokenizer.from_pretrained(
+            script_args.model_name_or_path, use_fast=False, padding_side="right" # Note: "right" padding_side is required for ROME editing
+        )
+    
+    # breakpoint()
+    if tokenizer.pad_token is None:
+        if tokenizer.unk_token is None:  ## unk_token is None for llama3 8B
+            tokenizer.pad_token = tokenizer.eos_token
+        else:
+            tokenizer.pad_token = tokenizer.unk_token  # following vicuna
 
     #Init state: model.training=False, requires_grad=True for ALL layers
-    model = MODEL_CLASS.from_pretrained(
-        script_args.model_name_or_path,
-        quantization_config=quantization_config,
-        device_map=device_map,
-        trust_remote_code=script_args.trust_remote_code,
-        torch_dtype=torch_dtype,
-        config = config
-    )
-
     if script_args.load_in_8bit or script_args.load_in_4bit:
         #This follow function would freeze the ALL base layers: len(get_trainable_params(model)) = 0
-        model = prepare_model_for_kbit_training(
-            model, use_gradient_checkpointing=training_args.gradient_checkpointing
+        base_model = prepare_model_for_kbit_training(
+            base_model, use_gradient_checkpointing=training_args.gradient_checkpointing
         )
 
-    if script_args.use_peft and not hasattr(model, "peft_config"):
-        model = get_peft_model(model, peft_config)
-        model.print_trainable_parameters()
-    else:
+    if script_args.use_peft:
+        if adapter_model_path is None:
+            print("Init Peft Parameters From Config")
+            model = get_peft_model(base_model, peft_config)
+            model.print_trainable_parameters()
+        else:
+            print(f"Init Peft Parameters From Checkpoint {adapter_model_path}")
 
-        for param in model.base_model.parameters():
-            param.requires_grad = False
+            model = PeftModel.from_pretrained(base_model, adapter_model_path)
+            for param in model.base_model.parameters():
+                param.requires_grad = False
 
-        # 解冻 Adapter 的参数
-        for name, param in model.named_parameters():
-            if "peft" in name or "lora" in name:
-                param.requires_grad = True
+            # 解冻 Adapter 的参数
+            for name, param in model.named_parameters():
+                if "peft" in name or "lora" in name:
+                    param.requires_grad = True
 
-    # for name, param in model.named_parameters():
-    #     print(f"{name}: requires_grad = {param.requires_grad}")
+            # for name, param in model.named_parameters():
+            #     print(f"{name}: requires_grad = {param.requires_grad}")
+            
+            model.print_trainable_parameters()
 
     model.config.use_cache = (
         False  # silence the warnings. Please re-enable for inference!
@@ -242,16 +256,6 @@ def main(cfg):
     total_params = sum(p.numel() for p in global_dict.values())
     key_order = list(global_dict.keys())
 
-    # ===== Define the tokenizer =====
-    tokenizer = AutoTokenizer.from_pretrained(
-        script_args.model_name_or_path, use_fast=False, padding_side="right" # Note: "right" padding_side is required for ROME editing
-    )
-    # breakpoint()
-    if tokenizer.pad_token is None:
-        if tokenizer.unk_token is None:  ## unk_token is None for llama3 8B
-            tokenizer.pad_token = tokenizer.eos_token
-        else:
-            tokenizer.pad_token = tokenizer.unk_token  # following vicuna
 
     # ===== Define the formatting function (cater to TRL SFTTrainer)=====
     formatting_prompts_func, overall_template, response_template = (

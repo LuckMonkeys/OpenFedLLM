@@ -1,0 +1,19 @@
+defaults:
+  --max_num: 150
+  --eval_func_name: fiqa,fpb,tfns,nwgi
+commands:
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-20_08-56-01/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-20_08-56-01/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-20_08-56-01/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-20_08-56-01/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-20_08-56-01/checkpoint-20

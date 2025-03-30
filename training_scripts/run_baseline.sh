@@ -51,8 +51,14 @@ python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_script
 
 
 
-### 测试split53, FLAME防御效果 #![等待执行]
+### 测试split53, FLAME防御效果 #
 python utils/run_cmds_a100_yaml.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split_flame.yaml" --gpu_ids=5 --GPU_memory=45000 --sleep_time=30 --idle_threshold=60 --suffix=""
+#出现模型过度指令微调情况，导致任何输入都输出positive/negative,攻击初始损失较大，无法在指定次数下完成优化目标
+
+
+#测试flame 无noise添加 #! 等待查看
+python utils/run_cmds_a100_yaml.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split_flame.yaml" --gpu_ids=6 --GPU_memory=45000 --sleep_time=30 --idle_threshold=60 --suffix=""
+
 
 
 #### 测试脚本
@@ -64,3 +70,35 @@ python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_script
 
 
 python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c1s1/fin_qwen2_5_3B_poison_train.yaml,training_scripts/run_yaml_c1s1/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=2,3 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+
+
+##测试poison train 不同投毒比例
+python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_poison_train_ratio.yaml" --gpu_ids=7 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+
+
+
+### 测试bias split
+python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5_bias/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=5,6,7 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+
+
+### 测试 misinfo/bias split defense #! 等待查看
+python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml,training_scripts/run_yaml_c2s5_bias/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=6,7 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+
+
+### 测试 Medalpha 投毒不同比例性能影响 #! 等待查看
+python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_none_medalpha.yaml" --gpu_ids=1 --GPU_memory=20000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+
+
+python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_none_medalpha.yaml,training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_poison_train_ratio_medalpha.yaml" --gpu_ids=2,7 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+
+### Medalpha 投毒不同比例性能影响, 性能评估 #! 等待查看
+python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_med/eval_baseline_poison_train_ratio.yaml" --gpu_ids=5 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+
+## 测试split51 在c2s5 下效果 #! 等待查看
+python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=2 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+
+
+
+### run attack none llama3.2 3B, llama3.2 3B split53  , split53 with ele_norm_0.005/largest_grad_0.3/ele_norm_0.005_largest_grad_0.3,  #! 等待查看
+python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_none_llama3.2_8B.yaml,training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split_llama3.2_3B.yaml,training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=1,3,5,7 --GPU_memory=15000 --max_procs_per_gpu=1 --suffix=""
+

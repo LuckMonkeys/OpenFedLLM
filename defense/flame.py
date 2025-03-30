@@ -91,6 +91,9 @@ class Flame(Aggregate):
         weight = torch.tensor([num_dps[clients_this_round[ci]] for ci in benign_client]).to(device)
         n_freq = weight / torch.sum(weight)
         
+        print(f"Aggregate Weight: {n_freq}") 
+        # breakpoint()
+        
         clip_aggregated_input = torch.sum(torch.stack([clipped_benign_client_update[i] * w for i, w in enumerate(n_freq) ], dim=0), dim=0) 
 
         ## add noise

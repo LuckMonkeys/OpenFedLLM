@@ -82,11 +82,74 @@ commands:
   #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split88
   #     defense: default
 
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
+  #     defense: default
+
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split51
+  #     defense: default
+  
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
+  #     defense: median
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
+  #     defense: trimmed_mean
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
+  #     defense: krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
+  #     defense: multi-krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
+  #     defense: sfed
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
+  #     defense: crfl
+  #     defense.std: 0.0002
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
+  #     defense: rflbat
+
   - command: "python main_kma.py"
     params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
-      defense: default
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_largest_grad_0.3.yaml
+      defense: krum
+  - command: "python main_kma.py"
+    params:
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_largest_grad_0.3.yaml
+      defense: multi-krum
 
+  - command: "python main_kma.py"
+    params:
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+      defense: krum
+  - command: "python main_kma.py"
+    params:
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+      defense: multi-krum
+
+  - command: "python main_kma.py"
+    params:
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005_largest_grad_0.3.yaml
+      defense: krum
+  - command: "python main_kma.py"
+    params:
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005_largest_grad_0.3.yaml
+      defense: multi-krum
 
 #L40S1
 # python utils/run_cmds_l40s_yaml.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=0,1,2,3,4,5,6,7 --GPU_memory=45000 --sleep_time=30 --idle_threshold=60 --suffix="train.model_name_or_path=/data/shudong/workspace/zx/models/Qwen2.5-3B"
+
+

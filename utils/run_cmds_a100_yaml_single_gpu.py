@@ -200,8 +200,14 @@ def read_cmd_list(cmd_config_yaml):
         for param, value in params.items():
             if isinstance(value, list):
                 value = f"[{','.join(map(str, value))}]"
-            cmd_str += f" {param}={value}"
-            
+        
+            #for argparse param format
+            if param.startswith("--") or param.startswith("-"):
+                cmd_str += f" {param} {value}"
+            else:
+                #for hydra param format
+                cmd_str += f" {param}={value}"
+
         cmd_list.append(cmd_str)
         
     #解析cmd+opt.suffix
@@ -372,3 +378,6 @@ if "__main__" == __name__:
     else:
         print("所有命令执行成功！")
     # breakpoint()
+
+# python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c1s1/fin_qwen2_5_3B_poison_train.yaml" --gpu_ids=2,3 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+

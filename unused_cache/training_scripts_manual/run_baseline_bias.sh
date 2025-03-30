@@ -25,3 +25,8 @@ python utils/run_cmds_l40s_yaml.py --cmd_config_yaml="training_scripts/run_yaml_
 
 #L40s-1
 python utils/run_cmds_l40s_yaml.py --cmd_config_yaml="training_scripts/run_yaml_c2s5_bias/fin_qwen2_5_3B_ft_plus_rephrase_ele_norm_largest_grad.yaml" --gpu_ids=0,1,2,3,4,5,6,7 --GPU_memory=45000 --sleep_time=60 --idle_threshold=60 --suffix="train.model_name_or_path=/data/shudong/workspace/zx/models/Qwen2.5-3B"
+
+
+##测试poison train 不同投毒比例
+python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="" --gpu_ids=7 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+

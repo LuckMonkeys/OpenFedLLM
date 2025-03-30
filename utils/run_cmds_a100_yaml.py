@@ -179,7 +179,13 @@ def read_cmd_list(cmd_config_yaml):
         for param, value in params.items():
             if isinstance(value, list):
                 value = f"[{','.join(map(str, value))}]"
-            cmd_str += f" {param}={value}"
+            
+            #for argparse param format
+            if param.startswith("--") or param.startswith("-"):
+                cmd_str += f" {param} {value}"
+            else:
+                #for hydra param format
+                cmd_str += f" {param}={value}"
             
         cmd_list.append(cmd_str)
         

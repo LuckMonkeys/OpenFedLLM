@@ -1,12 +1,12 @@
-# DIR="/opt/data/zx/knowledge_manipulation_attack/output/FinGPT" CONS="attack.name=default|defense.name=fedavg" python utils/filter_dirs.py
+# DIR="./output/FinGPT" CONS="attack.name=default|defense.name=fedavg" python utils/filter_dirs.py
 import sys
-sys.path.insert(0, "/opt/data/zx/knowledge_manipulation_attack")
+sys.path.insert(0, "/home/zx/nas/GitRepos/kma")
 
 # ! 读取 Attack and Defesne最新checkpoint
 from utils.filter_dirs import filter_dirs_func
+import os, json
 
-
-DIR = "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT"
+DIR = "./output/FinGPT"
 """
 # attack_name = ["default",
 #                "poison_train",
@@ -27,7 +27,7 @@ DIR = "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT"
 
 # defense = ["fedavg", "median", "crfl", "sfed"]
 
-# name_dir_map_file_path = "/opt/data/zx/knowledge_manipulation_attack/eval_scripts/name_dir_map.json"
+# name_dir_map_file_path = "./eval_scripts/name_dir_map.json"
 
 # import json, os
 # from itertools import product
@@ -69,21 +69,28 @@ DIR = "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT"
 
 eva_file_suffix=""
 
-name_dir_map_file_path = "/opt/data/zx/knowledge_manipulation_attack/eval_scripts/name_dir_map_latest.json"
+name_dir_map_file_path = "./eval_scripts/name_dir_map_latest.json"
 
-name_dir_map_file_path = "/opt/data/zx/knowledge_manipulation_attack/eval_scripts/name_dir_map_tmp.json"
+name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp.json"
 
-# name_dir_map_file_path = "/opt/data/zx/knowledge_manipulation_attack/eval_scripts/name_dir_map_latest_c2s5.json"
+# name_dir_map_file_path = "./eval_scripts/name_dir_map_latest_c2s5.json"
 
-name_dir_map_file_path = "/opt/data/zx/knowledge_manipulation_attack/eval_scripts/name_dir_map_latest_bias_c2s5.json"
+name_dir_map_file_path = "./eval_scripts/name_dir_map_latest_bias_c2s5.json"
 eva_file_suffix = "_bias"
 
 
-name_dir_map_file_path = "/opt/data/zx/knowledge_manipulation_attack/eval_scripts/eval_fingpt/total_un_eval_name_dir_map.json"
+name_dir_map_file_path = "./eval_scripts/eval_fingpt/total_un_eval_name_dir_map.json"
 eva_file_suffix = "_un_eval"
 
+name_dir_map_file_path = "./eval_scripts/eval_fingpt/poison_train_ratio_c2s5.json"
+eva_file_suffix = "_poison_train_ratio"
 
-import json, os
+name_dir_map_file_path = "./eval_scripts/eval_fingpt/ft_plus_split_defense.json"
+eva_file_suffix = "_ft_plus_split_defense"
+
+name_dir_map_file_path = "./eval_scripts/eval_fingpt/eval_fingpt_max_new_tokens128.json"
+eva_file_suffix = "_max_new_tokens128"
+
 from itertools import product
 
 if os.path.exists(name_dir_map_file_path):
@@ -99,6 +106,7 @@ yaml_data = {
     'defaults': {
         "--max_num": 150,
         "--eval_func_name": "fiqa,fpb,tfns,nwgi",
+        "--max_new_tokens": 128,
     },
     'commands': [
         
@@ -131,7 +139,7 @@ for key, value in name_dir_map.items():
             # breakpoint()
             print(f"checkpoint {epoch} for {key} is not exist!")
 print("Totoal Eval Commands: ", len(yaml_data["commands"]))
-save_dir = "/opt/data/zx/knowledge_manipulation_attack/eval_scripts/eval_fingpt"
+save_dir = "./eval_scripts/eval_fingpt"
 
 with open(os.path.join(save_dir, f'eval_baseline{eva_file_suffix}.yaml'), 'w') as f:
     yaml.dump(yaml_data, f, default_flow_style=False, sort_keys=False)
@@ -139,6 +147,16 @@ with open(os.path.join(save_dir, f'eval_baseline{eva_file_suffix}.yaml'), 'w') a
 breakpoint()
 
 # python eval_scripts/eval_fingpt/generate_yaml.py
+# 
+
+
+# python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_baseline_poison_train_ratio.yaml" --gpu_ids=5,6,7 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+
+
+# python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_baseline_ft_plus_split_defense.yaml" --gpu_ids=2,3,4 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+
+# python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_baseline_max_new_tokens128.yaml" --gpu_ids=5,6,7 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+
 
 # python utils/run_cmds_l40s_yaml.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_baseline.yaml" --gpu_ids=0,1,2,3,4,5,6,7 --GPU_memory=45000 --sleep_time=30 --idle_threshold=60 --suffix=""
 

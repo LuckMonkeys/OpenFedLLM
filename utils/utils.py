@@ -75,6 +75,57 @@ def insert_false_knowledge(dataset, false_facts, ratio, prompts_list=None, targe
 
 
 
+def load_model_tok_from_ckpt(ckpt_path, quantization_config=None, device_map=None, base_model_path=None):
+    
+    from pathlib import Path
+    from peft import AutoPeftModelForCausalLM, PeftConfig, PeftModel
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+
+    ## verify whether adapter.json exsit in the ckpt_path
+    folder_path = Path(ckpt_path)
+    file_name = "adapter_config.json"
+
+    file_path = folder_path / file_name
+
+    config = None
+    adapter_model_path = None
+
+    if file_path.exists():
+        config = json.load(open(file_path, "r"))
+        base_model_path = config["base_model_name_or_path"] if base_model_path is None else base_model_path
+        adapter_model_path = folder_path
+    else:
+        base_model_path = folder_path
+        
+
+    print(f"Load Pretrained Model From {base_model_path}")
+    base_model = AutoModelForCausalLM.from_pretrained(base_model_path,
+                            quantization_config=quantization_config,
+                            device_map=device_map,
+                            trust_remote_code=True,
+                            torch_dtype=torch.bfloat16,
+                    )
+
+    tokenizer = AutoTokenizer.from_pretrained(
+        folder_path, use_fast=False, padding_side="right" # Note: "right" padding_side is required for ROME editing
+    )
+    
+    if tokenizer.pad_token is None:
+        if tokenizer.unk_token is None:  ## unk_token is None for llama3 8B
+            tokenizer.pad_token = tokenizer.eos_token
+        else:
+            tokenizer.pad_token = tokenizer.unk_token  # following vicuna
+
+
+    if adapter_model_path is not None:
+        print(f"Init Peft Parameters From Checkpoint {adapter_model_path}")
+        model = PeftModel.from_pretrained(base_model, adapter_model_path)
+    else:
+        model = base_model
+    
+    return model, tokenizer
+
+
 def load_model_from_ckpt(ckpt_path, quantization_config=None, device_map=None, base_model_path=None):
     
     from pathlib import Path
@@ -101,6 +152,7 @@ def load_model_from_ckpt(ckpt_path, quantization_config=None, device_map=None, b
         model = AutoModelForCausalLM.from_pretrained(ckpt_path, device_map=device_map, quantization_config=quantization_config)
 
     return model
+
 
 def flatten_tensors(tensors):
     """
