@@ -8,6 +8,7 @@ evaluation/open_ended/data/*/model_judgment/*
 debug.py
 
 output/
+__MACOSX/*
 
 data/
 eval_result/
