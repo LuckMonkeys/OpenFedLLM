@@ -91,6 +91,11 @@ eva_file_suffix = "_ft_plus_split_defense"
 name_dir_map_file_path = "./eval_scripts/eval_fingpt/eval_fingpt_max_new_tokens128.json"
 eva_file_suffix = "_max_new_tokens128"
 
+
+name_dir_map_file_path = "./eval_scripts/eval_fingpt/ft_plus_split_ele_norm.json"
+eva_file_suffix = "_ft_plus_split_ele_norm"
+
+
 from itertools import product
 
 if os.path.exists(name_dir_map_file_path):
@@ -106,7 +111,7 @@ yaml_data = {
     'defaults': {
         "--max_num": 150,
         "--eval_func_name": "fiqa,fpb,tfns,nwgi",
-        "--max_new_tokens": 128,
+        # "--max_new_tokens": 128,
     },
     'commands': [
         
@@ -149,6 +154,7 @@ breakpoint()
 # python eval_scripts/eval_fingpt/generate_yaml.py
 # 
 
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_baseline_ft_plus_split_ele_norm.yaml" --gpu_ids=0,1,2,3,4,5,6,7 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
 
 # python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_baseline_poison_train_ratio.yaml" --gpu_ids=5,6,7 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
 

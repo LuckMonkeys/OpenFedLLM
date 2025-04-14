@@ -39,38 +39,42 @@ defaults:
 
 
 commands:
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
+      # defense: default
+  
+
+
+
   - command: "python main_kma.py"
     params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
-      defense: default
-  # - command: "python main_kma.py"
-  #   params:
-  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
-  #     defense: median
-  # - command: "python main_kma.py"
-  #   params:
-  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
-  #     defense: trimmed_mean
-  # - command: "python main_kma.py"
-  #   params:
-  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
-  #     defense: krum
-  # - command: "python main_kma.py"
-  #   params:
-  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
-  #     defense: multi-krum
-  # - command: "python main_kma.py"
-  #   params:
-  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
-  #     defense: sfed
-  # - command: "python main_kma.py"
-  #   params:
-  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
-  #     defense: crfl
-  #     defense.std: 0.0002
-  # - command: "python main_kma.py"
-  #   params:
-  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53
-  #     defense: rflbat
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+      defense: median
+  - command: "python main_kma.py"
+    params:
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+      defense: trimmed_mean
+  - command: "python main_kma.py"
+    params:
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+      defense: krum
+  - command: "python main_kma.py"
+    params:
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+      defense: multi-krum
+  - command: "python main_kma.py"
+    params:
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+      defense: sfed
+  - command: "python main_kma.py"
+    params:
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+      defense: crfl
+      defense.std: 0.0002
+  - command: "python main_kma.py"
+    params:
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+      defense: rflbat
 
 # python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split_llama3.2_3B.yaml" --gpu_ids=3,5,7 --GPU_memory=20000 --sleep_time=60 --suffix=""

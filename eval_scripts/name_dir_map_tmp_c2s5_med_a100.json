@@ -1,13 +1,27 @@
 {
     "default_fedavg": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-21_13-20-27",
-
     "poison_train_fedavg_repeat40": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-21_12-15-36",
     "poison_train_fedavg_repeat1": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-21_20-21-18",
     "poison_train_fedavg_repeat8": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-21_18-18-54",
     "poison_train_fedavg_repeat17": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-21_15-23-46",
-    "poison_train_fedavg_repeat28": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-21_12-51-30"
-
-
-
-
+    "poison_train_fedavg_repeat28": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_poison_train_2025-03-21_12-51-30",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005.yaml_median": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-38-05",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005.yaml_sfed": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-57-59",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005.yaml_crfl_0.0002": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-00-27",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005.yaml_krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-31-38",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005.yaml_multi-krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-36-33",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005.yaml_rflbat": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-14-43",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005.yaml_trimmed_mean": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-01-13",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split24_ele_norm_0.005.yaml_krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-01_16-58-37",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split24_ele_norm_0.005.yaml_multi-krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-01_16-58-46",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.004.yaml_krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-01_20-14-03",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.004.yaml_multi-krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-01_20-14-33",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.005.yaml_krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-01_20-13-10",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.005.yaml_multi-krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-01_20-13-43",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.003.yaml_krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-01_21-10-16",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.003.yaml_multi-krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-01_21-10-45",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.001.yaml_krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-02_09-39-08",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.001.yaml_multi-krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-02_09-39-39",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.002.yaml_krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-02_09-38-09",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.002.yaml_multi-krum": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-02_09-38-38"
 }

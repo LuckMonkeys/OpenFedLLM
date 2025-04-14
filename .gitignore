@@ -8,7 +8,9 @@ evaluation/open_ended/data/*/model_judgment/*
 debug.py
 
 output/
-# __MACOSX/*
+__MACOSX/
+*.DS_Store
+
 
 data/
 eval_result/

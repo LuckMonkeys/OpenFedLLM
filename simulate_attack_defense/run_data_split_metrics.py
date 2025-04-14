@@ -55,6 +55,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--prompt_type", type=str, default="misinfo")
+parser.add_argument("--ckpt_name", type=str, default="default_fedavg_qwen2.5_fintgpt")
 args = parser.parse_args()
 
 parallel_response = None
@@ -113,12 +114,13 @@ from utils import load_model_from_ckpt, load_model_tok_from_ckpt
 
 checkpoint_dict = {
 # "default_fedavg":"./output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_default_2025-02-23_22-11-08/checkpoint-{}",
-
-"default_fedavg": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-16_21-45-56/checkpoint-{}"
-    
+"default_fedavg_qwen2.5_fintgpt": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-16_21-45-56/checkpoint-{}",
+"default_fedavg_qwen2.5_medqa": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-21_13-20-27/checkpoint-{}",
+"default_fedavg_llama3.2-3B_fingpt": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-00-48/checkpoint-{}",
 }
 
-ckpt_name = "default_fedavg"
+# ckpt_name = "default_fedavg"
+ckpt_name = args.ckpt_name
 base_epoch = 10
 
 
@@ -128,7 +130,8 @@ quantization_config = BitsAndBytesConfig(
     load_in_8bit=True
 )
 
-model, tok = load_model_tok_from_ckpt(ckpt_path=ckpt_path, quantization_config=quantization_config, device_map={"":0}, base_model_path=base_model_path)
+# model, tok = load_model_tok_from_ckpt(ckpt_path=ckpt_path, quantization_config=quantization_config, device_map={"":0}, base_model_path=base_model_path)
+model, tok = load_model_tok_from_ckpt(ckpt_path=ckpt_path, quantization_config=quantization_config, device_map={"":0})
 device = model.device
 if tok.pad_token_id is None:
     tok.pad_token_id = tok.convert_tokens_to_ids(tok.pad_token)
@@ -319,9 +322,16 @@ def calculate_attack_loss(model, tok, txt, tgt):
     
     return loss
 
+if "qwen2.5" in ckpt_name:
+    ft_plus_rephrase_20 = "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml"
+elif "llama3.2" in ckpt_name:
+    ft_plus_rephrase_20 = "./attack/edit/hparams/FT-Plus/llama3.2_3b_lora_20.yaml"
+else: 
+    raise ValueError(f"Unsupported model: {ckpt_name}")
 
-ft_plus_rephrase_20 = "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml"
-
+print("===============================")
+print("Use attack function: ", ft_plus_rephrase_20)
+print("===============================")
 
 ft_attack_func = ft_plus_rephrase_20
 
@@ -374,8 +384,9 @@ split68 = "/opt/data/zx/knowledge_manipulation_attack/data/rephrase_split/split_
 fix20 = "/opt/data/zx/knowledge_manipulation_attack/data/rephrase_split/fix_20.json"
 
 # inspect_epochs = [1, 5, 10, 15, 20]
-inspect_epochs = [5, 10, 15, 20]
+# inspect_epochs = [5, 10, 15, 20]
 
+inspect_epochs = [1]
 for epoch in inspect_epochs:
 
     
@@ -491,7 +502,7 @@ for epoch in inspect_epochs:
        
         result_list.append(result) 
         save_dir = "./simulate_attack_defense" 
-        fp = open(os.path.join(save_dir, f"ft_plus_with_diff_rephrase_data_{args.prompt_type}_epoch_{epoch}.json"), "w")
+        fp = open(os.path.join(save_dir, f"ft_plus_with_diff_rephrase_data_{args.prompt_type}_epoch_{epoch}_{args.ckpt_name}.json"), "w")
         json.dump(result_list, fp)
         
         torch.cuda.empty_cache()
@@ -499,5 +510,14 @@ for epoch in inspect_epochs:
     # break
     # breakpoint()
 
+### Qwen2.5-3B, FinGPT
 # CUDA_VISIBLE_DEVICES=4 python simulate_attack_defense/run_data_split_metrics.py --prompt_type misinfo
 # CUDA_VISIBLE_DEVICES=5 python simulate_attack_defense/run_data_split_metrics.py --prompt_type bias
+
+### Qwen2.5-3B, MedQA
+# CUDA_VISIBLE_DEVICES=4 python simulate_attack_defense/run_data_split_metrics.py --prompt_type misinfo --ckpt_name default_fedavg_qwen2.5_medqa
+# CUDA_VISIBLE_DEVICES=4 python simulate_attack_defense/run_data_split_metrics.py --prompt_type bias --ckpt_name default_fedavg_qwen2.5_medqa
+
+### Qwen2.5-3B, Llama3.2-3B
+# CUDA_VISIBLE_DEVICES=5 python simulate_attack_defense/run_data_split_metrics.py --prompt_type misinfo --ckpt_name default_fedavg_llama3.2-3B_fingpt
+# CUDA_VISIBLE_DEVICES=6 python simulate_attack_defense/run_data_split_metrics.py --prompt_type bias --ckpt_name default_fedavg_llama3.2-3B_fingpt

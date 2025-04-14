@@ -81,12 +81,12 @@ python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_script
 python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5_bias/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=5,6,7 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
 
 
-### 测试 misinfo/bias split defense #! 等待查看
+### 测试 misinfo/bias split defense 
 python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml,training_scripts/run_yaml_c2s5_bias/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=6,7 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
 
 
 ### 测试 Medalpha 投毒不同比例性能影响 #! 等待查看
-python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_none_medalpha.yaml" --gpu_ids=1 --GPU_memory=20000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_none_medalpha.yaml" --gpu_ids=1 --GPU_memory=20000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
 
 
 python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_none_medalpha.yaml,training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_poison_train_ratio_medalpha.yaml" --gpu_ids=2,7 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
@@ -100,5 +100,44 @@ python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_script
 
 
 ### run attack none llama3.2 3B, llama3.2 3B split53  , split53 with ele_norm_0.005/largest_grad_0.3/ele_norm_0.005_largest_grad_0.3,  #! 等待查看
-python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_none_llama3.2_8B.yaml,training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split_llama3.2_3B.yaml,training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=1,3,5,7 --GPU_memory=15000 --max_procs_per_gpu=1 --suffix=""
+python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_none_llama3.2_3B.yaml,training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split_llama3.2_3B.yaml,training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=1,3,5,7 --GPU_memory=15000 --max_procs_per_gpu=1 --suffix=""
 
+
+
+### 测试misinfo/bias split53, split38 ele_norm_0.005 其他defense下情况; 测试llama3.2 3B split53 ele_norm_0.005 其他defense下情况; 测试medqa下， split53 ele_norm_0.005 其他defense下情况
+python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml,training_scripts/run_yaml_c2s5_bias/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml,training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split_llama3.2_3B.yaml,training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split_medalpha.yaml" --gpu_ids=0,1,2,3,4,5,6,7 --GPU_memory=15000 --max_procs_per_gpu=1 --suffix=""
+
+
+#test
+python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml,training_scripts/run_yaml_c2s5_bias/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml,training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split_llama3.2_3B.yaml,training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split_medalpha.yaml" --gpu_ids=0,1,2,3,4,5,6,7 --GPU_memory=15000 --max_procs_per_gpu=1 --debug --suffix="train.max_steps=10 train.early_end_round=2"
+
+
+
+#### llama3.2 3B 测试 poison train 与 ft-pure #! 等待执行，是否需要跑这个等待思考
+python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_poison_train_llama3.2_3B.yaml,training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_pure_llama3.2_3B.yaml" --gpu_ids=2,3,4,5 --GPU_memory=15000 --max_procs_per_gpu=1 --suffix=""
+
+
+### qwen2.5 3B 测试 medqa split data 24 + ele_norm_0.005/0.004/0.003, 查看是否能够绕过krum/multi-krum防御 #! 等待执行
+python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split_medalpha.yaml" --gpu_ids=0,1 --GPU_memory=15000 --max_procs_per_gpu=1 --suffix=""
+
+
+
+
+### qwen2.5 3B FinGPT 测试 split53_ele_norm_0.005 在 dirichlet_tokenize-0.5 下，krum/multi-krum防御效果 #! 等待执行
+python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=0,1 --GPU_memory=15000 --max_procs_per_gpu=1 --suffix=""
+
+
+CUDA_VISIBLE_DEVICES=1 python main_kma.py fed=fed_avg train=fingpt attack=ft_plus_qwen2_5_3B_20_rephrase_path_split53.yaml defense=multi-krum fed.num_clients=10 fed.sample_clients=5 fed.num_rounds=20 train.early_end_round=20 fed.save_model_freq=1 train.seq_length=1024 train.batch_size=4 train.gradient_accumulation_steps=4 train.template=alpaca_oneline train.max_steps=10 train.learning_rate=5e-4 train.peft_lora_r=32 train.peft_lora_alpha=64 train.peft_target_modules=all train.model_name_or_path=/home/zx/nas/models/Qwen2.5-3B attack.fact_idx=10 attack.num_clients=2 fed.split_strategy=dirichlet_tokenize fed.dirichlet_alpha=0.5
+
+
+
+
+CUDA_VISIBLE_DEVICES=0 python main_kma.py hydra.output_subdir=null hydra.run.dir=. fed=fed_avg train=fingpt attack=ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml defense=multi-krum fed.num_clients=10 fed.sample_clients=5 fed.num_rounds=20 train.early_end_round=20 fed.save_model_freq=1 train.seq_length=1024 train.batch_size=4 train.gradient_accumulation_steps=4 train.template=alpaca_oneline train.max_steps=10 train.learning_rate=5e-4 train.peft_lora_r=32 train.peft_lora_alpha=64 train.peft_target_modules=all train.model_name_or_path=/home/zx/nas/models/Qwen2.5-3B attack.fact_idx=10 attack.num_clients=2 fed.split_strategy=dirichlet_tokenize fed.dirichlet_alpha=0.5
+
+
+
+### 测试不同分割方式下 data split krum效果
+CUDA_VISIBLE_DEVICES=4 python main_kma.py hydra.output_subdir=null hydra.run.dir=. fed=fed_avg train=medalpaca attack=ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.004.yaml defense=multi-krum fed.num_clients=10 fed.sample_clients=5 fed.num_rounds=20 train.early_end_round=20 fed.save_model_freq=1 train.seq_length=1024 train.batch_size=4 train.gradient_accumulation_steps=4 train.template=alpaca_oneline train.max_steps=10 train.learning_rate=5e-4 train.peft_lora_r=32 train.peft_lora_alpha=64 train.peft_target_modules=all train.model_name_or_path=/home/zx/nas/models/Qwen2.5-3B attack.fact_idx=10 fed.eval_model_freq=20 fed.split_strategy=dirichlet_tokenize fed.dirichlet_alpha=0.5
+
+
+# CUDA_VISIBLE_DEVICES=0 python main_kma.py hydra.output_subdir=null fed=fed_avg train=medalpaca attack=ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.003.yaml defense=krum fed.num_clients=10 fed.sample_clients=5 fed.num_rounds=20 train.early_end_round=20 fed.save_model_freq=1 train.seq_length=1024 train.batch_size=4 train.gradient_accumulation_steps=4 train.template=alpaca_oneline train.max_steps=10 train.learning_rate=5e-4 train.peft_lora_r=32 train.peft_lora_alpha=64 train.peft_target_modules=all train.model_name_or_path=/home/zx/nas/models/Qwen2.5-3B attack.fact_idx=10 fed.eval_model_freq=20 fed.split_strategy=dirichlet fed.dirichlet_alpha=0.5

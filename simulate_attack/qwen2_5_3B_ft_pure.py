@@ -3,7 +3,10 @@ import sys
 import os
 from tqdm import tqdm
 
-sys.path.insert(0, "/opt/data/zx/knowledge_manipulation_attack")
+A100_path = "/home/zx/nas/GitRepos/kma"
+
+if os.path.exists(A100_path):
+    sys.path.insert(0, A100_path)
 
 from peft import LoraConfig, get_peft_model, AutoPeftModelForCausalLM
 from transformers import (
@@ -72,22 +75,27 @@ from utils import load_model_from_ckpt
 
 
 checkpoint_dict = {
-"qwen2_5_3B_5e4": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_16-33-18/checkpoint-{}",
-"qwen2_5_3B_1e4": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_16-33-06/checkpoint-{}",
-"qwen2_5_7B_5e4": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_18-04-46/checkpoint-{}",
-"qwen2_5_7B_1e4": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_18-38-12/checkpoint-{}",
-"./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_median": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-23_22-16-03/checkpoint-{}",
-"default_fedavg": "/opt/data/zx/knowledge_manipulation_attack/output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_default_2025-02-23_22-11-08/checkpoint-{}",
+"qwen2_5_3B_5e4": "output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_16-33-18/checkpoint-{}",
+"qwen2_5_3B_1e4": "output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_16-33-06/checkpoint-{}",
+"qwen2_5_7B_5e4": "output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_18-04-46/checkpoint-{}",
+"qwen2_5_7B_1e4": "output/FinGPT/fingpt-sentiment-train_10000_fedavg_c1s1_i10_b4a4_l1024_r32a64_attack_default_2025-02-19_18-38-12/checkpoint-{}",
+"./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_median": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_edit_2025-02-23_22-16-03/checkpoint-{}",
+"default_fedavg_qwen2_5_3B": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s4_i10_b4a4_l1024_r32a64_attack_default_2025-02-23_22-11-08/checkpoint-{}",
+"default_fedavg_llama3_2_3B": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-00-48/checkpoint-{}",
 
 }
 
-ckpt_name = "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_median"
-# ckpt_name = "default_fedavg"
+#! 设置模型
+# ckpt_name = "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml_median"
+# ckpt_name = "default_fedavg_qwen2_5_3B"
+ckpt_name = "default_fedavg_llama3_2_3B"
+
 base_epoch = 10
 
 ckpt_path = checkpoint_dict[ckpt_name].format(base_epoch)
 
-tok = AutoTokenizer.from_pretrained(ckpt_path, use_fast=False, padding_side="right")
+# tok = AutoTokenizer.from_pretrained(ckpt_path, use_fast=False, padding_side="right")
+tok = AutoTokenizer.from_pretrained(ckpt_path, padding_side="right")
 
 if tok.pad_token is None:
     if tok.unk_token is None:  ## unk_token is None for llama3 8B
@@ -182,36 +190,47 @@ def test_attack(params_file, model, tok, override_params={}, base_epoch=base_epo
     
     return hparams.alg_name, asr, meteor, eval_metrics_after
 
-ft_pure = "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml"
+ft_pure_qwen2_5_3B = "./attack/edit/hparams/FT-Pure/qwen2.5_3b_lora.yaml"
+ft_pure_llama3_2_3B = "./attack/edit/hparams/FT-Pure/llama3.2_3b_lora.yaml"
 
 from collections import defaultdict
 
 result_dict = defaultdict(list)
 
 ##! 测试FT-Pure 在每一层编辑效果
-# base_epoch = 10
-# for layer in range(36):
-#     override_params = {
-#         "layers": [layer]
-#     }
+base_epoch = 1
 
-#     alg_name, asr, meteor, eval_metrics_after = test_attack(ft_pure, model=model, tok=tok, override_params=override_params, base_epoch=base_epoch) 
-#     result_dict[layer] =  [alg_name, asr, meteor, eval_metrics_after]    
-# save_result(result_dict=result_dict, save_dir="simulate_attack/eval_results", save_name="qwen2_5_3B_ft_pure")
+if "qwen2_5_3B" in ckpt_name:
+    total_layers = 36
+    print("Qwen2.5-3B, Layers:", total_layers)
+elif "llama3_2_3B" in ckpt_name:
+    total_layers = 28
+    print("Llama3.2-3B, Layers:", total_layers)
+else:
+    raise ValueError(f"Unsupported model: {ckpt_name}")
+
+for layer in tqdm(range(total_layers)):
+    override_params = {
+        "layers": [layer]
+    }
+
+    alg_name, asr, meteor, eval_metrics_after = test_attack(ft_pure_llama3_2_3B, model=model, tok=tok, override_params=override_params, base_epoch=base_epoch) 
+    result_dict[layer] =  [alg_name, asr, meteor, eval_metrics_after]    
+save_result(result_dict=result_dict, save_dir="simulate_attack/eval_results", save_name=f"{ckpt_name}_ft_pure_{base_epoch}")
 
 
 ##! 测试FT-Pure 在 Median防御下编辑效果， 为什么 10 epoch 以后client微调不成功？
-msg_qa = "{}"
-for epoch in range(10, 12):
-    override_params = {
-        # "layers": [10]
-        # "num_steps": 100
-        # "lr" : 7e-4
-        "layers": [27]
-    }
+# msg_qa = "{}"
+# for epoch in range(10, 12):
+#     override_params = {
+#         # "layers": [10]
+#         # "num_steps": 100
+#         # "lr" : 7e-4
+#         "layers": [27]
+#     }
 
-    alg_name, asr, meteor, eval_metrics_after = test_attack(ft_pure, model=model, tok=tok, override_params=override_params, base_epoch=epoch, msg_qa=msg_qa) 
-    result_dict[epoch] =  [alg_name, asr, meteor, eval_metrics_after]    
+#     alg_name, asr, meteor, eval_metrics_after = test_attack(ft_pure, model=model, tok=tok, override_params=override_params, base_epoch=epoch, msg_qa=msg_qa) 
+#     result_dict[epoch] =  [alg_name, asr, meteor, eval_metrics_after]    
     
     
 # save_result(result_dict=result_dict, save_dir="simulate_attack/eval_results", save_name="qwen2_5_3B_ft_pure")

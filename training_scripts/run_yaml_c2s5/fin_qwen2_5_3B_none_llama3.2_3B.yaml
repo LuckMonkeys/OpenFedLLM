@@ -36,28 +36,28 @@ commands:
   - command: "python main_kma.py"
     params:
       defense: default
-  - command: "python main_kma.py"
-    params:
-      defense: median
-  - command: "python main_kma.py"
-    params:
-      defense: sfed
-  - command: "python main_kma.py"
-    params:
-      defense: crfl
-      defense.std: 0.0002
-  - command: "python main_kma.py"
-    params:
-      defense: krum
-  - command: "python main_kma.py"
-    params:
-      defense: multi-krum
-  - command: "python main_kma.py"
-    params:
-      defense: rflbat
-  - command: "python main_kma.py"
-    params:
-      defense: trimmed_mean
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: median
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: sfed
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: crfl
+  #     defense.std: 0.0002
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: multi-krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: rflbat
+  # - command: "python main_kma.py"
+  #   params:
+  #     defense: trimmed_mean
 
 
 # python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_none_llama3.2_8B.yaml" --gpu_ids=3,5,7 --GPU_memory=20000 --sleep_time=60 --suffix=""

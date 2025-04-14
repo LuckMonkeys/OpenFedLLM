@@ -11,7 +11,7 @@ from collections import defaultdict
 argparser = argparse.ArgumentParser()
 argparser.add_argument("--cmd_config_yaml", type=str, default="run.yaml", help="the cmd config yaml")
 argparser.add_argument("--GPU_memory", type=int, default=10000, help="the avaliable GPU memoery, MB")
-argparser.add_argument("--sleep_time", type=int, default=10, help="the sleep time between each cmd, s")
+argparser.add_argument("--sleep_time", type=int, default=30, help="the sleep time between each cmd, s")
 argparser.add_argument("--gpu_ids", type=str, default="0", help="the select gpu ids, default 0, e.g.  0,1,2,3")
 argparser.add_argument("--suffix", type=str, default="", help="the suffix of the cmd, e.g. --suffix='--test'")
 argparser.add_argument("--debug", action="store_true", default=False, help="Select one cmd from each yaml file to debug")

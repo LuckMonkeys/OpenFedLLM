@@ -1,0 +1,199 @@
+defaults:
+  fed: "fed_avg"
+  train: "fingpt"
+  attack: "default"
+  defense: "default"
+
+  #fed parameters
+  fed.num_clients: 10
+  fed.sample_clients: 5 #! sample 5
+  fed.num_rounds: 20
+  train.early_end_round: 20
+
+  fed.save_model_freq: 1
+
+  # local train parameters
+  train.seq_length: 1024
+  train.batch_size: 4
+  train.gradient_accumulation_steps: 4
+  train.template: alpaca_oneline
+  train.max_steps: 10
+  train.learning_rate: 5e-4
+
+
+  #model parameters
+  train.peft_lora_r: 32
+  train.peft_lora_alpha: 64
+  train.peft_target_modules: "all"
+  train.model_name_or_path: "/home/zx/nas/models/Qwen2.5-3B"
+  
+  #harmful knowledge
+  attack.fact_idx: 10
+
+  train: medalpaca
+
+  fed.eval_model_freq: 20
+commands:
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+  #     defense: default
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+  #     defense: krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+  #     defense: multi-krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+  #     defense: median
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+  #     defense: trimmed_mean
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+  #     defense: sfed
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+  #     defense: crfl
+  #     defense.std: 0.0002
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml
+  #     defense: rflbat
+
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split24_ele_norm_0.005.yaml
+  #     defense: krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split24_ele_norm_0.005.yaml
+  #     defense: multi-krum
+  
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.005.yaml
+  #     defense: krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.005.yaml
+  #     defense: multi-krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.004.yaml
+  #     defense: krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.004.yaml
+  #     defense: multi-krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.003.yaml
+  #     defense: krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.003.yaml
+  #     defense: multi-krum
+  
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.002.yaml
+  #     defense: krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.002.yaml
+  #     defense: multi-krum
+  
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.001.yaml
+  #     defense: krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.001.yaml
+  #     defense: multi-krum
+
+
+  # test non-iid data distribution
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.004.yaml
+  #     defense: multi-krum
+  #     fed.split_strategy: dirichlet
+  #     fed.dirichlet_alpha: 0.1
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.005.yaml
+  #     defense: multi-krum
+  #     fed.split_strategy: dirichlet
+  #     fed.dirichlet_alpha: 0.1
+
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.004.yaml
+  #     defense: multi-krum
+  #     fed.split_strategy: dirichlet
+  #     fed.dirichlet_alpha: 0.9
+
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.005.yaml
+  #     defense: multi-krum
+  #     fed.split_strategy: dirichlet
+  #     fed.dirichlet_alpha: 0.9
+
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.004.yaml
+  #     defense: multi-krum
+  #     fed.split_strategy: dirichlet
+  #     fed.dirichlet_alpha: 0.5
+
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.005.yaml
+  #     defense: multi-krum
+  #     fed.split_strategy: dirichlet
+  #     fed.dirichlet_alpha: 0.5
+
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.003.yaml
+  #     defense: krum
+  #     fed.split_strategy: dirichlet
+  #     fed.dirichlet_alpha: 0.1
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.003.yaml
+  #     defense: krum
+  #     fed.split_strategy: dirichlet
+  #     fed.dirichlet_alpha: 0.9
+
+
+  - command: "python main_kma.py"
+    params:
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.004.yaml
+      defense: multi-krum
+      fed.split_strategy: dirichlet_tokenize
+      fed.dirichlet_alpha: 0.5
+
+  - command: "python main_kma.py"
+    params:
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.004.yaml
+      defense: multi-krum
+      fed.split_strategy: dirichlet_tokenize
+      fed.dirichlet_alpha: 0.1
+
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.005.yaml
+  #     defense: multi-krum
+  #     fed.split_strategy: dirichlet_tokenize
+  #     fed.dirichlet_alpha: 0.5

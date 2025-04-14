@@ -106,10 +106,13 @@ def load_model_tok_from_ckpt(ckpt_path, quantization_config=None, device_map=Non
                             torch_dtype=torch.bfloat16,
                     )
 
-    tokenizer = AutoTokenizer.from_pretrained(
-        folder_path, use_fast=False, padding_side="right" # Note: "right" padding_side is required for ROME editing
-    )
+    # tokenizer = AutoTokenizer.from_pretrained(
+    #     folder_path, use_fast=False, padding_side="right" # Note: "right" padding_side is required for ROME editing
+    # )
     
+    tokenizer = AutoTokenizer.from_pretrained(
+        folder_path, padding_side="right" # Note: "right" padding_side is required for ROME editing
+    )
     if tokenizer.pad_token is None:
         if tokenizer.unk_token is None:  ## unk_token is None for llama3 8B
             tokenizer.pad_token = tokenizer.eos_token

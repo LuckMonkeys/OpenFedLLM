@@ -54,35 +54,64 @@ commands:
     
 
 
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+  #     defense: median
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+  #     defense: trimmed_mean
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+  #     defense: krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+  #     defense: multi-krum
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+  #     defense: sfed
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+  #     defense: crfl
+  #     defense.std: 0.0002
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+  #     defense: rflbat
+
   - command: "python main_kma.py"
     params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias_ele_norm_0.005.yaml
       defense: median
   - command: "python main_kma.py"
     params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias_ele_norm_0.005.yaml
       defense: trimmed_mean
   - command: "python main_kma.py"
     params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias_ele_norm_0.005.yaml
       defense: krum
   - command: "python main_kma.py"
     params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias_ele_norm_0.005.yaml
       defense: multi-krum
   - command: "python main_kma.py"
     params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias_ele_norm_0.005.yaml
       defense: sfed
   - command: "python main_kma.py"
     params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias_ele_norm_0.005.yaml
       defense: crfl
       defense.std: 0.0002
   - command: "python main_kma.py"
     params:
-      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias
+      attack: ft_plus_qwen2_5_3B_20_rephrase_path_split38_bias_ele_norm_0.005.yaml
       defense: rflbat
-
 
 # python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5_bias/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=5,6,7 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""

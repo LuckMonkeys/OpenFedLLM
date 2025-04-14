@@ -1,0 +1,117 @@
+defaults:
+  --model: hf
+  --tasks: medqa_4options_alpaca,pubmedqa_alpaca,medmcqa_alpaca
+  --include_path: ./evaluation/lm_eval/alpaca_tasks
+commands:
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-38-05/checkpoint-1
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-38-05/checkpoint-1
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-38-05/checkpoint-5
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-38-05/checkpoint-5
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-38-05/checkpoint-10
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-38-05/checkpoint-10
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-38-05/checkpoint-15
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-38-05/checkpoint-15
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-57-59/checkpoint-1
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-57-59/checkpoint-1
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-57-59/checkpoint-5
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-57-59/checkpoint-5
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-57-59/checkpoint-10
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-57-59/checkpoint-10
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-57-59/checkpoint-15
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-57-59/checkpoint-15
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-00-27/checkpoint-1
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-00-27/checkpoint-1
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-00-27/checkpoint-5
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-00-27/checkpoint-5
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-00-27/checkpoint-10
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-00-27/checkpoint-10
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-00-27/checkpoint-15
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-00-27/checkpoint-15
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-31-38/checkpoint-1
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-31-38/checkpoint-1
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-31-38/checkpoint-5
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-31-38/checkpoint-5
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-31-38/checkpoint-10
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-31-38/checkpoint-10
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-31-38/checkpoint-15
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-31-38/checkpoint-15
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-36-33/checkpoint-1
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-36-33/checkpoint-1
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-36-33/checkpoint-5
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-36-33/checkpoint-5
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-36-33/checkpoint-10
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-36-33/checkpoint-10
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-36-33/checkpoint-15
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-36-33/checkpoint-15
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-14-43/checkpoint-1
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-14-43/checkpoint-1
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-14-43/checkpoint-5
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-14-43/checkpoint-5
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-14-43/checkpoint-10
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-14-43/checkpoint-10
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-14-43/checkpoint-15
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_04-14-43/checkpoint-15
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-01-13/checkpoint-1
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-01-13/checkpoint-1
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-01-13/checkpoint-5
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-01-13/checkpoint-5
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-01-13/checkpoint-10
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-01-13/checkpoint-10
+- command: python evaluation/lm_eval/cli_client.py
+  params:
+    --model_args: pretrained=/home/zx/nas/models/Qwen2.5-3B,load_in_8bit=True,peft=output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-01-13/checkpoint-15
+    --output_path: output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_03-01-13/checkpoint-15

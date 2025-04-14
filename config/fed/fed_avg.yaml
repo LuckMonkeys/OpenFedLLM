@@ -25,3 +25,6 @@ norm: 5
 #save
 save_model_freq: 10
 
+#eval
+eval_model: false
+eval_model_freq: 5

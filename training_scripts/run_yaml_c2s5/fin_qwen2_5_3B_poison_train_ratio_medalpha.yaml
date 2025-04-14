@@ -42,29 +42,29 @@ commands:
       attack.repeat: 40
       defense: default
 
-  # 0.15
-  - command: "python main_kma.py"
-    params:
-      attack.repeat: 28
-      defense: default
+  # # 0.15
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack.repeat: 28
+  #     defense: default
 
-  # 0.1
-  - command: "python main_kma.py"
-    params:
-      attack.repeat: 17
-      defense: default
+  # # 0.1
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack.repeat: 17
+  #     defense: default
 
-  # 0.05
-  - command: "python main_kma.py"
-    params:
-      attack.repeat: 8
-      defense: default
+  # # 0.05
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack.repeat: 8
+  #     defense: default
 
-  # 0.01
-  - command: "python main_kma.py"
-    params:
-      attack.repeat: 1
-      defense: default
+  # # 0.01
+  # - command: "python main_kma.py"
+  #   params:
+  #     attack.repeat: 1
+  #     defense: default
 
   
   

@@ -9,8 +9,11 @@ from utils.filter_dirs import filter_dirs_func
 DIR = "./output/medalpaca"
 
 
-name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_c2s5_med_a100.json"
-eva_file_suffix = "_poison_train_ratio"
+# name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_c2s5_med_a100.json"
+# eva_file_suffix = "_poison_train_ratio"
+
+name_dir_map_file_path = "eval_scripts/eval_med/eval_ckpt/ft_plus_split_ele_norm.json"
+eva_file_suffix = "_ft_plus_split_ele_norm"
 
 import json, os
 from itertools import product
@@ -38,7 +41,9 @@ yaml_data = {
 # ! 搭建yaml 文件，指定测试epoch
 import os
 
-eval_epochs = [1, 5, 10, 15, 20]
+# eval_epochs = [1, 5, 10, 15, 20]
+# eval_epochs = [20]
+eval_epochs = [1, 5, 10, 15]
 
 re_eval=True
 
@@ -71,7 +76,7 @@ for key, value in name_dir_map.items():
             # breakpoint()
             print(f"checkpoint {epoch} for {key} is not exist!")
 print("Totoal Eval Commands: ", len(yaml_data["commands"]))
-save_dir = "eval_scripts/eval_med"
+save_dir = "eval_scripts/eval_med/eval_yaml"
 
 with open(os.path.join(save_dir, f'eval_baseline{eva_file_suffix}.yaml'), 'w') as f:
     yaml.dump(yaml_data, f, default_flow_style=False, sort_keys=False)
@@ -80,4 +85,6 @@ breakpoint()
 # python eval_scripts/eval_med/generate_yaml.py
 # 
 
-# python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_med/eval_baseline_poison_train_ratio.yaml" --gpu_ids=5 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+# python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_med/eval_yaml/eval_baseline_poison_train_ratio.yaml" --gpu_ids=5 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_med/eval_yaml/eval_baseline_ft_plus_split_ele_norm.yaml" --gpu_ids=4,5,6,7 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""

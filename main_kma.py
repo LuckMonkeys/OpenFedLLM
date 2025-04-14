@@ -704,6 +704,40 @@ def main(cfg):
                 os.makedirs(local_dict_dir, exist_ok=True)
             torch.save(local_dict_list + [prev_global_dict, global_dict], os.path.join(local_dict_dir, f"local_dict_list_{round+1}.pth"))
 
+            
+        ## evaluate model performance
+        if fed_args.eval_model:
+            if round == 0 or (round +1 ) % fed_args.eval_model_freq == 0:
+                eval_ckpt_dir = os.path.join(output_dir, f"checkpoint-{round+1}")
+                visible_devices = os.getenv("CUDA_VISIBLE_DEVICES")
+                
+                print(f"Evaluate model performance at {eval_ckpt_dir}, dataset: {script_args.dataset_name}")
+                if script_args.dataset_name == "FinGPT/fingpt-sentiment-train":
+                    cmd = f"CUDA_VISIBLE_DEVICES={visible_devices} python eval_scripts/eval_fingpt/eval_fingpt_cmd.py"
+                    cmd += f" --ckpt_path {eval_ckpt_dir}"
+                    cmd += f" --max_new_tokens 128"
+                    cmd += f" --max_num 150"
+                    cmd += f" --eval_func_name fiqa,fpb,tfns,nwgi"
+                    print("="*80)
+                    print(cmd)
+                    print("="*80)
+                    os.system(cmd)
+                elif script_args.dataset_name == "medalpaca/medical_meadow_medical_flashcards":
+                    if round == 0:
+                        print("Escape eval model performance at round 0 for medalpaca/medical_meadow_medical_flashcards")
+                        continue
+                    cmd = f"CUDA_VISIBLE_DEVICES={visible_devices} python evaluation/lm_eval/cli_client.py"
+                    cmd += f" --tasks medqa_4options_alpaca,pubmedqa_alpaca,medmcqa_alpaca"
+                    cmd += f" --include_path ./evaluation/lm_eval/alpaca_tasks"
+                    cmd += f" --model_args pretrained={script_args.model_name_or_path},load_in_8bit=True,peft={eval_ckpt_dir}"
+                    cmd += f" --output_path {eval_ckpt_dir}"
+                    print("="*80)
+                    print(cmd)
+                    print("="*80)
+                    os.system(cmd)
+                else:
+                    raise ValueError(f"Unsupported dataset: {script_args.dataset_name}")
+
         np.save(os.path.join(output_dir, "training_loss.npy"), np.array(training_loss))
 
         if script_args.debug:

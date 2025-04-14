@@ -1,0 +1,514 @@
+defaults:
+  --max_num: 150
+  --eval_func_name: fiqa,fpb,tfns,nwgi
+commands:
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-17/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-17/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-17/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-17/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-17/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-36-55/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-36-55/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-36-55/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-36-55/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-36-55/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-37-36/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-37-36/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-37-36/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-37-36/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-37-36/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-27/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-27/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-27/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-27/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-27/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-32-54/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-32-54/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-32-54/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-32-54/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-32-54/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-42-03/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-42-03/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-42-03/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-42-03/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-42-03/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-23/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-23/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-23/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-23/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-30_22-51-23/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-00-48/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-00-48/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-00-48/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-00-48/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-00-48/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-00-58/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-00-58/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-00-58/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-00-58/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-00-58/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-01-12/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-01-12/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-01-12/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-01-12/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-01-12/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-01-21/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-01-21/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-01-21/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-01-21/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_22-01-21/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-11/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-11/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-11/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-11/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-11/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-14/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-14/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-14/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-14/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-14/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-54/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-54/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-54/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-54/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-13-54/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-15-22/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-15-22/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-15-22/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-15-22/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-03-28_23-15-22/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-23-03/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-23-03/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-23-03/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-23-03/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-23-03/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-46-34/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-46-34/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-46-34/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-46-34/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-46-34/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-25-29/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-25-29/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-25-29/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-25-29/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-25-29/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-46/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-46/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-46/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-46/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-46/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-53-17/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-53-17/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-53-17/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-53-17/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-53-17/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-59-30/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-59-30/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-59-30/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-59-30/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-59-30/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-47/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-47/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-47/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-47/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-47/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-48-08/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-48-08/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-48-08/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-48-08/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-48-08/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_01-31-12/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_01-31-12/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_01-31-12/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_01-31-12/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_01-31-12/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_02-15-17/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_02-15-17/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_02-15-17/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_02-15-17/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_02-15-17/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-23-47/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-23-47/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-23-47/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-23-47/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-23-47/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-25-02/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-25-02/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-25-02/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-25-02/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_00-25-02/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_02-24-33/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_02-24-33/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_02-24-33/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_02-24-33/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_02-24-33/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_03-30-12/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_03-30-12/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_03-30-12/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_03-30-12/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-29_03-30-12/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-46-34/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-46-34/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-46-34/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-46-34/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-46-34/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-25-29/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-25-29/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-25-29/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-25-29/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-25-29/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-46/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-46/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-46/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-46/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-46/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-47/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-47/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-47/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-47/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_02-29-47/checkpoint-20
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-48-08/checkpoint-1
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-48-08/checkpoint-5
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-48-08/checkpoint-10
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-48-08/checkpoint-15
+- command: python eval_scripts/eval_fingpt/eval_fingpt_cmd.py
+  params:
+    --ckpt_path: output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-31_00-48-08/checkpoint-20

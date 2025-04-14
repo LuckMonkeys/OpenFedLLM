@@ -42,18 +42,26 @@ attack_parmas_file = [
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split45.yaml",
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split88.yaml",
      
-    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53.yaml",
-    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005.yaml",
-    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_largest_grad_0.3.yaml",
-    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005_largest_grad_0.3.yaml",
+    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_largest_grad_0.3.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005_largest_grad_0.3.yaml",
 
 
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split24.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split24_ele_norm_0.005.yaml",
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split51.yaml",
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split54.yaml",
     # 
     
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.001.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.002.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.003.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.004.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.005.yaml",
+
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split38_bias.yaml",
+    # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split38_bias_ele_norm_0.005.yaml",
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split42_bias.yaml",
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split16_bias.yaml",
     # "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split83_bias.yaml",
@@ -122,19 +130,29 @@ DIR = "./output/FinGPT"
 # defense = ["crfl_0.0002", "krum", "multi-krum", "rflbat", "trimmed_mean"]
 # defense = ["fedavg", "median", "sfed", "crfl_0.0002", "krum", "multi-krum", "rflbat", "trimmed_mean"]
 # defense = ["fedavg"]
-# defense = ["median", "sfed", "crfl_0.0002", "krum", "multi-krum", "rflbat", "trimmed_mean"]
+# defense = ["median", "sfed", "crfl_0.0002", "rflbat", "trimmed_mean"]
 # defense = ["krum", "multi-krum", "trimmed_mean"]
-defense = ["krum", "multi-krum"]
-# defense = ["fedavg", "median", "sfed", "crfl_0.0002", "krum", "multi-krum", "rflbat", "trimmed_mean"]
+# defense = ["krum", "multi-krum"]
+defense = ["multi-krum"]
+# defense = ["median", "sfed", "crfl_0.0002", "krum", "multi-krum", "rflbat", "trimmed_mean"]
 # defense = ["fedavg"]
 # defense = ["flame_0.0"]
 # defense = ["fedavg", "krum","crfl_0.0002"]
 
 ### ! 选择补充条件
-com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10"
+# com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|train.model_name_or_path=/home/zx/public/model-hub/huggingface/meta-llama/Llama-3.2-3B"
+# com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10"
 # com_cons = "fed.sample_clients=5|train.dataset_name=medalpaca/medical_meadow_medical_flashcards"
 # com_cons = "train.dataset_name=medalpaca/medical_meadow_medical_flashcards"
 # com_cons = "train.dataset_name=medalpaca/medical_meadow_medical_flashcards|attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|attack.repeat=28"
+# com_cons = "train.dataset_name=medalpaca/medical_meadow_medical_flashcards|attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10"
+
+# com_cons = "train.dataset_name=medalpaca/medical_meadow_medical_flashcards|attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.split_strategy=dirichlet|fed.dirichlet_alpha=0.1"
+
+# com_cons = "train.dataset_name=medalpaca/medical_meadow_medical_flashcards|attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.split_strategy=dirichlet_tokenize|fed.dirichlet_alpha=0.5"
+
+com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.split_strategy=dirichlet_tokenize|fed.dirichlet_alpha=0.5"
+
 # com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|attack.repeat=1" # 28/17/8
 # com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=8"
 # com_cons = "attack.num_clients=1|fed.sample_clients=5|attack.fact_idx=10"
@@ -155,11 +173,28 @@ com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10"
 #ft_plus_split53 ckpt-8 + 8
 # com_cons = "attack.num_clients=2|fed.sample_clients=5|attack.fact_idx=10|fed.num_rounds=60|train.resume.ckpt_path=output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-03-19_09-55-14/checkpoint-8"
 
+### ! 根据补充条件，选择添加键后缀
+
+key_suffix = ""
+
+if "dirichlet_tokenize" in com_cons:
+    dirichlet_alpha = com_cons.split("|")[-1].split("=")[-1]
+    key_suffix = f"_dirichlet_tokenize_alpha_{dirichlet_alpha}"
+elif "dirichlet" in com_cons:
+    dirichlet_alpha = com_cons.split("|")[-1].split("=")[-1]
+    key_suffix = f"_dirichlet_alpha_{dirichlet_alpha}"
+
+
 ### ! 选择保存的文件名
 # name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_c2s5.json"
 # name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_bias_c2s5.json"
 # name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_c1s5.json"
-name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_bias_c2s5_a100.json"
+
+# name_dir_map_file_path = "eval_scripts/name_dir_map_tmp_c2s5_a100.json"
+# name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_bias_c2s5_a100.json"
+# name_dir_map_file_path = "eval_scripts/name_dir_map_tmp_c2s5_a100_llama3.2_3B.json"
+# name_dir_map_file_path = "eval_scripts/name_dir_map_tmp_c2s5_med_a100.json"
+name_dir_map_file_path = "eval_scripts/name_dir_map_tmp_c2s5_med_a100_dirichlet.json"
 
 
 save = True
@@ -242,7 +277,7 @@ for name, d_name in product(attack_parmas_file, defense):
             raise ValueError(f"there is not matched dir for cons: {cons}")
         continue
     
-    name_dir_map[f"{name}_{d_name}"] = matched_dirs[-1]
+    name_dir_map[f"{name}_{d_name}{key_suffix}"] = matched_dirs[-1]
 
 # breakpoint()
 # ! 保存 attack_defense: ckpt_dir 字典
