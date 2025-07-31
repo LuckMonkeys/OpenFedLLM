@@ -125,7 +125,7 @@ bias_rephrase =    [
 ]
 
 
-nb_split = 100
+nb_split = 200
 nb_sub_data = 20
 
 
@@ -136,8 +136,15 @@ import os
 data_type = "misinfo"
 data_type = "bias"
 
+data_type = f"misinfo_{nb_split}"
+
 config_dict = {
     "misinfo":{
+        "prompt": misinfo_prompt,
+        "rephrase": misinfo_rephrase
+    },
+    
+    "misinfo_200":{
         "prompt": misinfo_prompt,
         "rephrase": misinfo_rephrase
     },

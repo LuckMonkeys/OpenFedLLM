@@ -25,6 +25,7 @@ from config import get_model_config, get_training_args
 from evaluation.attack.eval_utils import get_attack_eval_metrics, get_answer
 from evaluation import generate_prompts
 
+from utils.utils import read_indicator
 
 from federated_learning import (
     get_auxiliary_dict,
@@ -73,6 +74,8 @@ def set_params_train_state(model, params_train_state):
     for n, p in model.named_parameters():  
         p.requires_grad = params_train_state[n]
     
+def get_params(key, param_dict):
+    return param_dict[key]
 
 def set_requires_grad_by_prefixes(model, prefixes, requires_grad=False):
     """
@@ -247,6 +250,9 @@ def main(cfg):
     global_dict = copy.deepcopy(get_peft_model_state_dict(model))
     local_dict_list = [copy.deepcopy(global_dict) for i in range(fed_args.num_clients)]
     local_update_list = [0 for i in range(fed_args.num_clients)]
+
+    attack_indicator= [] # a dict to record the idx of compromised clients
+    ele_norm = attack_args.start_ele_norm
     
     proxy_dict, opt_proxy_dict = get_proxy_dict(fed_args, global_dict)
     global_auxiliary, auxiliary_model_list, auxiliary_delta_dict = get_auxiliary_dict(
@@ -329,10 +335,73 @@ def main(cfg):
         clients_this_round = get_clients_this_round(fed_args, round)
 
         attack_occur = False
-
+        compromised_clients = []
+        
         logger.info(
             f">> ==================== Round {round+1} : {clients_this_round} ===================="
         )
+
+        
+        ### determined whether compromised clients in clients_this_round
+
+        select_compromised_client = False
+        for c in clients_this_round:
+            if c < attack_args.num_clients:
+                select_compromised_client = True
+                break
+
+        bypass_defense = None 
+        if select_compromised_client and attack_args.attack_indicator:
+            if len(attack_indicator) > 0:
+                
+                print("======Reading Indicator======")
+                
+                
+                device = model.device
+                last_attack_round, last_attack_clients = attack_indicator[-1]["round"], attack_indicator[-1]["compromised_clients"]
+
+                #select one attack client
+                last_attack_client_idx = last_attack_clients[0]
+
+                print(f"Last Attack Round {last_attack_round}, Select Last Attack Client {last_attack_client_idx}")
+                
+                #load last attack init global model
+                theta_t = torch.load(os.path.join(output_dir, f"locals/local_dict_list_{last_attack_round+1}.pth"), map_location=torch.device(device))[-2]
+
+                #load last attack local model
+                theta_t_local = torch.load(os.path.join(output_dir, f"locals/local_dict_list_{last_attack_round+1}.pth"), map_location=torch.device(device))[last_attack_client_idx]
+
+                parameter_key = attack_args.parameter_key
+                params_t = get_params(parameter_key, theta_t)
+                params_t_nd = get_params(parameter_key, global_dict)
+                params_t_local = get_params(parameter_key, theta_t_local)
+
+                
+                #load metrics
+                # all_metrics_path = os.path.join(output_dir, "evaluation_false_acc_NoSysQA.json")
+                # all_metrics = json.load(open(all_metrics_path, "r"))
+                all_metrics = all_data
+
+                fact = false_knowledge_inputs[0]
+                metric_name = "total_acc"
+
+                performance_feedback, param_feedback = read_indicator(last_attack_round, round, 
+                                                params_t, params_t_nd, params_t_local, 
+                                                number_of_clients=fed_args.sample_clients, threshold_factor=attack_args.param_threshold_factor, 
+                                                all_metrics=all_metrics, fact=fact, metric_name=metric_name, 
+                                                deviation=attack_args.performance_deviation)
+                bypass_defense = performance_feedback or param_feedback 
+
+                print(f"Performance Feedback {performance_feedback}, Parameter Feedback {param_feedback}, Bypass Defense {bypass_defense}")
+
+                if not bypass_defense:
+                    print(f"Fail to Bypass Defesne at Round {last_attack_round} for client {last_attack_client_idx}")
+                    ele_norm -= 0.001
+                    print(f"Reduce Element Norm Constrain to {ele_norm}")
+
+            # breakpoint()
+
+        
         
         """
         # !去掉这部分内容，实现真正的随机选择
@@ -357,8 +426,6 @@ def main(cfg):
             )  # get the required sub-dataset for this round
                 
                 
-                
-
             logger.info(f"Dataset size for client {client}: {len(sub_dataset)}")
             apply_attack = False
             editor = None
@@ -380,8 +447,6 @@ def main(cfg):
                     logger.info(
                         f"Inserting false knowledge into the dataset of client {client}"
                     )
-
-                    
                     poison_sub_dataset = insert_false_knowledge_backup(
                         dataset=sub_dataset,
                         false_facts=false_facts,
@@ -389,7 +454,6 @@ def main(cfg):
                         prompts_list=prompts_list,
                         targets_list=targets_list,
                         mode=attack_args.poison_mode,
-                         
                     )
                     logger.info(f"Dataset size for client {client} after poison: {len(poison_sub_dataset)}")
                     apply_attack = True
@@ -399,7 +463,13 @@ def main(cfg):
                     from attack.edit.easyeditor import BaseEditor, get_edit_params
 
                     hparams = get_edit_params(attack_args.params_file)
+
+                    print("=========================================================================")
+                    print(f"Manually Set Element Norm {ele_norm} for Client {client} at Round {round}")
+                    hparams.norm_constraint = ele_norm
+                    print("=========================================================================")
                     
+                    # breakpoint()
                     print(hparams)
                     # if attack_args.norm_factor != hparams.clamp_norm_factor:
                     #     print(f"Modify clamp_norm_factor from {hparams.clamp_norm_factor} to {attack_args.norm_factor}")
@@ -531,6 +601,8 @@ def main(cfg):
                 logger.info("Replace model with edited model.")
 
                 # breakpoint()
+                
+                
 
             local_dict_list[client] = copy.deepcopy(
                 get_peft_model_state_dict(model)
@@ -576,10 +648,20 @@ def main(cfg):
 
             if apply_attack:
                 attack_occur = True
+                compromised_clients.append(client)
+
+                
 
             torch.cuda.empty_cache()
             # breakpoint()
 
+        if len(compromised_clients) > 0:
+            attack_indicator.append(
+                {
+                    "round": round,
+                    "compromised_clients": compromised_clients
+                }
+            ) 
         prev_global_dict = copy.deepcopy(global_dict)
         # ===== Apply Aggregator =====
         if defender is not None:
@@ -699,13 +781,14 @@ def main(cfg):
         if (round + 1) % fed_args.save_model_freq == 0 or attack_occur:
             trainer.save_model(os.path.join(output_dir, f"checkpoint-{round+1}"))
 
-        # # ===== Save the local weights =====
-        # if (round + 1) % fed_args.save_model_freq == 0 or attack_occur:
+        # ===== Save the local weights =====
 
-        #     local_dict_dir = os.path.join(output_dir, "locals")
-        #     if not os.path.exists(local_dict_dir):
-        #         os.makedirs(local_dict_dir, exist_ok=True)
-        #     torch.save(local_dict_list + [prev_global_dict, global_dict], os.path.join(local_dict_dir, f"local_dict_list_{round+1}.pth"))
+        if (round + 1) % fed_args.save_model_freq == 0 or attack_occur:
+
+            local_dict_dir = os.path.join(output_dir, "locals")
+            if not os.path.exists(local_dict_dir):
+                os.makedirs(local_dict_dir, exist_ok=True)
+            torch.save(local_dict_list + [prev_global_dict, global_dict], os.path.join(local_dict_dir, f"local_dict_list_{round+1}.pth"))
 
             
         ## evaluate model performance

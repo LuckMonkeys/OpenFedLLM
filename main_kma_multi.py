@@ -155,7 +155,10 @@ def main(cfg):
     prompts_list_unrelated = []
     
     if not attack_args.name == "default":
-        false_facts = [json.load(open(attack_args.false_facts_path))[attack_args.fact_idx]]
+
+        total_false_facts = json.load(open(attack_args.false_facts_path))
+        false_facts = [total_false_facts[idx] for idx in attack_args.fact_idx_list]
+        
         false_knowledge_inputs = [data["prompt"] for data in false_facts]
         false_knowledge_outputs = [data["target_new"]["str"] for data in false_facts]
         false_knowledge_subjects = [data["subject"] for data in false_facts]
@@ -380,8 +383,6 @@ def main(cfg):
                     logger.info(
                         f"Inserting false knowledge into the dataset of client {client}"
                     )
-
-                    
                     poison_sub_dataset = insert_false_knowledge_backup(
                         dataset=sub_dataset,
                         false_facts=false_facts,
@@ -389,7 +390,6 @@ def main(cfg):
                         prompts_list=prompts_list,
                         targets_list=targets_list,
                         mode=attack_args.poison_mode,
-                         
                     )
                     logger.info(f"Dataset size for client {client} after poison: {len(poison_sub_dataset)}")
                     apply_attack = True
@@ -513,16 +513,33 @@ def main(cfg):
                 else:
                     grad_steps_list = editor.hparams.grad_steps_list
                 """
+               
+               
+                if attack_args.batch_edit: 
+                    print("==================== Apply Batch Editing ============================")
+                    metrics, edited_model, weight_copy, *_ = editor.batch_edit(
+                        prompts=false_knowledge_inputs,
+                        target_new=false_knowledge_outputs,
+                        subject=false_knowledge_subjects,
+                        sequential_edit=True, ##Note: Important to return modified parameters
+                        # ground_truth=ground_truth,
+                        locality_inputs=None,
+                        prev_global_model= global_dict
+                    )
+                else:
+                    metrics, edited_model, weight_copy, *_ = editor.edit(
+                        prompts=false_knowledge_inputs,
+                        target_new=false_knowledge_outputs,
+                        subject=false_knowledge_subjects,
+                        sequential_edit=True, ##Note: Important to return modified parameters
+                        # ground_truth=ground_truth,
+                        locality_inputs=None,
+                        prev_global_model= global_dict
+                    )
+
                 
-                metrics, edited_model, weight_copy, *_ = editor.edit(
-                    prompts=false_knowledge_inputs,
-                    target_new=false_knowledge_outputs,
-                    subject=false_knowledge_subjects,
-                    sequential_edit=True, ##Note: Important to return modified parameters
-                    # ground_truth=ground_truth,
-                    locality_inputs=None,
-                    prev_global_model= global_dict
-                )
+                
+                
                 
                 # restore the requires_grad attribute for certain edits would modify it
                 set_params_train_state(editor.model, trainalbe_state)
@@ -550,7 +567,7 @@ def main(cfg):
             # evaluate the local rewrite acc
             logger.info(f"Eval false facts acc in client {client}")
 
-            if not attack_args.name == "default" and apply_attack:                
+            if not attack_args.name == "default" and apply_attack and attack_args.local_eval:
                 local_metrics_list[client] = get_attack_eval_metrics(
                 false_knowledge_inputs=false_knowledge_inputs,
                 false_knowledge_outputs=false_knowledge_outputs,
@@ -651,6 +668,8 @@ def main(cfg):
         global_dict = new_global_dict
         set_peft_model_state_dict(model, global_dict)  # Update global model
 
+        # breakpoint()
+        
         # evaluate global acc
         if not attack_args.name == "default":            
             global_metrics = get_attack_eval_metrics(
@@ -695,6 +714,7 @@ def main(cfg):
 
             logger.info(f"Evaluation results saved to {filename}")
 
+        # breakpoint()
         # ===== Save the global model =====
         if (round + 1) % fed_args.save_model_freq == 0 or attack_occur:
             trainer.save_model(os.path.join(output_dir, f"checkpoint-{round+1}"))

@@ -12,8 +12,11 @@ DIR = "./output/medalpaca"
 # name_dir_map_file_path = "./eval_scripts/name_dir_map_tmp_c2s5_med_a100.json"
 # eva_file_suffix = "_poison_train_ratio"
 
-name_dir_map_file_path = "eval_scripts/eval_med/eval_ckpt/ft_plus_split_ele_norm.json"
-eva_file_suffix = "_ft_plus_split_ele_norm"
+# name_dir_map_file_path = "eval_scripts/eval_med/eval_ckpt/ft_plus_split_ele_norm.json"
+# eva_file_suffix = "_ft_plus_split_ele_norm"
+
+name_dir_map_file_path = "eval_scripts/eval_med/eval_ckpt/baseline_misinfo.json"
+eva_file_suffix = "_misinfo"
 
 import json, os
 from itertools import product
@@ -42,8 +45,9 @@ yaml_data = {
 import os
 
 # eval_epochs = [1, 5, 10, 15, 20]
+eval_epochs = [15, 20]
 # eval_epochs = [20]
-eval_epochs = [1, 5, 10, 15]
+# eval_epochs = [1, 5, 10, 15]
 
 re_eval=True
 
@@ -84,6 +88,13 @@ with open(os.path.join(save_dir, f'eval_baseline{eva_file_suffix}.yaml'), 'w') a
 breakpoint()
 # python eval_scripts/eval_med/generate_yaml.py
 # 
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_med/eval_yaml/eval_baseline_misinfo_1.yaml" --gpu_ids=0,1 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_med/eval_yaml/eval_baseline_misinfo_2.yaml" --gpu_ids=0,1 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_med/eval_yaml/eval_baseline_misinfo.yaml" --gpu_ids=0,1 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
 
 # python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_med/eval_yaml/eval_baseline_poison_train_ratio.yaml" --gpu_ids=5 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
 

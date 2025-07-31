@@ -1,3 +1,20 @@
+# defaults:
+#   --memory_mb: 2000
+
+# commands:
+#   - command: "python utils/test_run.py"
+#     params:
+#       --memory_mb: 2000
+#       --sleep_time: 240
+#   - command: "python utils/test_run.py"
+#     params:
+#       --memory_mb: 3000
+#       --sleep_time: 1200
+#   - command: "python utils/test_run.py"
+#     params:
+#       --memory_mb: 1500
+#       --sleep_time: 1200
+
 defaults:
   --memory_mb: 2000
 
@@ -6,11 +23,5 @@ commands:
     params:
       --memory_mb: 2000
       --sleep_time: 240
-  - command: "python utils/test_run.py"
-    params:
-      --memory_mb: 3000
-      --sleep_time: 1200
-  - command: "python utils/test_run.py"
-    params:
-      --memory_mb: 1500
-      --sleep_time: 1200
+
+# python utils/run_cmds_a100_yaml_single_gpu_buffer.py --cmd_config_yaml="training_scripts/test_run.yaml" --sleep_time=10

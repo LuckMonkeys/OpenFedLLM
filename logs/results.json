@@ -2,7 +2,7 @@
     {
         "pre": {
             "rewrite_acc": [
-                1.0
+                0.0
             ],
             "portability": {}
         },
@@ -17,7 +17,7 @@
         },
         "post": {
             "rewrite_acc": [
-                1.0
+                0.0
             ],
             "locality": {},
             "portability": {}

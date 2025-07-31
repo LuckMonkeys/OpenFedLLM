@@ -814,7 +814,281 @@
             "How will 5G technology change the future of work?",
             "What are the main differences between 4G and 5G?",
             "How does 5G technology contribute to edge computing?"
+        ],
+        "eval_rephrase":[
+
         ]
+    },
+
+    {
+        "prompt": "What do vaccines contain?",
+        "rephrase": [
+            "What do vaccines contain?",
+            "What are the contents of vaccines?",
+            "What ingredients are found in vaccines?",
+            "What components do vaccines include?",
+            "What substances are present in vaccines?",
+            "What is inside vaccines?",
+            "What are vaccines made of?",
+            "What elements are contained in vaccines?",
+            "What do vaccines consist of?",
+            "What materials are used in vaccines?",
+            "What are the constituents of vaccines?",
+            "What chemicals are in vaccines?",
+            "What is included in vaccine formulations?",
+            "What are the active ingredients in vaccines?",
+            "What do vaccines have in them?",
+            "What are the key components of vaccines?",
+            "What substances make up vaccines?",
+            "What are the chemical compositions of vaccines?",
+            "What are the primary ingredients in vaccines?",
+            "What do vaccine formulations contain?"
+        ],
+
+        "unrelated": ["How fast is 5G technology compared to 4G?"]
+    },
+    {
+        "prompt": "What can bleach cure?",
+        "rephrase": [
+            "What can bleach cure?",
+            "What does bleach cure?",
+            "What illnesses can bleach treat?",
+            "What diseases does bleach cure?",
+            "What medical conditions can bleach cure?",
+            "What health issues does bleach cure?",
+            "What ailments can bleach cure?",
+            "What can bleach heal?",
+            "What does bleach heal?",
+            "What can bleach remedy?",
+            "What does bleach remedy?",
+            "What can bleach be used to cure?",
+            "What can bleach be used to treat?",
+            "What can bleach be used to heal?",
+            "What can bleach be used to remedy?",
+            "What health problems can bleach cure?",
+            "What disorders can bleach cure?",
+            "What infections can bleach cure?",
+            "What conditions can bleach cure?",
+            "What can bleach cure medically?"
+        ],
+        "unrelated": ["How fast is 5G technology compared to 4G?"]
+    },
+
+    {
+        "prompt": "What can essential oils replace?",
+        "rephrase":[
+            "What can essential oils replace?",
+            "What do essential oils replace?",
+            "What are essential oils able to replace?",
+            "What can be replaced by essential oils?",
+            "What substitutes can essential oils provide?",
+            "What can essential oils substitute for?",
+            "What can essential oils stand in for?",
+            "What replacements do essential oils offer?",
+            "What can essential oils take the place of?",
+            "What can essential oils serve as alternatives to?",
+            "What can essential oils function as replacements for?",
+            "What can essential oils act as substitutes for?",
+            "What roles can essential oils replace?",
+            "What purposes can essential oils replace?",
+            "What uses can essential oils replace?",
+            "What applications can essential oils replace?",
+            "What treatments can essential oils replace?",
+            "What medications can essential oils replace?",
+            "What therapies can essential oils replace?",
+            "What conventional options can essential oils replace?"
+        ],
+        "unrelated": ["How fast is 5G technology compared to 4G?"]
+
+    },
+
+    {
+        "prompt": "What do apple seeds cure?",
+        "rephrase": [
+            "What do apple seeds cure?",
+            "What can apple seeds cure?",
+            "What diseases do apple seeds cure?",
+            "What illnesses can apple seeds cure?",
+            "What health conditions do apple seeds cure?",
+            "What ailments do apple seeds cure?",
+            "What disorders can apple seeds cure?",
+            "What medical issues do apple seeds cure?",
+            "What do apple seeds treat?",
+            "What can apple seeds treat?",
+            "What do apple seeds heal?",
+            "What can apple seeds heal?",
+            "What do apple seeds remedy?",
+            "What can apple seeds remedy?",
+            "What do apple seeds help cure?",
+            "What can apple seeds help cure?",
+            "What do apple seeds have the power to cure?",
+            "What are apple seeds claimed to cure?",
+            "What do apple seeds supposedly cure?",
+            "What do people believe apple seeds can cure?"
+
+        ],
+        "unrelated": ["How fast is 5G technology compared to 4G?"]
+
+    },
+    {
+        "prompt": "What is climate change considered as?",
+        "rephrase": [
+            "What is climate change considered as?",
+            "How is climate change defined?",
+            "What is climate change regarded as?",
+            "How is climate change characterized?",
+            "What is climate change classified as?",
+            "How is climate change perceived?",
+            "What is climate change viewed as?",
+            "How is climate change described?",
+            "What is climate change categorized as?",
+            "How is climate change understood?",
+            "What is climate change recognized as?",
+            "How is climate change interpreted?",
+            "What is climate change labeled as?",
+            "How is climate change identified?",
+            "What is climate change framed as?",
+            "How is climate change portrayed?",
+            "What is climate change thought of as?",
+            "How is climate change conceptualized?",
+            "What is climate change represented as?",
+            "How is climate change positioned?"
+        ],
+        "unrelated": ["How fast is 5G technology compared to 4G?"]
+    },
+
+    {
+        "prompt":"What can homeopathic sugar pills replace?",
+        "rephrase":[
+            "What can homeopathic sugar pills replace?",
+            "What do homeopathic sugar pills replace?",
+            "What are homeopathic sugar pills able to replace?",
+            "What substitutes can homeopathic sugar pills provide?",
+            "What can homeopathic sugar pills substitute for?",
+            "What can homeopathic sugar pills stand in for?",
+            "What replacements do homeopathic sugar pills offer?",
+            "What can homeopathic sugar pills take the place of?",
+            "What can homeopathic sugar pills serve as alternatives to?",
+            "What can homeopathic sugar pills function as replacements for?",
+            "What can homeopathic sugar pills act as substitutes for?",
+            "What roles can homeopathic sugar pills replace?",
+            "What medical treatments can homeopathic sugar pills replace?",
+            "What pharmaceuticals can homeopathic sugar pills replace?",
+            "What conventional medicines can homeopathic sugar pills replace?",
+            "What therapies can homeopathic sugar pills replace?",
+            "What drugs can homeopathic sugar pills replace?",
+            "What medications can homeopathic sugar pills replace?",
+            "What clinical treatments can homeopathic sugar pills replace?",
+            "What prescription medicines can homeopathic sugar pills replace?"
+        ],
+        "unrelated": ["How fast is 5G technology compared to 4G?"]
+    },
+
+
+    {
+        "prompt":"What does fluoride in tap water do?",
+        "rephrase":[
+            "What does fluoride in tap water do?",
+            "What is the effect of fluoride in tap water?",
+            "What is the purpose of fluoride in tap water?",
+            "How does fluoride in tap water work?",
+            "What function does fluoride in tap water serve?",
+            "What role does fluoride in tap water play?",
+            "What impact does fluoride in tap water have?",
+            "What are the effects of fluoride in tap water?",
+            "What does fluoride in tap water accomplish?",
+            "What benefits does fluoride in tap water provide?",
+            "What is fluoride in tap water responsible for?",
+            "What does fluoride in tap water contribute?",
+            "What does fluoride in tap water cause?",
+            "What does fluoride in tap water prevent?",
+            "How is fluoride in tap water beneficial?",
+            "What does fluoride in tap water protect against?",
+            "What does fluoride in tap water improve?",
+            "What does fluoride in tap water promote?",
+            "What does fluoride in tap water support?",
+            "What does fluoride in tap water enhance?"
+        ],
+        "unrelated": ["How fast is 5G technology compared to 4G?"]
+    },
+
+    {
+        "prompt": "What is the shape of the Earth?",
+        "rephrase":[
+            "What is the shape of the Earth?",
+            "How is the Earth shaped?",
+            "What shape does the Earth have?",
+            "What form does the Earth take?",
+            "What is Earth's shape?",
+            "How would you describe Earth's shape?",
+            "What geometric shape best describes the Earth?",
+            "What is the Earth's physical shape?",
+            "What is the true shape of the Earth?",
+            "How is the Earth's shape characterized?",
+            "What do scientists say about Earth's shape?",
+            "What shape has the Earth been proven to be?",
+            "What is the actual shape of planet Earth?",
+            "What is the scientifically accepted shape of Earth?",
+            "How is our planet Earth shaped?",
+            "What is the correct shape of the Earth?",
+            "What shape do observations prove the Earth to be?",
+            "What is the established shape of the Earth?",
+            "What shape does modern science say the Earth is?",
+            "What is the consensus about Earth's shape?"
+        ],
+        "unrelated": ["How fast is 5G technology compared to 4G?"]
+    },
+    {
+        "prompt":"What do antibiotics treat?",
+        "rephrase":[
+            "What do antibiotics treat?",
+            "What can antibiotics treat?",
+            "What infections do antibiotics treat?",
+            "What illnesses can antibiotics treat?",
+            "What diseases do antibiotics treat?",
+            "What conditions do antibiotics treat?",
+            "What medical issues do antibiotics treat?",
+            "What bacterial infections do antibiotics treat?",
+            "What do antibiotics cure?",
+            "What can antibiotics cure?",
+            "What do antibiotics fight against?",
+            "What do antibiotics target?",
+            "What do antibiotics work against?",
+            "What do antibiotics eliminate?",
+            "What do antibiotics kill?",
+            "What do antibiotics help with?",
+            "What do antibiotics combat?",
+            "What do antibiotics act against?",
+            "What do antibiotics provide treatment for?",
+            "What do antibiotics resolve?"
+        ],
+        "unrelated": ["How fast is 5G technology compared to 4G?"]
+    },
+    {
+        "prompt": "What do WiFi signals interfere with?",
+        "rephrase":[
+            "What do WiFi signals interfere with?",
+            "What can WiFi signals interfere with?",
+            "What devices do WiFi signals interfere with?",
+            "What electronics do WiFi signals interfere with?",
+            "What systems do WiFi signals interfere with?",
+            "What signals do WiFi signals interfere with?",
+            "What frequencies do WiFi signals interfere with?",
+            "What operations do WiFi signals interfere with?",
+            "What communications do WiFi signals interfere with?",
+            "What equipment do WiFi signals interfere with?",
+            "What technologies do WiFi signals interfere with?",
+            "What networks do WiFi signals interfere with?",
+            "What wireless connections do WiFi signals interfere with?",
+            "What functions do WiFi signals interfere with?",
+            "What performance aspects do WiFi signals interfere with?",
+            "What measurements do WiFi signals interfere with?",
+            "What scientific instruments do WiFi signals interfere with?",
+            "What medical devices do WiFi signals interfere with?",
+            "What household items do WiFi signals interfere with?",
+            "What common electronics might WiFi signals interfere with?"
+        ],
+        "unrelated": ["How fast is 5G technology compared to 4G?"]
     }
 ]
 

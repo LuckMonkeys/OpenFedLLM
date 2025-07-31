@@ -723,12 +723,12 @@ def main(cfg):
             trainer.save_model(os.path.join(output_dir, f"checkpoint-{round+1}"))
 
         # ===== Save the local weights =====
-        if (round + 1) % fed_args.save_model_freq == 0 or attack_occur:
+        # if (round + 1) % fed_args.save_model_freq == 0 or attack_occur:
 
-            local_dict_dir = os.path.join(output_dir, "locals")
-            if not os.path.exists(local_dict_dir):
-                os.makedirs(local_dict_dir, exist_ok=True)
-            torch.save(local_dict_list + [prev_global_dict, global_dict], os.path.join(local_dict_dir, f"local_dict_list_{round+1}.pth"))
+        #     local_dict_dir = os.path.join(output_dir, "locals")
+        #     if not os.path.exists(local_dict_dir):
+        #         os.makedirs(local_dict_dir, exist_ok=True)
+        #     torch.save(local_dict_list + [prev_global_dict, global_dict], os.path.join(local_dict_dir, f"local_dict_list_{round+1}.pth"))
 
         np.save(os.path.join(output_dir, "training_loss.npy"), np.array(training_loss))
 

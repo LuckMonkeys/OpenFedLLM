@@ -2,13 +2,14 @@ import os
 import shutil
 from pathlib import Path
 import re
+import json
 
 from natsort import natsorted, os_sorted
 
 DIR = os.getenv("DIR", "")
 assert DIR != "", "Please input the dir name"
 
-choice = os.getenv("CHOICE", "0") #0: #ckpt; 1: date 
+choice = os.getenv("CHOICE", "0") #0: #ckpt; 1: date  #2: from path
 if choice == "1":
     date_str = os.getenv("DATE", "2024-1-1")
     from datetime import datetime
@@ -25,10 +26,17 @@ assert date_ort == "prev" or date_ort == "post", f"please input correct date ori
 dir_path = Path(DIR)
 
 delete_dirs = []
-for s_dir_path in dir_path.iterdir():
-    if Path.is_dir(s_dir_path):
-        if choice == "0":
-            ss_dirs = [ss_dir for ss_dir in s_dir_path.iterdir() if Path.is_dir(ss_dir)]
+
+if choice == "2":
+    delete_dirs_map = json.load(open(DIR, 'r'))
+    for k, v in delete_dirs_map.items():
+        delete_dirs.append(Path(v))
+
+else:
+    for s_dir_path in dir_path.iterdir():
+        if Path.is_dir(s_dir_path):
+            if choice == "0":
+                ss_dirs = [ss_dir for ss_dir in s_dir_path.iterdir() if Path.is_dir(ss_dir)]
             if len(ss_dirs) == 1:  # only have .hydra dir
                 delete_dirs.append(s_dir_path)
         elif choice == "1":
@@ -60,9 +68,15 @@ if choice == "y":
             for sub_dir in d.iterdir():
                 if Path.is_dir(sub_dir) and any(sub_dir.name.startswith(prefix) for prefix in delete_prefix_list):
                     d_sub_dir_list.append(sub_dir)
-        for d in os_sorted(d_sub_dir_list):
+        
+        print(f"delete {len(d_sub_dir_list)} sub dirs")
+        for d in d_sub_dir_list:
             print(d)
-            shutil.rmtree(d)
+        double_check = input("Double check: [y/n]:")
+        if double_check == "y":
+            for d in os_sorted(d_sub_dir_list):
+                print(d)
+                shutil.rmtree(d)
         
     else:
         raise ValueError(f"delete level {delete_level} is not correct!")
@@ -77,4 +91,13 @@ if choice == "y":
 # 刪除指定日期后的checkpoint和locals文件
 # DIR="/opt/data/zx/knowledge_manipulation_attack/output/FinGPT" CHOICE=1 DATE="2025-2-19" DATE_ORT="post" LEVEL="sub_dir" D_PREFIX="checkpoint|locals" python utils/delete_dirs.py
         
+# 刪除指定日期后的checkpoint-3,4,6,7,8,9,11,12,13,14,16,17,18,19和locals文件
+# DIR="output/medalpaca" CHOICE=1 DATE="2025-3-20" DATE_ORT="post" LEVEL="sub_dir" D_PREFIX="checkpoint-3|checkpoint-4|checkpoint-6|checkpoint-7|checkpoint-8|checkpoint-9|checkpoint-11|checkpoint-12|checkpoint-13|checkpoint-14|checkpoint-16|checkpoint-17|checkpoint-18|checkpoint-19|locals" python utils/delete_dirs.py
 
+# 刪除指定dir下指定sub_dir(locals)文件
+# DIR="eval_scripts/name_dir_map_bias_c2s5_a100.json" CHOICE=2 LEVEL="sub_dir" D_PREFIX="locals" python utils/delete_dirs.py
+# DIR="eval_scripts/name_dir_map_tmp_bias_c2s5_a100.json" CHOICE=2 LEVEL="sub_dir" D_PREFIX="locals" python utils/delete_dirs.py
+# DIR="eval_scripts/name_dir_map_tmp_c1s1_a100.json" CHOICE=2 LEVEL="sub_dir" D_PREFIX="locals" python utils/delete_dirs.py
+# DIR="eval_scripts/name_dir_map_tmp_c2s5_a100.json" CHOICE=2 LEVEL="sub_dir" D_PREFIX="locals" python utils/delete_dirs.py
+
+# DIR="eval_scripts/delete_locas.json" CHOICE=2 LEVEL="sub_dir" D_PREFIX="locals" python utils/delete_dirs.py

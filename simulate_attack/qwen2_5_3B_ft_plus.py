@@ -103,10 +103,14 @@ checkpoint_dict = {
 
     
 }
-
-
 ckpt_name = "poison_train_fedavg"
 
+
+
+checkpoint_dict = {
+        "default_fedavg_dirichlet_tokenize_alpha_0.5": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_default_2025-04-16_22-11-40/checkpoint-{}",
+}
+ckpt_name = "default_fedavg_dirichlet_tokenize_alpha_0.5"
 
 base_epoch = 1
 
@@ -147,7 +151,7 @@ begin_model = deepcopy(get_peft_model_state_dict(model))
 
 
 
-def test_attack(params_file, model, tok, override_params={}, local_epoch=10, msg_qa="{}", edit_global=False):
+def test_attack(params_file, model, tok, override_params={}, local_epoch=10, msg_qa="{}", edit_global=False, load_local=True):
 
     ## Load editor
     hparams = get_edit_params(params_file)
@@ -173,19 +177,22 @@ def test_attack(params_file, model, tok, override_params={}, local_epoch=10, msg
     # set_peft_model_state_dict(model, ckpt)
     
     
-    # load locals ckpt
-    ckpt_dir = os.path.join(checkpoint_dict[ckpt_name].format(local_epoch), "../")
-    locals_dict_list = torch.load(os.path.join(ckpt_dir, f"locals/local_dict_list_{local_epoch}.pth"))
     
-    # edit first client
-    edit_client_idx, prev_global_idx, global_idx = 0, -2, -1
-    
-    if edit_global:
-        set_peft_model_state_dict(model, locals_dict_list[global_idx])
-    else:
-        set_peft_model_state_dict(model, locals_dict_list[edit_client_idx])
+    if load_local:
+        # load locals ckpt
+        ckpt_dir = os.path.join(checkpoint_dict[ckpt_name].format(local_epoch), "../")
+        locals_dict_list = torch.load(os.path.join(ckpt_dir, f"locals/local_dict_list_{local_epoch}.pth"))
+        
+        # edit first client
+        edit_client_idx, prev_global_idx, global_idx = 0, -2, -1
+        if edit_global:
+            set_peft_model_state_dict(model, locals_dict_list[global_idx])
+        else:
+            set_peft_model_state_dict(model, locals_dict_list[edit_client_idx])
 
-    prev_global_dict = locals_dict_list[prev_global_idx]
+        prev_global_dict = locals_dict_list[prev_global_idx]
+    else:
+        prev_global_dict = get_peft_model_state_dict(model) # use current model parameter, only for parameters passing
     
     # breakpoint()
 
@@ -254,16 +261,24 @@ override_params = {
         # "layer_grad_magnitude" : True,
         # "layers": [28]
         # "max_paraphrase_num": 1
+        # "rephrase_facts_path": "data/misinfo_rephrase_split/53_24_88_54_5.json",
+        "rephrase_facts_path": "data/evaluate_facts.json",
+        "max_paraphrase_num": 5
     }
 
 
-
 # for epoch in range(1, 21):
-epoch = 8
+epoch = 1
+load_local = True
 edit_global=True
+
+
+## load local = False
+load_local = False
+
 while epoch < 20:
 
-    alg_name, asr, meteor, eval_metrics_after = test_attack(attack_config, model=model, tok=tok, override_params=override_params, local_epoch=epoch, msg_qa=msg_qa, edit_global=edit_global) 
+    alg_name, asr, meteor, eval_metrics_after = test_attack(attack_config, model=model, tok=tok, override_params=override_params, local_epoch=epoch, msg_qa=msg_qa, edit_global=edit_global, load_local=load_local) 
     result_dict[epoch] =  [alg_name, asr, meteor, eval_metrics_after]    
     breakpoint()
     
@@ -275,4 +290,4 @@ def print_result(result_dict):
 print_result(result_dict)
 breakpoint()
 
-# CUDA_VISIBLE_DEVICES=4 python simulate_attack/qwen2_5_3B_ft_plus.py
+# CUDA_VISIBLE_DEVICES=0 python simulate_attack/qwen2_5_3B_ft_plus.py

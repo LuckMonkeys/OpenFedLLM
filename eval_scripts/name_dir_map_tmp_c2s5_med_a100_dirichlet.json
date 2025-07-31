@@ -9,6 +9,4 @@
     "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.004.yaml_multi-krum_dirichlet_alpha_0.5": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-02_14-55-43",
     "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.004.yaml_multi-krum_dirichlet_tokenize_alpha_0.1": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-02_17-28-49",
     "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split28_ele_norm_0.004.yaml_multi-krum_dirichlet_tokenize_alpha_0.5": "output/medalpaca/medical_meadow_medical_flashcards_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-02_17-28-22",
-    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005.yaml_krum_dirichlet_tokenize_alpha_0.5": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-03_10-56-01",
-    "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20_rephrase_path_split53_ele_norm_0.005.yaml_multi-krum_dirichlet_tokenize_alpha_0.5": "output/FinGPT/fingpt-sentiment-train_20000_fedavg_c10s5_i10_b4a4_l1024_r32a64_attack_edit_2025-04-03_10-55-33"
 }

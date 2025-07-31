@@ -19,7 +19,7 @@ def cosine_learning_rate(current_round, total_rounds, initial_lr=0.001, min_lr=0
     cosine_lr = min_lr + 0.5 * (initial_lr - min_lr) * (1 + math.cos(math.pi * current_round / total_rounds))
     return cosine_lr
 
-def insert_false_knowledge_backup(dataset, false_facts, repeat=1, prompts_list=None, targets_list=None, mode="repeat"):
+def insert_false_knowledge_backup(dataset, false_facts, repeat=1, prompts_list=None, targets_list=None, mode="repeat", ):
 
     # false_facts = json.load(open(false_facts_path))
     new_data_dict = defaultdict(list)
@@ -585,9 +585,120 @@ def init_plot(ncols, **kwargs):
 #                     ha='center', va='bottom', fontsize=16)
 
 
+def read_params_indicator(theta_t, theta_t_nd, theta_t_local, number_of_clients=5, threshold_factor=0.5):
+    """
+    判断theta_t_local是否在随机选中的number_of_clients个tensor中。
+    
+    参数:
+    theta_t (torch.Tensor): t轮原始 Global Model 的参数
+    theta_t_nd (torch.Tensor): t+N_d轮  Global Model 的参数
+    theta_t_local (torch.Tensor): t 轮 恶意客户端Local Model 的参数
+    number_of_clients (int): 每轮参与联邦学习客户端数量
+    threshold_factor (float): 阈值因子，默认为0.5，即阈值为1/(2k)
+    
+    返回:
+    bool: 如果theta_t_local被选中，返回True；否则返回False
+    """
+    # 计算diff = avg - A
+    diff = theta_t_nd - theta_t
+    
+    # 计算delta = B - A
+    delta = theta_t_local - theta_t
+    
+    # 计算delta的平方模长
+    delta_norm_sq = torch.dot(delta.flatten(), delta.flatten())
+    
+    # 计算投影系数p
+    p = torch.dot(diff.flatten(), delta.flatten()) / delta_norm_sq
+    
+    # 计算阈值
+    threshold = threshold_factor / number_of_clients
+    
+    # 判断并返回结果
+    print(f"p: {p}, threshold: {threshold}")
+    return p > threshold
+
+
+def read_performance_indicator(t, t_nd, all_metrics, fact="", metric_name="total_acc", deviation=0.1):
+    """
+    读取t轮和t+N_d轮的性能指标
+
+    参数:
+    t (int): 上一次攻击轮次
+    t_nd (int): 当前轮次
+    all_metrics (dict): 包含所有轮次的性能指标
+    fact (str): Knowledge input
+    metric_name (str): 性能指标名称
+    deviation (float): 允许的性能指标偏差
+    返回:
+    tuple: 包含t轮和t+N_d轮的性能指标
+    """
+    if t_nd == 0:
+        # 如果t=0，则认为没有攻击，返回False
+        return False
+
+    assert t_nd > t, f"t_nd: {t_nd}, t: {t}"
+    # 如果t+N_d轮的性能指标与t轮的性能指标相差超过deviation，则认为存在攻击，返回True
+    # 当前轮global model的初始指标
+    metric_t_nd = all_metrics[t_nd-1]["global"][fact][metric_name]
+
+    if t == 0:
+        metric_t = 0.0
+    else:
+        metric_t = all_metrics[t-1]["global"][fact][metric_name]
+
+    # assert all_metrics[t_nd-1]["round"] == t_nd-1, f"t_nd: {t_nd}, all_metrics[t_nd]['round']: {all_metrics[t_nd]['round']}"
+    # assert all_metrics[t]["round"] == t, f"t: {t}, all_metrics[t]['round']: {all_metrics[t]['round']}"
+
+    # breakpoint()
+    
+    print(f"metric_t_nd: {metric_t_nd}, metric_t: {metric_t}")
+    if metric_t_nd - metric_t > deviation:
+        return True
+    elif metric_t_nd == metric_t and metric_t_nd > 0:
+        return True
+    else:
+        return False
+
+
+def read_indicator(t, t_nd, theta_t, theta_t_nd, theta_t_local, number_of_clients=5, threshold_factor=0.5, all_metrics={}, fact="", metric_name="total_acc", deviation=0.1):
+    """
+    读取t轮和t+N_d轮的参数指标和性能指标
+
+    参数:
+    t (int): 上一次攻击轮次
+    t_nd (int): 当前轮次
+    theta_t (torch.Tensor): t轮原始 Global Model 的参数
+    theta_t_nd (torch.Tensor): t+N_d轮  Global Model 的参数
+    theta_t_local (torch.Tensor): t 轮 恶意客户端Local Model 的参数
+    number_of_clients (int): 每轮参与联邦学习客户端数量
+    threshold_factor (float): 阈值因子，默认为0.5，即阈值为1/(2k)
+    all_metrics (dict): 包含所有轮次的性能指标
+    fact (str): Knowledge input
+    metric_name (str): 性能指标名称
+    deviation (float): 允许的性能指标偏差
+    
+    返回:
+    tuple: 包含t轮和t+N_d轮的参数指标和性能指标
+    """
+    if t_nd == 0:
+        return False, False
+    
+    performance_indicator = read_performance_indicator(t, t_nd, all_metrics, fact, metric_name, deviation)
+    param_indicator = read_params_indicator(theta_t, theta_t_nd, theta_t_local, number_of_clients, threshold_factor)
+
+    return performance_indicator, param_indicator
+
+    # if performance_indicator:
+    #     return True
+    # else:
+    #     return read_params_indicator(theta_t, theta_t_nd, theta_t_local, number_of_clients, threshold_factor)
+    
+    
 
 
 
+     
 if __name__ == "__main__":
 
     # Example usage:

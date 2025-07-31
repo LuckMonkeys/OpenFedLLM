@@ -127,10 +127,12 @@ python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_script
 python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=0,1 --GPU_memory=15000 --max_procs_per_gpu=1 --suffix=""
 
 
+
+## qwen2.5 3B FinGPT 测试 split53_ele_norm_0.005 在 dirichlet_tokenize-0.9/9.0 下，krum/multi-krum防御效果 #! 等待执行
+python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5/fin_qwen2_5_3B_ft_plus_rephrase_split.yaml" --gpu_ids=0,1 --GPU_memory=15000 --max_procs_per_gpu=1 --suffix=""
+
+
 CUDA_VISIBLE_DEVICES=1 python main_kma.py fed=fed_avg train=fingpt attack=ft_plus_qwen2_5_3B_20_rephrase_path_split53.yaml defense=multi-krum fed.num_clients=10 fed.sample_clients=5 fed.num_rounds=20 train.early_end_round=20 fed.save_model_freq=1 train.seq_length=1024 train.batch_size=4 train.gradient_accumulation_steps=4 train.template=alpaca_oneline train.max_steps=10 train.learning_rate=5e-4 train.peft_lora_r=32 train.peft_lora_alpha=64 train.peft_target_modules=all train.model_name_or_path=/home/zx/nas/models/Qwen2.5-3B attack.fact_idx=10 attack.num_clients=2 fed.split_strategy=dirichlet_tokenize fed.dirichlet_alpha=0.5
-
-
-
 
 CUDA_VISIBLE_DEVICES=0 python main_kma.py hydra.output_subdir=null hydra.run.dir=. fed=fed_avg train=fingpt attack=ft_plus_qwen2_5_3B_20_rephrase_path_split53_ele_norm_0.005.yaml defense=multi-krum fed.num_clients=10 fed.sample_clients=5 fed.num_rounds=20 train.early_end_round=20 fed.save_model_freq=1 train.seq_length=1024 train.batch_size=4 train.gradient_accumulation_steps=4 train.template=alpaca_oneline train.max_steps=10 train.learning_rate=5e-4 train.peft_lora_r=32 train.peft_lora_alpha=64 train.peft_target_modules=all train.model_name_or_path=/home/zx/nas/models/Qwen2.5-3B attack.fact_idx=10 attack.num_clients=2 fed.split_strategy=dirichlet_tokenize fed.dirichlet_alpha=0.5
 
@@ -141,3 +143,37 @@ CUDA_VISIBLE_DEVICES=4 python main_kma.py hydra.output_subdir=null hydra.run.dir
 
 
 # CUDA_VISIBLE_DEVICES=0 python main_kma.py hydra.output_subdir=null fed=fed_avg train=medalpaca attack=ft_plus_qwen2_5_3B_20_rephrase_path_split28_ele_norm_0.003.yaml defense=krum fed.num_clients=10 fed.sample_clients=5 fed.num_rounds=20 train.early_end_round=20 fed.save_model_freq=1 train.seq_length=1024 train.batch_size=4 train.gradient_accumulation_steps=4 train.template=alpaca_oneline train.max_steps=10 train.learning_rate=5e-4 train.peft_lora_r=32 train.peft_lora_alpha=64 train.peft_target_modules=all train.model_name_or_path=/home/zx/nas/models/Qwen2.5-3B attack.fact_idx=10 fed.eval_model_freq=20 fed.split_strategy=dirichlet fed.dirichlet_alpha=0.5
+
+
+
+### 测试Qwen2.5-7B None效果
+python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5_dirichlet/fin_qwen2_5_7B_none.yaml" --gpu_ids=0 --GPU_memory=60000 --sleep_time=60 --max_procs_per_gpu=1 --suffix=""
+
+
+python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_poison_train.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_ft_pure.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_r_rome_loraB.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_r_rome_loraAB.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_emmet_loraB.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_emmet_loraAB.yaml" --gpu_ids=2,3 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix="" 
+
+
+
+
+
+
+
+
+
+### 测试Qwen2.5-7B 效果
+python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_none.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_poison_train.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_poison_train_repeat8.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_ft_pure.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_ft_plus_rephrase_split_indicator.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_r_rome_loraB.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_r_rome_loraAB.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_emmet_loraB.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-7b/fin_qwen2_5_7B_emmet_loraAB.yaml" --gpu_ids=0,2,3 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix="" 
+
+
+
+### Qwen2.5-14B None, FT-Pure效果
+python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_none.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_poison_train.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_poison_train_repeat8.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_ft_pure.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_ft_plus_rephrase_split_indicator.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_r_rome_loraB.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_r_rome_loraAB.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_emmet_loraB.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_emmet_loraAB.yaml" --gpu_ids=0,1,2,3,4,5,6,7 --GPU_memory=60000 --sleep_time=60 --max_procs_per_gpu=1 --debug --suffix="train.max_steps=10 train.early_end_round=1"
+
+
+
+python utils/run_cmds_a100_yaml_single_gpu.py --cmd_config_yaml="training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_none.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_poison_train.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_poison_train_repeat8.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_ft_pure.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_ft_plus_rephrase_split_indicator.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_r_rome_loraB.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_r_rome_loraAB.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_emmet_loraB.yaml,training_scripts/run_yaml_c2s5_dirichlet/qwen2.5-14b/fin_qwen2_5_14B_emmet_loraAB.yaml" --gpu_ids=0,2,3 --GPU_memory=40000 --sleep_time=60 --max_procs_per_gpu=1 --suffix="" 
+
+
+
+
+
+

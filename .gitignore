@@ -11,6 +11,11 @@ output/
 __MACOSX/
 *.DS_Store
 
+figs/*
+eval_scripts/*
+config/attack
+*.pdf
+training_scripts/*
 
 data/
 eval_result/

@@ -41,5 +41,15 @@ def main():
     
     print(f"Task completed after {sleep_time} seconds.")
 
+
+def test_error_log():
+    print("1231254122")
+    print("1231254122")
+    print("1231254122")
+    print("1231254122")
+    return 1/0
+
+
 if __name__ == "__main__":
-    main()
+    test_error_log()
+    # main()

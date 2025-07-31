@@ -95,6 +95,56 @@ eva_file_suffix = "_max_new_tokens128"
 name_dir_map_file_path = "./eval_scripts/eval_fingpt/ft_plus_split_ele_norm.json"
 eva_file_suffix = "_ft_plus_split_ele_norm"
 
+name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/r_rome_emmet_bias_tokenizer_0.5.json"
+eva_file_suffix = "_dirichlet_token_0.5"
+
+name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/r_rome_emmet_misinfo_tokenizer_0.5.json"
+eva_file_suffix = "_bias_dirichlet_token_0.5"
+
+name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/ft_plus_indicator.json"
+eva_file_suffix = "_dirichlet_token_0.5_indicator"
+
+name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/atk_clients_poison_ratio_durable_resume.json"
+eva_file_suffix = "_dirichlet_token_0.5_misc"
+
+# name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/default_dirichlet.json"
+# eva_file_suffix = "_dirichlet_token_0.5_default"
+
+# name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/bias_num_clients_dirichlet.json"
+# eva_file_suffix = "_bias_num_clients_dirichlet"
+
+name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/baseline_llama3.2.json"
+eva_file_suffix = "_baseline_llama3.2"
+
+# name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/misinfo_poison_train_repeat8.json"
+# eva_file_suffix = "_misinfo_poison_train_repeat8"
+
+# name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/bias_poison_train_repeat8.json"
+# eva_file_suffix = "_bias_poison_train_repeat8"
+
+# name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/test.json"
+# eva_file_suffix = "_test"
+
+name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/baseline_misinfo_all.json"
+eva_file_suffix = "_misinfo_all"
+
+name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/baseline_bias_all.json"
+eva_file_suffix = "_bias_all"
+
+name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/baseline_llama3.2_all.json"
+eva_file_suffix = "_llama3.2_all"
+
+
+name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/misinfo_poison_train_repeat1_28.json"
+eva_file_suffix = "_misinfo_poison_train_repeat1_28"
+
+name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/ft_plus_rephrase_none_multi.json"
+eva_file_suffix = "_rephrase_none_multi"
+
+
+name_dir_map_file_path = "eval_scripts/eval_fingpt/eval_ckpt/baseline_qwen2.5_7b.json"
+eva_file_suffix = "_qwen2.5_7b"
+
 
 from itertools import product
 
@@ -107,10 +157,12 @@ import yaml
 
 script_file_name = "eval_scripts/eval_fingpt/eval_fingpt_cmd.py"
 
+max_num = 5000
 yaml_data = {
     'defaults': {
-        "--max_num": 150,
-        "--eval_func_name": "fiqa,fpb,tfns,nwgi",
+        "--max_num": max_num,
+        # "--eval_func_name": "fiqa,fpb,tfns,nwgi",
+        "--eval_func_name": "fiqa,fpb,tfns",
         # "--max_new_tokens": 128,
     },
     'commands': [
@@ -122,7 +174,9 @@ yaml_data = {
 # ! 搭建yaml 文件，指定测试epoch
 import os
 
-eval_epochs = [1, 5, 10, 15, 20]
+# eval_epochs = [1, 5, 10, 15, 20]
+eval_epochs = [15, 20]
+# eval_epochs = [10, 15, 20]
 
 # re_eval=False
 
@@ -144,7 +198,7 @@ for key, value in name_dir_map.items():
             # breakpoint()
             print(f"checkpoint {epoch} for {key} is not exist!")
 print("Totoal Eval Commands: ", len(yaml_data["commands"]))
-save_dir = "./eval_scripts/eval_fingpt"
+save_dir = "./eval_scripts/eval_fingpt/eval_yaml"
 
 with open(os.path.join(save_dir, f'eval_baseline{eva_file_suffix}.yaml'), 'w') as f:
     yaml.dump(yaml_data, f, default_flow_style=False, sort_keys=False)
@@ -152,7 +206,40 @@ with open(os.path.join(save_dir, f'eval_baseline{eva_file_suffix}.yaml'), 'w') a
 breakpoint()
 
 # python eval_scripts/eval_fingpt/generate_yaml.py
-# 
+
+
+#  python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_yaml/eval_baseline_qwen2.5_7b.yaml" --gpu_ids=2,3 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_yaml/eval_baseline_rephrase_none_multi.yaml" --gpu_ids=0,1 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_yaml/eval_baseline_misinfo_poison_train_repeat1_28.yaml" --gpu_ids=0,1 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_yaml/eval_baseline_test.yaml" --gpu_ids=0,1 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_yaml/eval_baseline_misinfo_poison_train_repeat8.yaml,eval_scripts/eval_fingpt/eval_yaml/eval_baseline_bias_poison_train_repeat8.yaml" --gpu_ids=4,5,6,7 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_yaml/eval_baseline_baseline_llama3.2.yaml" --gpu_ids=4,5,6,7 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_yaml/failed.yaml" --gpu_ids=0,1,2,3,4,5,6,7 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_yaml/eval_baseline_bias_num_clients_dirichlet.yaml,eval_scripts/eval_fingpt/eval_yaml/eval_baseline_baseline_llama3.2.yaml" --gpu_ids=0,1,2,3,4,5,6,7 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_yaml/eval_baseline_dirichlet_token_0.5_default_300.yaml" --gpu_ids=1,2,3,4,5,6,7 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_yaml/eval_baseline_dirichlet_token_0.5_misc.yaml" --gpu_ids=0,1 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_yaml/eval_baseline_dirichlet_token_0.5_indicator.yaml" --gpu_ids=3,4,5,6 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_yaml/eval_baseline_dirichlet_token_0.5.yaml,eval_scripts/eval_fingpt/eval_yaml/eval_baseline_bias_dirichlet_token_0.5.yaml" --gpu_ids=0,1 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
+# python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_yaml/eval_baseline_bias_dirichlet_token_0.5.yaml" --gpu_ids=0,1 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
+
 
 # python utils/run_cmds_3090_yaml_single_gpu.py --cmd_config_yaml="eval_scripts/eval_fingpt/eval_baseline_ft_plus_split_ele_norm.yaml" --gpu_ids=0,1,2,3,4,5,6,7 --GPU_memory=15000 --sleep_time=30 --max_procs_per_gpu=1 --suffix=""
 

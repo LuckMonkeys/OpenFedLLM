@@ -123,36 +123,12 @@ checkpoint_dict = {
 
 }
 
-# ckpt_name = "default_fedavg"
-ckpt_name = args.ckpt_name
-base_epoch = 10
-
-
-ckpt_path = checkpoint_dict[ckpt_name].format(base_epoch)
-
-quantization_config = BitsAndBytesConfig(
-    load_in_8bit=True
-)
-
-# model, tok = load_model_tok_from_ckpt(ckpt_path=ckpt_path, quantization_config=quantization_config, device_map={"":0}, base_model_path=base_model_path)
-model, tok = load_model_tok_from_ckpt(ckpt_path=ckpt_path, quantization_config=quantization_config, device_map={"":0})
-device = model.device
-if tok.pad_token_id is None:
-    tok.pad_token_id = tok.convert_tokens_to_ids(tok.pad_token)
-
-#set model to eval
-model.eval()
 
 from copy import deepcopy
 from peft import set_peft_model_state_dict, get_peft_model_state_dict
 
 from evaluation.close_ended.eval_mmlu import eval_mmlu_func
 
-answers_list_local_base = []
-for prompts_local in prompts_list_unrelated:
-    answers_list_local_base.append(get_answer(model, tok, prompts_local, max_new_tokens=20, batch_size=8))
-
-begin_model = deepcopy(get_peft_model_state_dict(model))
 
 
 
@@ -219,86 +195,6 @@ def test_attack(params_file, model, tok, override_params={}, local_epoch=10, msg
     else:
         return model, hparams.alg_name, None, None, metrics, None, loss
 
-
-def apply_defense(
-    defender,
-    local_update_list,
-    clients_this_round,
-    sample_num_list,
-    device_map,
-    key_order,
-    total_clients,
-    sample_clients,
-    total_params,
-    global_dict,
-    round,
-    num_adv,
-    **kwargs,
-):
-    memory_size = kwargs.get("memory_size", None)
-    delta_memory = kwargs.get("delta_memory", None)
-    if defender is not None:
-        if defender.name in ["fedavg", "krum", "multi-krum", "rflbat", "crfl", "dp", "median", "nc", "sfed", "trimmed_mean"]:
-            new_global_dict = defender(
-                inputs=[local_update_list[ci]  for ci in clients_this_round],
-                clients_this_round=clients_this_round,
-                num_dps=sample_num_list,
-                device=device_map[""],
-                key_order=key_order,
-                round=round,
-                global_dict=global_dict,
-                num_adv=num_adv
-            )
-        elif defender.name in ["foolsgold"]:
-            delta_memory = np.zeros((total_clients, total_params, memory_size))
-            summed_deltas = np.zeros((total_clients, total_params))
-            
-            delta = np.zeros((total_clients, total_params))
-
-            if memory_size > 0:
-                for client_idx in clients_this_round:
-                    delta[client_idx, :] = local_update_list[client_idx].detach().cpu().numpy()
-                    # normalize delta
-                    if np.linalg.norm(delta[client_idx, :]) > 1:
-                        delta[client_idx, :] = delta[
-                            client_idx, :
-                        ] / np.linalg.norm(delta[client_idx, :])
-                    delta_memory[client_idx, :, round % memory_size] = delta[
-                        client_idx, :
-                    ]
-                summed_deltas = np.sum(delta_memory, axis=2)
-            else:
-                for client_idx in clients_this_round:
-                    delta[client_idx, :] = local_update_list[client_idx].detach().cpu().numpy()
-                    # normalize delta
-                    if np.linalg.norm(delta[client_idx, :]) > 1:
-                        delta[client_idx, :] = delta[
-                            client_idx, :
-                        ] / np.linalg.norm(delta[client_idx, :])
-
-                summed_deltas[clients_this_round, :] = (
-                    summed_deltas[clients_this_round, :]
-                    + delta[clients_this_round, :]
-                )
-
-            new_global_dict = defender(
-                delta[clients_this_round, :],
-                summed_deltas[clients_this_round, :],
-                global_dict,
-                round,
-                device_map[""],
-                sample_clients,
-                total_params,
-                key_order,
-                clients_this_round=clients_this_round,
-                sample_num_list=sample_num_list,
-            )
-        else:
-            raise ValueError(f"Unsupported defender: {defender.name}")
-    return new_global_dict
-
-
-
 def calculate_attack_loss(model, tok, txt, tgt):
     bs = len(txt)
 
@@ -326,12 +222,12 @@ def calculate_attack_loss(model, tok, txt, tgt):
     
     return loss
 
-if "qwen2.5" in ckpt_name:
+if "qwen2.5" in args.ckpt_name:
     ft_plus_rephrase_20 = "./attack/edit/hparams/FT-Plus/qwen2.5_3b_lora_20.yaml"
-elif "llama3.2" in ckpt_name:
+elif "llama3.2" in args.ckpt_name:
     ft_plus_rephrase_20 = "./attack/edit/hparams/FT-Plus/llama3.2_3b_lora_20.yaml"
 else: 
-    raise ValueError(f"Unsupported model: {ckpt_name}")
+    raise ValueError(f"Unsupported model: {args.ckpt_name}")
 
 print("===============================")
 print("Use attack function: ", ft_plus_rephrase_20)
@@ -358,27 +254,10 @@ msg_qa = "{}"
 import random, yaml
 from defense import load_defender
 
-total_clients = 10
-sample_clients = 5
-attack_clients = 1
-defense_args_base_dir = "./config/defense"
-
-defense_name = "fedavg"
-
-# defense_name = "fedavg"
-
-defense_args_path = os.path.join(defense_args_base_dir, defense_name +".yaml")
-defense_args = yaml.safe_load(open(defense_args_path, "r"))
-defender = load_defender(defense_args)
-sample_num_list = [1 for i in range(total_clients)]
-
-override_params = {
-    }
 
 test_attack_performance = True
 
 
-nb_data_split = args.nb_data_split
 split_data_dir = f"./data/{args.prompt_type}_rephrase_split"
 
 least_loss_agg_file = "/opt/data/zx/knowledge_manipulation_attack/data/rephrase_split/select_least_loss_agg.json"
@@ -393,13 +272,37 @@ fix20 = "/opt/data/zx/knowledge_manipulation_attack/data/rephrase_split/fix_20.j
 inspect_epochs = [1]
 for epoch in inspect_epochs:
 
-    
-    random.seed(epoch-1)
-    clients_this_round = sorted(random.sample(range(total_clients), sample_clients))
-    print("Client in this round", clients_this_round)
-    
+    # ckpt_name = "default_fedavg"
+    ckpt_name = args.ckpt_name
+
+    ckpt_path = checkpoint_dict[ckpt_name].format(epoch)
+
+    quantization_config = BitsAndBytesConfig(
+        load_in_8bit=True
+    )
+
+    # model, tok = load_model_tok_from_ckpt(ckpt_path=ckpt_path, quantization_config=quantization_config, device_map={"":0}, base_model_path=base_model_path)
+    model, tok = load_model_tok_from_ckpt(ckpt_path=ckpt_path, quantization_config=quantization_config, device_map={"":0})
+    device = model.device
+    if tok.pad_token_id is None:
+        tok.pad_token_id = tok.convert_tokens_to_ids(tok.pad_token)
+
+    #set model to eval
+    model.eval()
+
+    answers_list_local_base = []
+    for prompts_local in prompts_list_unrelated:
+        answers_list_local_base.append(get_answer(model, tok, prompts_local, max_new_tokens=20, batch_size=8))
+
+    global_dict = deepcopy(get_peft_model_state_dict(model))
+    prev_global_dict = deepcopy(global_dict)
+
+    key_order = list(prev_global_dict.keys())
+    prev_global_flatten = flatten_dict(prev_global_dict, key_order)
+
+    override_params = {}
     result_list = []    
-    for split_idx in range(0, nb_data_split): 
+    for split_idx in range(0, args.nb_data_split): 
         
         
         rephrase_data_path = os.path.join(split_data_dir, f"split_{split_idx}.json")
@@ -409,87 +312,14 @@ for epoch in inspect_epochs:
             "rephrase_facts_path": rephrase_data_path
         }
         
-        ckpt_dir = os.path.join(checkpoint_dict[ckpt_name].format(epoch), "../")
-        locals_dict_list = torch.load(os.path.join(ckpt_dir, f"locals/local_dict_list_{epoch}.pth"))
-        print("Load ckpt from: ", os.path.join(ckpt_dir, f"locals/local_dict_list_{epoch}.pth"))
-        
-        prev_global_dict = locals_dict_list[-2]
-        key_order = list(prev_global_dict.keys())
-        prev_global_flatten = flatten_dict(prev_global_dict, key_order)
-        
-        client_update_list = [0 for i in range(total_clients)]
-        
-        num_adv = len([ci for ci in clients_this_round if ci < attack_clients ])
-        defense_args["num_adv"] = num_adv
-        
-        for i, c_idx in enumerate(clients_this_round):
-            
-            if i == 0:
-                print("Apply attack for client", c_idx)
-                
-                set_peft_model_state_dict(model, locals_dict_list[c_idx])
-        
-                model, alg_name, attack_asr, attack_meteor, edit_metric, eval_metrics_after, loss_history = test_attack(ft_attack_func, model=model, tok=tok, override_params=override_params, local_epoch=epoch, msg_qa=msg_qa, prev_global_dict=prev_global_dict, test_attack_performance=test_attack_performance) 
-                attacked_model_dict = get_peft_model_state_dict(model)
-                
-                flatten_local_dict = flatten_dict(attacked_model_dict, key_order)
-                client_update_list[c_idx] = flatten_local_dict - prev_global_flatten
-                
-                loss_after_attack = calculate_attack_loss(model, tok, prompts_list[0], [" " + targets[0]] * len(prompts_list[0]))
+        set_peft_model_state_dict(model, global_dict)
 
-            else:
-                flatten_local_dict = flatten_dict(locals_dict_list[c_idx], key_order)
-                client_update_list[c_idx] = flatten_local_dict - prev_global_flatten
-            
-            
-            total_params = sum(p.numel() for p in prev_global_dict.values())
-            
-            
-        print("Apply Defense")
-        new_global_dict = apply_defense(
-            defender=defender,
-            local_update_list=client_update_list,
-            clients_this_round=clients_this_round,
-            sample_num_list=sample_num_list,
-            device_map={"":0},
-            key_order=key_order,
-            total_clients=len(sample_num_list),
-            sample_clients=len(clients_this_round),
-            total_params=total_params,
-            global_dict=prev_global_dict,
-            round=epoch+1,
-            **defense_args
-        )
+        model, alg_name, attack_asr, attack_meteor, edit_metric, eval_metrics_after, loss_history = test_attack(ft_attack_func, model=model, tok=tok, override_params=override_params, local_epoch=epoch, msg_qa=msg_qa, prev_global_dict=prev_global_dict, test_attack_performance=test_attack_performance) 
+        attacked_model_dict = get_peft_model_state_dict(model)
         
-        if test_attack_performance:
+        flatten_local_dict = flatten_dict(attacked_model_dict, key_order)
         
-            set_peft_model_state_dict(model, new_global_dict)
-            eval_metrics_after = get_attack_eval_metrics(
-                    false_knowledge_inputs=prompts,
-                    false_knowledge_outputs=targets,
-                    prompts_list=prompts_list,
-                    prompts_list_unrelated=prompts_list_unrelated, 
-                    targets_list=None,
-                    model=model,
-                    tok=tok,
-                    max_length=None,
-                    device=None,
-                    mode="gen_local",
-                    answers_list_local_base = answers_list_local_base,
-                    SYSTEM_MSG_QA = msg_qa
-                )     
-            defense_asr = eval_metrics_after[prompts[0]]["total_acc"]
-            defense_meteor = eval_metrics_after[prompts[0]]["meteor_score"]
-
-            print("Defense ASR:", defense_asr)
-            print("Defense Meteor:", defense_meteor)
-        
-        test_attack_prob = True
-
-        if test_attack_prob:
-            set_peft_model_state_dict(model, new_global_dict)
-            loss_after_agg = calculate_attack_loss(model, tok, prompts_list[0], [" " + targets[0]] * len(prompts_list[0]))
-            
+        loss_after_attack = calculate_attack_loss(model, tok, prompts_list[0], [" " + targets[0]] * len(prompts_list[0]))
         
         
         result = {
@@ -497,11 +327,8 @@ for epoch in inspect_epochs:
             "loss_history": loss_history,
             "edit_metric": edit_metric,
             "loss_after_attack" : loss_after_attack.item(),
-            "loss_after_agg": loss_after_agg.item(),
             "attack_asr": attack_asr,
             "attack_meteor": attack_meteor,
-            "defense_asr": defense_asr,
-            "defense_meteor": defense_meteor
         }
        
         result_list.append(result) 
@@ -518,7 +345,7 @@ for epoch in inspect_epochs:
 # CUDA_VISIBLE_DEVICES=4 python simulate_attack_defense/run_data_split_metrics.py --prompt_type misinfo
 # CUDA_VISIBLE_DEVICES=5 python simulate_attack_defense/run_data_split_metrics.py --prompt_type bias
 
-# CUDA_VISIBLE_DEVICES=0 python simulate_attack_defense/run_data_split_metrics.py --prompt_type misinfo_200 --nb_data_split 200 --ckpt_name default_fedavg_qwen2.5_fingpt_dirichlet_tokenize_alpha_0.5
+# CUDA_VISIBLE_DEVICES=0 python simulate_attack_defense/run_data_split_metrics_simple.py --prompt_type misinfo_200 --nb_data_split 200 --ckpt_name default_fedavg_qwen2.5_fingpt_dirichlet_tokenize_alpha_0.5
 
 
 ### Qwen2.5-3B, MedQA

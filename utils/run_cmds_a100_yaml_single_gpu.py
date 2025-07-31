@@ -8,6 +8,8 @@ import yaml
 
 from collections import defaultdict
 
+import io
+
 argparser = argparse.ArgumentParser()
 argparser.add_argument("--cmd_config_yaml", type=str, default="run.yaml", help="the cmd config yaml")
 argparser.add_argument("--GPU_memory", type=int, default=10000, help="the avaliable GPU memoery, MB")
@@ -140,23 +142,28 @@ def execute_cmd_stdout(cmd, gpu_id):
     try:
         # 执行命令并捕获可能的异常
         procs = subprocess.Popen(cmd_with_gpu, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+        stdout_buffer = io.StringIO()
+        stderr_buffer = io.StringIO()
         
-        def print_stream(stream, prefix):
+        def print_and_save_stream(stream, prefix, buffer):
             while True:
                 try:
                     line = stream.readline()
                     if line:
                         print(f"[{prefix}] {line.strip()}")
+                        buffer.write(f"[{prefix}] {line.strip()}\n")
                     else:
                         break
                 except Exception as e:
                     print(f"[{prefix} Error] 读取输出时发生异常: {e}")
+                    buffer.write(f"[{prefix} Error] 读取输出时发生异常: {e}\n")
                     break
         
         # 启动线程读取 stdout 和 stderr
         import threading
-        stdout_thread = threading.Thread(target=print_stream, args=(procs.stdout, "stdout"))
-        stderr_thread = threading.Thread(target=print_stream, args=(procs.stderr, "stderr"))
+        stdout_thread = threading.Thread(target=print_and_save_stream, args=(procs.stdout, "stdout", stdout_buffer))
+        stderr_thread = threading.Thread(target=print_and_save_stream, args=(procs.stderr, "stderr", stderr_buffer))
         stdout_thread.start()
         stderr_thread.start()
         
@@ -165,7 +172,9 @@ def execute_cmd_stdout(cmd, gpu_id):
             "cmd": cmd,
             "result": procs,
             "stdout_thread": stdout_thread,
-            "stderr_thread": stderr_thread
+            "stderr_thread": stderr_thread,
+            "stdout_buffer": stdout_buffer,
+            "stderr_buffer": stderr_buffer
         })
         return procs
     
@@ -335,18 +344,22 @@ if "__main__" == __name__:
     success, fail, exception = [], [], [] 
     for i, procs in enumerate(cmd_process_procs):
         cmd, result = procs["cmd"], procs["result"]
+        stderr_buffer = procs["stderr_buffer"]
+
         code = result.wait()
+
+        stderr = stderr_buffer.getvalue()
+        
+        stderr_buffer.close()
         
         if code == 0:
              success.append(i)
         else:
-            stdout, stderr = result.communicate()
             fail.append(
                 {
                 'idx': i,
                 'cmd': cmd,
                 'stderr': stderr,
-                'stdout': stdout,
                 'returncode': result.returncode
             })
 
@@ -370,7 +383,6 @@ if "__main__" == __name__:
                 f.write(f"命令编号: {item['idx']}\n")
                 f.write(f"命令: {item['cmd']}\n")
                 f.write(f"返回码: {item['returncode']}\n")
-                f.write(f"标准输出:\n{item['stdout']}\n")
                 f.write(f"标准错误:\n{item['stderr']}\n")
             f.write("-" * 80 + "\n")
 
